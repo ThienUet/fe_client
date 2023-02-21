@@ -1,0 +1,31 @@
+
+.header-page {
+    padding: 0 50px;
+    color: black;
+    .header-navbar {
+        .header-nav-bar-ul-left, .header-nav-bar-ul-right {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            li {
+                padding-right: 20px;
+                a {
+                    color: inherit;
+                    display: block;
+                    text-decoration: none;
+                    font-size: 20px;
+
+                }
+            }
+        }
+        .header-nav-bar-ul-left {
+            justify-content: left;
+        }
+        .header-nav-bar-ul-right {
+            justify-content: right;
+        }
+    }
+}

@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="google" content="notranslate" />
-        <link href="/static/icon_head/favicon.ico" rel="shortcut icon" />
+        <link href="/static/icons/icon_title48.png" rel="shortcut icon" />
       </Head>
       <body>
         <Main />
