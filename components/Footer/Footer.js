@@ -1,10 +1,9 @@
 import { FontSizeOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import React from 'react'
-
+import Image from '../Image/CustomImage'
 export default function Footer() {
   return (
-<<<<<<< HEAD
 
     <footer className="w-100 py-4 flex-shrink-0" >
         <div className="container py-4">
@@ -17,8 +16,9 @@ export default function Footer() {
                     <i style={{fontSize:50}} className="fa fa-facebook-square  " aria-hidden="true"></i></Link>
                       </div>
                       <div className='col-1'>
-                      <Link href="/facebook">
-                    <i style={{fontSize:50}} class="fa fa-google" aria-hidden="true"></i></Link>
+                      <Link className='position-relative' href="#">
+                        <Image src="/static/icons/icon_google.png" alt='google' />
+                      </Link>
                       </div>
                     </div>
                     
@@ -55,8 +55,5 @@ export default function Footer() {
     </footer>
 
     
-=======
-     <></>
->>>>>>> 34e4b9fd892b10ce706033e7dd097702aa3c1231
   )
 }
