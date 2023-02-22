@@ -4,6 +4,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
+<<<<<<< HEAD
 
     <footer className="w-100 py-4 flex-shrink-0" >
         <div className="container py-4">
@@ -54,5 +55,8 @@ export default function Footer() {
     </footer>
 
     
+=======
+     <></>
+>>>>>>> 34e4b9fd892b10ce706033e7dd097702aa3c1231
   )
 }

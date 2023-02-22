@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../public/libs/font-awesome/css/font-awesome.min.css';
 import { useEffect } from 'react';
 import '../styles/index.scss';
+import Head from 'next/head';
 
 export default function App({ Component, pageProps }) {
   useEffect(()=>{
@@ -9,6 +10,9 @@ export default function App({ Component, pageProps }) {
 },[])
   return (
   <>
+    <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </Head>
     <Component {...pageProps} />
   </>
   )

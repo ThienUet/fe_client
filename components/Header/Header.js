@@ -2,7 +2,7 @@ import React from 'react';
 import {Divider, Dropdown, Space} from 'antd';
 import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import Image from '../Image/CustomImage';
+import Image from 'next/image';
 //Change here to custom NavBar
 const headerObject = {
     navbarLeft: [
@@ -68,7 +68,7 @@ export default function Header() {
                             headerObject.navbarLeft.map((item, index) => {
                                 return (
                                     <li className='app-header-item me-4' key={index}>
-                                        <Dropdown menu={{items,}} >
+                                        <Dropdown menu={{items}} >
                                             <Link className='app-header-link' href="#">{item.title}</Link>
                                         </Dropdown>
                                     </li>)
@@ -79,7 +79,7 @@ export default function Header() {
                 </div>
                 <div className='col-2 col-sm-2 col-md-2 position-relative'>
                     <div className='col-8'>
-                    <Link href={'http://localhost:8888'}> <Image src={headerObject.logoURL} alt='LOGO'/> </Link>
+                      <Link href={'http://localhost:8888/'}> <Image layout='fill'  objectFit='contain' src={headerObject.logoURL} alt='LOGO'/> </Link>
                     </div>
                 </div>
                 <div className='col-5 col-sm-5 col-md-5'>
@@ -92,7 +92,6 @@ export default function Header() {
                                             <Link className='text-center app-header-link' href="#">{item.title}</Link>
                                         </Dropdown>
                                     </li>)
-                                    
                             })
                         }
                     </ul>

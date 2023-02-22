@@ -12,7 +12,7 @@ export default function Home() {
         <Divider />
         <Banner />
         <div className='body'>
-
+      
         </div>
         <Footer />
       </div>
