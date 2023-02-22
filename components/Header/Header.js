@@ -87,7 +87,7 @@ export default function Header() {
                         {
                             headerObject.navbarRight.map((item, index) => {
                                 return (
-                                    <li className='app-header-item ms-4' key={index}>
+                                    <li className='app-header-item ms-4 ' key={index}>
                                         <Dropdown menu={{items,}} >
                                             <Link className='text-center app-header-link' href="#">{item.title}</Link>
                                         </Dropdown>
