@@ -78,7 +78,7 @@ export default function Header() {
                     </ul>
                 </div>
                 <div className='col-2 col-sm-2 col-md-2 position-relative'>
-                    <div className='col-8'>
+                    <div className='col-12'>
                       <Link href={'http://localhost:8888/'}> <Image layout='fill'  objectFit='contain' src={headerObject.logoURL} alt='LOGO'/> </Link>
                     </div>
                 </div>

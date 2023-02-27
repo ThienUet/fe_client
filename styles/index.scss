@@ -3,7 +3,12 @@
 @import './component_styles/header.scss';
 @import './component_styles//banner.scss';
 @import './bootstrap_overide/custom_bootstrap.scss';
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
 
 :root {
     font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
 }
