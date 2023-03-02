@@ -17,8 +17,8 @@ export default function Footer() {
                     <div className='row'>
                     <div className='text-left '>
                     
-                    <Link  href="https://goo.gl/maps/2WDjYgVeBcUKsnTs9" className='fontAdd'>
-                    <p><i className="fa fa-map" > Địa chỉ: 198 Mỹ Đình 2, Quận Nam Từ Liêm, Hà Nội</i></p> 
+                    <Link style={{textDecoration: 'none'}}  href="https://goo.gl/maps/2WDjYgVeBcUKsnTs9" className='fontAdd'>
+                    <p> <i className="fa fa-map" /> Địa chỉ: 198 Mỹ Đình 2, Quận Nam Từ Liêm, Hà Nội</p> 
                     </Link>
                     
                     <p className="" ><i className="fa fa-phone fontPhone" ></i>Điện thoại: 0989999888</p>
@@ -65,32 +65,32 @@ export default function Footer() {
                     </ul>
                 </div>
                 <div className="col-lg-4 col-md-6">
-                <h5 className=" mb-3">ĐĂNG KÍ NHẬN TIN</h5>
-                <Input.Group compact>     
-                  <Input
-                    style={{
-                      width: 'calc(100% - 150px)',
-                      }}
-                      placeholder="Nhập email của bạn"
-                    />
-                    <Button type="primary">Gửi</Button>
-                </ Input.Group>
-
-                <Link href="#" className='social'>
-                <i className="fa fa-facebook-official md" aria-hidden="true"></i>
-                </Link>
+                  <h5 className=" mb-3">ĐĂNG KÍ NHẬN TIN</h5>
+                    <Input.Group compact>     
+                      <Input
+                        style={{
+                        width: 'calc(100% - 150px)',
+                       }}
+                        placeholder="Nhập email của bạn"
+                      />
+                     <Button type="primary">Gửi</Button>
+                    </ Input.Group>
+                    <div className='footer-social'>
+                      <Link href="#" className='social'>
+                        <i className="fa fa-facebook-official md" aria-hidden="true"></i>
+                      </Link>
                 
-                <Link href="" className='social'>
-                <i className="fa fa-telegram" aria-hidden="true"></i>
-                </Link>
-                <Link href="" className='social'>
-                <i className="fa fa-instagram" aria-hidden="true"></i> 
-                </Link>
-                
-                 
-                    
-                   
-                </div>
+                      <Link href="" className='social'>
+                        <i className="fa fa-telegram" aria-hidden="true"></i>
+                      </Link>
+                      <Link href="" className='social'>
+                        <i className="fa fa-instagram" aria-hidden="true"></i> 
+                      </Link>
+                      <Link href="" className='social'>
+                        <i className="fa fa-twitter" aria-hidden="true"></i> 
+                      </Link>
+                    </div>
+               </div>
             </div>
         </div>
     </footer>

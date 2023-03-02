@@ -4,21 +4,19 @@ import { SmileOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import Image from 'next/image';
 import DropdownContent from '../Dropdown/dropdown';
-import {headerItem1} from './ItemDropdown';
 //Change here to custom NavBar
 const headerObject = {
     navbarLeft: [
-        {title: 'Mua', link: 'aaaaaaaaaaa', data: [{title: 'Mua'}, {title: 'Mua'}, {title: 'Mua'}]},
-        {title: 'Bán', link: 'aaaaaaaaaaa', data: [{title: 'Bán'}, {title: 'Bán'}, {title: 'Bán'}]},
-        {title: 'Thuê', link: 'aaaaaaaaaaa', data: [{title: 'Thuê'}, {title: 'Thuê'}, {title: 'Thuê'}]},
-        {title: 'Tìm kiếm', link: 'aaaaaaaaaaa', data: [{title: 'Tìm kiếm'}, {title: 'Tìm kiếm'}, {title: 'Tìm kiếm'}]},
-        {title: 'Cho vay', link: 'aaaaaaaaaaa', data: [{title: 'Cho vay'}, {title: 'Cho vay'}, {title: 'Cho vay'}]}
+        {title: 'Mua', link: 'aaaaaaaaaaa', data: [{title: 'Chung cư thường'}, {title: 'Chung cư cao cấp'}, {title: 'Nhà đất'}]},
+        {title: 'Bán', link: 'aaaaaaaaaaa', data: [{title: 'Bán chung cư'}, {title: 'Bán nhà đất'}]},
+        {title: 'Thuê', link: 'aaaaaaaaaaa', data: [{title: 'Nhà trọ sinh viên'}, {title: 'Chung cư mini'}, {title: 'Chung cư cao cấp'}]},
+        {title: 'Quảng cáo', link: 'aaaaaaaaaaa', data: [{title: 'Liên nền tảng'}, {title: 'Nền tảng hiện tại'}, {title: 'Quảng cáo'}]},
     ],
     navbarRight: [
+        {title: 'Liên hệ', link: 'aaaaaaaaaaa', data: [{title: 'Liên hệ quản trị viên'}, {title: 'Liên hệ nhân viên tư vấn'}, {title: 'Liên hệ abcxyz'}]},
+        {title: 'Điều khoản', link: 'aaaaaaaaaaa', data: [{title: 'Quy định'}, {title: 'Chính sách'}, {title: 'Khiếu nại'}]},
         {title: 'Quản lý', link: 'aaaaaaaaaaa', data: [{title: 'Quản lý'}, {title: 'Quản lý'}, {title: 'Quản lý'}]},
-        {title: 'Quảng cáo', link: 'aaaaaaaaaaa', data: [{title: 'Quảng cáo'}, {title: 'Quảng cáo'}, {title: 'Quảng cáo'}]},
-        {title: 'Trợ giúp', link: 'aaaaaaaaaaa', data: [{title: 'Trợ giúp'}, {title: 'Trợ giúp'}, {title: 'Trợ giúp'}]},
-        {title: 'Tài khoản', link: 'aaaaaaaaaaa', data: [{title: 'Tài khoản'}, {title: 'Tài khoản'}, {title: 'Tài khoản'}]}
+        {title: 'Tài khoản', link: 'aaaaaaaaaaa', data: [{title: 'Đăng nhập'}, {title: 'Đăng ký'}, {title: 'Administrator'}]}
     ],
     logoURL: '/static/logo/logo.png'
 }

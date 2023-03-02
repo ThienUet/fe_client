@@ -22,8 +22,7 @@ export default function Search() {
          <AutoComplete
         options={options}
         style={{
-          width: 500,
-          height: 60
+          width: 500
         }}
         onSelect={onSelect}
         onSearch={(text) => setOptions(getPanelValue(text))}

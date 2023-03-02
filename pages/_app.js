@@ -3,7 +3,6 @@ import '../public/libs/font-awesome/css/font-awesome.min.css';
 import { useEffect } from 'react';
 import '../styles/index.scss';
 import Head from 'next/head';
-
 export default function App({ Component, pageProps }) {
   useEffect(()=>{
     import("bootstrap/dist/js/bootstrap.js");

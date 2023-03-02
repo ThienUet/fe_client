@@ -1,0 +1,48 @@
+.social-bar-relative {
+    position: fixed;
+    width: 60px;
+    top: 50%;
+    right: 0;
+    .social-bar-relative-list {
+        position: relative;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 5px;
+        .social-bar-relative-item {
+            border-radius: 100% 10px 100% 100%;
+            box-shadow: 3px 2px 5px gray;
+            margin-bottom: 5px;
+            background-color: white;
+            border: 1px solid #ebebe0;
+            box-sizing: border-box;
+            &:last-child {
+                margin-top: 20px;
+                transform: scale(1.3,1.3);
+                margin-right: 5px;
+                background-color: #ff751a;
+                border: none;
+            }
+            a {
+                padding: 2px;
+                display: block;
+                img {
+                    position: unset !important;
+                    transition: all ease 0.2s ;
+                }
+            }
+            &:hover {
+                a {
+                    img {
+                        transform: scale(1.2,1.2);
+                        &:first-child {
+                            transform: scale(1.3,1.3);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

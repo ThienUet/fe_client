@@ -1,3 +1,4 @@
+@import '../variables.scss';
 body {
     background: #2a2e32;
   }
@@ -34,15 +35,20 @@ body {
     padding-right: 5px;
     
   }
+  
+.footer-social {
+  display: flex;
+  .social {
+    margin-right: 20px;
+  }
   .social i{
     font-size: 30px;
     margin-top: 20px;
-    padding: 10px;
     color: #212529;
   }
 
   .social i:hover{
-    color: blue;
+    color: $primary_color;
   }
   
-
+}

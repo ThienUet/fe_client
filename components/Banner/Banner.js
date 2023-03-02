@@ -2,7 +2,7 @@ import React from 'react'
 import { Carousel, Input } from 'antd';
 import Image from '../Image/CustomImage';
 const {Search} = Input;
-import { Autoplay, Pagination, Navigation } from 'swiper';
+import { Autoplay, Pagination, Navigation, EffectCoverflow } from 'swiper';
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from 'next/link';
 
@@ -25,7 +25,8 @@ export default function Banner() {
               autoplay={{ delay: 5000, disableOnInteraction: false }}
               loop={true} pagination={{"clickable": true}}
               navigation={true} className="swiper-main"
-              modules={[Autoplay, Pagination, Navigation]}
+              modules={[Autoplay, Pagination, Navigation, EffectCoverflow]}
+              effect='coverflow'
             >
               {(dataSlidePoster && dataSlidePoster.length > 0
                 ? dataSlidePoster.map((slide, key) => {

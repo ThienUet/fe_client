@@ -8,9 +8,9 @@
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
+@import './component_styles/socialbar-relative.scss';
 
-
-:root {
-    font-family: 'Roboto', sans-serif;
+html,
+body {
     box-sizing: border-box;
 }
