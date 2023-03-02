@@ -3,6 +3,12 @@ body {
     background: #2a2e32;
   }
   
+footer{
+  background-color: #f9f9fb;
+  margin-top: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 3px;
+}
   .text-small {
     font-size: 0.9rem;
   }
@@ -46,9 +52,33 @@ body {
     margin-top: 20px;
     color: #212529;
   }
+ 
+  
 
   .social i:hover{
     color: $primary_color;
   }
   
 }
+
+.footer-image{
+  position: unset !important;
+  width: 20% !important;
+  height:20% !important;  
+}
+
+.footer-text p{
+  margin:0px !important ;
+}
+
+.copyright{ color: rgba(0,0,0,.7); 
+  text-shadow: 0 1px rgba(255, 255, 255, 0.1);
+  font-size: small;
+  text-align: center;
+}
+
+.link-text {
+  color: #ff751a;
+}
+
+
