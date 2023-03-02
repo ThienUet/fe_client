@@ -1,25 +1,19 @@
+import React from 'react';
 import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
-import HeadTitle from '../components/Head/head';
-import Banner from '@/components/Banner/Banner';
-import { Divider } from 'antd';
-import Search from '@/components/Search/Search';
-import SocialBarRelative from '@/components/SocialBarRelative/SocialBarRelative';
+import dynamic from 'next/dynamic';
+import { withRouter } from 'next/router';
+//import through dynamic:  Deferred loading helps improve the initial 
+//loading performance by decreasing the amount of JavaScript necessary to render the page.
+const HomePage = dynamic(() => import('../components/Home/Home'), {ssr: false});
+
 export default function Home() {
   return (
-    <>
-      <HeadTitle title={"Trang chủ"} />
+    <React.StrictMode>
       <div className='app'>
-        <Header />
-        <Divider />
-        <Search />
-        <Banner />
-        <div className='body'>
-          
+        <div className='main-app'>
+          <HomePage />
         </div>
-        <Footer />
-        <SocialBarRelative />
       </div>
-    </>
+    </React.StrictMode>
   )
 }

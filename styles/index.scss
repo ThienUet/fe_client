@@ -9,8 +9,13 @@
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
 @import './component_styles/socialbar-relative.scss';
+@import './component_styles/intro-component.scss';
 
 html,
 body {
     box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+    -moz-user-select: none;
 }

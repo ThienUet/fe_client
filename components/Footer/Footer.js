@@ -42,10 +42,10 @@ export default function Footer() {
                 <div className="col-lg-3 col-md-6">
                     <h5 className=" mb-3 fast-search">Tìm kiếm nhanh</h5>
                     <ul className="list-unstyled text-muted  ">
-                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Quận Cầu Giấy</Link></li>
-                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Quận Cầu Giấy</Link></li>
-                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Quận Cầu Giấy</Link></li>
-                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Quận Cầu Giấy</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Hà Nội</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Hồ Chí Minh</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Đà Nẵng</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Đồng Nai</Link></li>
                     </ul>
                 </div>
                 <div className="col-lg-3 col-md-6  ">
@@ -77,7 +77,7 @@ export default function Footer() {
                </div>
             </div>
             <div className='copyright'>
-            <Divider /> <p> &copy; Copyright Duong Thai Huy, Tran Quang Huy, Vi Quoc Thien, Hoang Van Luong</p>
+            <Divider /> <p> &copy; Copyright Duong Thai Huy, Tran Quang Huy, Vi Quoc Thien, Hoang Van Luong web`s deverloper</p>
             </div>
         </div>
     </footer>
