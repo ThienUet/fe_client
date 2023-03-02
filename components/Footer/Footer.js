@@ -29,22 +29,22 @@ export default function Footer() {
                      </div>
                     </div>
                 </div>
-                <div className="col-lg-2 col-md-6">
+                <div className="col-lg-2 col-md-6" >
                     <h5 className=" mb-3">Truy cập nhanh</h5>
-                    <ul className="list-unstyled text-muted">
-                        <li><Link href="#" className="text-decoration-none">Trang chủ</Link></li>
-                        <li><Link href="#" className="text-decoration-none">Giới thiệu</Link></li>
-                        <li><Link href="#" className="text-decoration-none">Cách thức hoạt động</Link></li>
-                        <li><Link href="#" className="text-decoration-none">FAQ</Link></li>
+                    <ul className="list-unstyled text-muted " >
+                        <li><Link href="#" className="text-decoration-none link-text">Trang chủ</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Giới thiệu</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Cách thức hoạt động</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">FAQ</Link></li>
                     </ul>
                 </div>
                 <div className="col-lg-3 col-md-6">
                     <h5 className=" mb-3 fast-search">Tìm kiếm nhanh</h5>
-                    <ul className="list-unstyled text-muted">
-                        <li><Link href="#" className="text-decoration-none">Phòng trọ Quận Cầu Giấy</Link></li>
-                        <li><Link href="#" className="text-decoration-none">Phòng trọ Quận Cầu Giấy</Link></li>
-                        <li><Link href="#" className="text-decoration-none">Phòng trọ Quận Cầu Giấy</Link></li>
-                        <li><Link href="#" className="text-decoration-none">Phòng trọ Quận Cầu Giấy</Link></li>
+                    <ul className="list-unstyled text-muted  ">
+                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Quận Cầu Giấy</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Quận Cầu Giấy</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Quận Cầu Giấy</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Phòng trọ Quận Cầu Giấy</Link></li>
                     </ul>
                 </div>
                 <div className="col-lg-3 col-md-6  ">

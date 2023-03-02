@@ -52,6 +52,8 @@ footer{
     margin-top: 20px;
     color: #212529;
   }
+ 
+  
 
   .social i:hover{
     color: $primary_color;
@@ -73,6 +75,10 @@ footer{
   text-shadow: 0 1px rgba(255, 255, 255, 0.1);
   font-size: small;
   text-align: center;
+}
+
+.link-text {
+  color: #ff751a;
 }
 
 
