@@ -2,9 +2,10 @@ import { FontSizeOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import React from 'react'
 
-import {Form, Input, Button} from 'antd'
+import {Form, Input, Button, Divider} from 'antd'
 import { auto } from '@popperjs/core'
 import Image from '../Image/CustomImage'
+
 export default function Footer() {
   return (
 
@@ -76,7 +77,7 @@ export default function Footer() {
                </div>
             </div>
             <div className='copyright'>
-              <p>&copy; Copyright Duong Thai Huy, Tran Quang Huy, Vi Quoc Thien, Hoang Van Luong</p>
+            <Divider /> <p> &copy; Copyright Duong Thai Huy, Tran Quang Huy, Vi Quoc Thien, Hoang Van Luong</p>
             </div>
         </div>
     </footer>
