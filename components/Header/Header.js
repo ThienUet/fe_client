@@ -13,7 +13,7 @@ const headerObject = {
         {title: 'Quảng cáo', link: '#', data: [{title: 'Liên nền tảng'}, {title: 'Nền tảng hiện tại'}, {title: 'Quảng cáo'}]},
     ],
     navbarRight: [
-        {title: 'Liên hệ', link: '#', data: [{title: 'Liên hệ quản trị viên'}, {title: 'Liên hệ nhân viên tư vấn'}, {title: 'Liên hệ abcxyz'}]},
+        {title: 'Trợ giúp', link: '#', data: [{title: 'Liên hệ quản trị viên'}, {title: 'Liên hệ nhân viên tư vấn'}, {title: 'Liên hệ abcxyz'}]},
         {title: 'Điều khoản', link: '#', data: [{title: 'Quy định'}, {title: 'Chính sách'}, {title: 'Khiếu nại'}]},
         {title: 'Quản lý', link: '#', data: [{title: 'Quản lý'}, {title: 'Quản lý'}, {title: 'Quản lý'}]},
         {title: 'Tài khoản', link: '#', data: [{title: 'Đăng nhập'}, {title: 'Đăng ký'}, {title: 'Administrator'}]}

@@ -25,7 +25,7 @@ export default function Home() {
             <Divider />
             <IntroComponent 
                 title='Với đội ngũ chuyên nghiệp'
-                description='Chúng tôi cam kết sẽ có những sự phù hợp dành cho bạn'/>
+                description='Chúng tôi cam kết sẽ có những gợi ý phù hợp dành cho bạn'/>
             <Divider />
             <Footer />
             <SocialBarRelative />

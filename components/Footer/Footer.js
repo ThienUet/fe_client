@@ -1,10 +1,9 @@
-import { FontSizeOutlined } from '@ant-design/icons'
-import Link from 'next/link'
-import React from 'react'
-
-import {Form, Input, Button, Divider} from 'antd'
-import { auto } from '@popperjs/core'
-import Image from '../Image/CustomImage'
+import { FontSizeOutlined } from '@ant-design/icons';
+import Link from 'next/link';
+import React from 'react';
+import {Form, Input, Button, Divider} from 'antd';
+import { auto } from '@popperjs/core';
+import Image from '../Image/CustomImage';
 
 export default function Footer() {
   return (
@@ -36,7 +35,7 @@ export default function Footer() {
                         <li><Link href="#" className="text-decoration-none link-text">Trang chủ</Link></li>
                         <li><Link href="#" className="text-decoration-none link-text">Giới thiệu</Link></li>
                         <li><Link href="#" className="text-decoration-none link-text">Cách thức hoạt động</Link></li>
-                        <li><Link href="#" className="text-decoration-none link-text">FAQ</Link></li>
+                        <li><Link href="#" className="text-decoration-none link-text">Câu hỏi thường gặp </Link></li>
                     </ul>
                 </div>
                 <div className="col-lg-3 col-md-6">
