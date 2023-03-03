@@ -3,7 +3,7 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { withRouter } from 'next/router';
 const HelpPage = dynamic(() => import('../app/Help/HelpV'), {ssr: false});
-const contact = (props) => {
+const Help = (props) => {
   return (
     <>
         <Head>
@@ -15,4 +15,4 @@ const contact = (props) => {
     </>
   )
 }
-export default withRouter(contact);
+export default withRouter(Help);

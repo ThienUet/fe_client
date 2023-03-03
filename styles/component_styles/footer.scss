@@ -1,9 +1,7 @@
 @import '../variables.scss';
-body {
-    background: #2a2e32;    
-  }
+
   
-footer py-4{
+footer {
   background-color: #f9f9fb;
   margin-top: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -73,11 +71,12 @@ footer py-4{
   margin:0px !important ;
 }
 
-.copyright{ color: rgba(0,0,0,.7); 
+.copyright p{ 
+  color: rgba(0,0,0,.7); 
   text-shadow: 0 1px rgba(255, 255, 255, 0.1);
   font-size: small;
   text-align: center;
- 
+  padding-bottom: 10px ;
 }
 
 .link-text {
