@@ -1,14 +1,16 @@
 @import '../variables.scss';
 body {
-    background: #2a2e32;
+    background: #2a2e32;    
   }
   
-footer{
+footer py-4{
   background-color: #f9f9fb;
   margin-top: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 3px;
+  border-radius: 3px; 
+    
 }
+
   .text-small {
     font-size: 0.9rem;
   }
@@ -75,10 +77,12 @@ footer{
   text-shadow: 0 1px rgba(255, 255, 255, 0.1);
   font-size: small;
   text-align: center;
+ 
 }
 
 .link-text {
   color: #ff751a;
 }
+
 
 

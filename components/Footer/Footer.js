@@ -9,8 +9,8 @@ import Image from '../Image/CustomImage'
 export default function Footer() {
   return (
 
-    <footer className="w-100 py-4 flex-shrink-0" >
-        <div className="container py-4">
+    <footer className="w-100 pt-4 flex-shrink-0 " >
+        <div className="container pt-4 p-0">
             <div className="row gy-4 gx-5 footer">
                 <div className="col-lg-4 col-md-6">
                     <h5 className="h3 text-left">
@@ -77,7 +77,7 @@ export default function Footer() {
                </div>
             </div>
             <div className='copyright'>
-            <Divider /> <p> &copy; Copyright Duong Thai Huy, Tran Quang Huy, Vi Quoc Thien, Hoang Van Luong web`s deverloper</p>
+            <Divider /> <p> &copy; Copyright Duong Thai Huy, Tran Quang Huy, Vi Quoc Thien, Hoang Van Luong Web`s Developer</p>
             </div>
         </div>
     </footer>
