@@ -53,7 +53,7 @@ export default function Footer() {
                     <Input.Group compact>     
                       <Input
                         style={{
-                        width: 'calc(100% - 120px)',
+                        width: 'calc(100% - 60px)',
                        }}
                         placeholder="Nhập email của bạn"
                       />
