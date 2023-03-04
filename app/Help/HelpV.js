@@ -5,7 +5,7 @@ import SocialBarRelative from '@/components/SocialBarRelative/SocialBarRelative'
 import { Divider } from 'antd';
 export default function ContactV() {
   return (
-    <div className='contact-page'>
+    <div className='help-page'>
         <Header />
         <Divider/>
         <Divider/>

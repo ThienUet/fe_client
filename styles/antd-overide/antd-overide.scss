@@ -1,0 +1,12 @@
+@import '../variables.scss';
+.ant-btn {
+    background-color: $primary_color;
+    color: $white-color;
+    transition: all ease 0.1s;
+    &:hover {
+        background-color: $primary_color !important;
+        transform: scale(1.1,1.1);
+        color: $white-color !important;
+        box-shadow: 2px 2px 5px gray;
+    }
+}

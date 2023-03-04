@@ -38,3 +38,46 @@
         font-weight: bold;
     }
 }
+
+.modal-log-reg-title {
+    text-decoration: none;
+    cursor: pointer;
+    transition: all ease 0.1s;
+    &:hover {
+        color: $primary_color;
+        transform: scale(1.2,1.2);
+    }
+}
+.log-reg-page-title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+.log-reg-page-btn {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.log-reg-page-forgot {
+    display: flex;
+    justify-content: right;
+    a {
+        text-decoration: none;
+        color: $alert-color;
+        font-style: italic;
+        transition: all ease 0.1s;
+        &:hover {
+            transform: scale(1.1,1.1);
+            color: red;
+        }
+    }
+}
+.log-reg-form-group {
+    display: flex;
+    justify-content: center;
+}
+.ant-dropdown {
+    z-index: 1000 !important;
+}

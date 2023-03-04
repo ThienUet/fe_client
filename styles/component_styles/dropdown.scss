@@ -5,8 +5,10 @@
     .header-dropdown-link {
         text-decoration: none;
         color: black;
+        transition: all ease 0.1s;
         &:hover {
             color: $primary_color;
+            transform: scale(1.2,1.2);
         }
     }
 }
