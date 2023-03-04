@@ -6,7 +6,7 @@ import HelpBody from './_components/index';
 import { Divider } from 'antd';
 export default function HelpV() {
   return (
-    <div className='contact-page'>
+    <div className='help-page'>
         <Header />
         <Divider/>
         <HelpBody />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dropdown, Space } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import Link from 'next/link';
@@ -16,7 +16,7 @@ const headerObject = {
         {title: 'Trợ giúp', link: 'help', data: [{title: 'Liên hệ quản trị viên'}, {title: 'Liên hệ nhân viên tư vấn'}, {title: 'Liên hệ abcxyz'}]},
         {title: 'Điều khoản', link: '#', data: [{title: 'Quy định'}, {title: 'Chính sách'}, {title: 'Khiếu nại'}]},
         {title: 'Quản lý', link: '#', data: [{title: 'Quản lý'}, {title: 'Quản lý'}, {title: 'Quản lý'}]},
-        {title: 'Tài khoản', link: '#', data: [{title: 'Đăng nhập'}, {title: 'Đăng ký'}, {title: 'Administrator'}]}
+        {title: 'Tài khoản', link: '#', data: [{title: 'Đăng nhập', key: 'login'}, {title: 'Đăng ký', key: 'register'}, {title: 'Administrator'}]}
     ],
     logoURL: '/static/logo/logo.png'
 }
@@ -24,6 +24,7 @@ const headerObject = {
 const navStyle = ['origin', 'logo_center', 'no-logo'];
 
 export default function Header() {
+  const [dropDownOpen, setDropDownOpen] = useState();
     return (
         <div className='container app-header'>
             <div className='row'>
@@ -54,7 +55,7 @@ export default function Header() {
                       headerObject.navbarRight.map((item, index) => {
                           return (
                             <li className='app-header-item ms-4 ' key={index}>
-                                <Dropdown dropdownRender={() => <DropdownContent data={item.data}/>}>
+                                <Dropdown dropdownRender={() => <DropdownContent setDropDownOpen={setDropDownOpen} data={item.data}/>}>
                                   <Space>
                                     <Link className='app-header-link' href={item.link}>{item.title}</Link>
                                   </Space>
