@@ -7,12 +7,15 @@ import Footer from '../Footer/Footer';
 import SocialBarRelative from '../SocialBarRelative/SocialBarRelative';
 import HeadTitle from '../Head/head';
 import IntroComponent from './_components/IntroComponent';
-export default function Home() {
+import { useRouter } from 'next/router';
+export default function Home(props) {
+  const {user} = props;
+  const router = useRouter();
   return (
-    <>
+    <React.StrictMode>
         <HeadTitle title="Trang chủ"/>
         <div className='home-main'>
-            <Header />
+            <Header user={user} router={router}/>
             <Divider />
             <Search />
             <Divider />
@@ -30,6 +33,6 @@ export default function Home() {
             <Footer />
             <SocialBarRelative />
         </div>
-    </>
+    </React.StrictMode>
   )
 }

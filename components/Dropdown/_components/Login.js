@@ -1,15 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Modal, Input, Button } from 'antd';
+import { Form, Modal, Input, Button, notification } from 'antd';
 import Link from 'next/link';
-export default function Login({onLoginOpen, setOnLoginOpen, setOnRegisterOpen}) {
+import { Login } from '@/services/common';
+import * as Auth from '@/storages/Auth'; 
+export default function LoginIn({onLoginOpen, setOnLoginOpen, setOnRegisterOpen, router}) {
     const [formLogin] = Form.useForm();
+
+    const callBackResult = (result) => {
+        if (result) {
+            if (router?.query?.next) {
+                window.location.replace(router?.query?.next);
+            } else {
+                window.location.replace('/');
+            }
+        } else {
+            notification.error({message: 'Đăng nhập thất bại !'})
+        }
+    }
+
     const onFinishLogin = () => {
-        let n = formLogin.getFieldValue();
-        console.log(n);
-        formLogin.resetFields();
+        let data = formLogin.getFieldValue();
+        const body = {
+            client_id: 'backend',
+            username: data.username,
+            password: data.password,
+            grant_type: 'password',
+            client_secret: '11UJJdC8M4fx3C7YzdlD2X9ruVcC9W3j'
+        }
+        Login(body).then(({data}) => {
+            if(data.access_token) {
+                Auth.authenticateUser(data.access_token, data.refresh_token, data.expires_in, data.refresh_expires_in);
+                notification.success({message: `Đăng nhập thành công !`});
+                setOnLoginOpen(false);
+                callBackResult(!!data.access_token);
+            }
+            console.log(data);
+        }).catch(() => {
+            notification.error({message: `Sai tài khoản hoặc mật khẩu !`});
+        })
     }
   return (
-    <>
+    <div>
         <div className='modal-log-reg-title' onClick={() => {setOnLoginOpen(true); setOnRegisterOpen(false)}}>Đăng nhập</div>
         <Modal 
             open={onLoginOpen}
@@ -51,10 +82,9 @@ export default function Login({onLoginOpen, setOnLoginOpen, setOnRegisterOpen}) 
                 <div className='log-reg-page-btn'>
                     <Button type='primary' htmlType='submit'>Đăng nhập</Button>
                 </div>
-
             </Form>
         </Modal>
-    </>
+    </div>
   )
 }
 

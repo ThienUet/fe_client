@@ -13,7 +13,7 @@ export default function Register({setOnLoginOpen, onRegisterOpen, setOnRegisterO
         formRegister.resetFields();
     }
   return (
-    <>
+    <div>
     <div className='modal-log-reg-title' href='#' onClick={() => {setOnRegisterOpen(true), setOnLoginOpen(false)}}>Đăng ký</div>
         <Modal 
             style={{padding: '20px'}}
@@ -52,7 +52,7 @@ export default function Register({setOnLoginOpen, onRegisterOpen, setOnRegisterO
                     style={{marginBottom: '5px'}}
                     label='Email'
                     name='email'>
-                    <Input placeholder='Nhập tài khoản của bạn' autoComplete='off'/>
+                    <Input placeholder='Nhập địa chỉ email của bạn' autoComplete='off'/>
                 </Form.Item>
                 <Form.Item
                     style={{marginBottom: '5px'}}
@@ -86,6 +86,6 @@ export default function Register({setOnLoginOpen, onRegisterOpen, setOnRegisterO
 
             </Form>
         </Modal>
-        </>
+        </div>
   )
 }

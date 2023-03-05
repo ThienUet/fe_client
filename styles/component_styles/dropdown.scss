@@ -1,14 +1,14 @@
 .header_drop_down {
     background-color: white;
-    border-radius: 10px;
-    border: 1px solid $primary_color;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px gray;
     .header-dropdown-link {
         text-decoration: none;
         color: black;
-        transition: all ease 0.1s;
+        transition: all ease 0.2s;
         &:hover {
             color: $primary_color;
-            transform: scale(1.2,1.2);
+            transform: scale(1.1,1.1);
         }
     }
 }

@@ -81,3 +81,12 @@
 .ant-dropdown {
     z-index: 1000 !important;
 }
+
+.logout-pop-title {
+    cursor: pointer;
+    transition: all ease 0.1s;
+    &:hover {
+        color: $primary_color;
+        transform: scale(1.2,1.2);
+    }
+}

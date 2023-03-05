@@ -3,8 +3,9 @@ import { List, Modal } from 'antd';
 import Link from 'next/link';
 import Login from './_components/Login';
 import Register from './_components/Register';
-
-export default function Dropdown({data}) { 
+import * as Auth from '@/storages/Auth';
+import Logout from './_components/Logout';
+export default function Dropdown({data, router}) { 
   const [onLoginOpen, setOnLoginOpen] = useState(false);
   const [onRegisterOpen, setOnRegisterOpen] = useState(false);
   return (
@@ -16,11 +17,14 @@ export default function Dropdown({data}) {
           <List.Item>
             {
               item.key === 'login' ? (
-                <Login onLoginOpen={onLoginOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen}/>
+                <Login router={router} onLoginOpen={onLoginOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen}/>
               ) 
               : 
               item.key === 'register' ?
-              (<Register onRegisterOpen={onRegisterOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen} />) 
+              (<Register router={router} onRegisterOpen={onRegisterOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen} />) 
+              :
+              item.key === 'logout' ?
+              (<Logout title={item.title}/>)
               :
               (<Link className='header-dropdown-link' title={`Đi đến ${item.title}`} href={'#'}>{item.title}</Link>)
             }

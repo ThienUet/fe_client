@@ -1,29 +1,51 @@
 import React, { useState } from 'react';
-import { Dropdown, Space } from 'antd';
+import { Dropdown, Space, Avatar } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import Image from '../Image/CustomImage';
 import DropdownContent from '../Dropdown/dropdown';
-//Change here to custom NavBar
-const headerObject = {
-    navbarLeft: [
-        {title: 'Mua', link: '#', data: [{title: 'Chung cư thường'}, {title: 'Chung cư cao cấp'}, {title: 'Nhà đất'}]},
-        {title: 'Bán', link: '#', data: [{title: 'Bán chung cư'}, {title: 'Bán nhà đất'}]},
-        {title: 'Thuê', link: '#', data: [{title: 'Nhà trọ sinh viên'}, {title: 'Chung cư mini'}, {title: 'Chung cư cao cấp'}]},
-        {title: 'Quảng cáo', link: '#', data: [{title: 'Liên nền tảng'}, {title: 'Nền tảng hiện tại'}, {title: 'Quảng cáo'}]},
-    ],
-    navbarRight: [
-        {title: 'Trợ giúp', link: 'help', data: [{title: 'Liên hệ quản trị viên'}, {title: 'Liên hệ nhân viên tư vấn'}, {title: 'Liên hệ abcxyz'}]},
-        {title: 'Điều khoản', link: '#', data: [{title: 'Quy định'}, {title: 'Chính sách'}, {title: 'Khiếu nại'}]},
-        {title: 'Quản lý', link: '#', data: [{title: 'Quản lý'}, {title: 'Quản lý'}, {title: 'Quản lý'}]},
-        {title: 'Tài khoản', link: '#', data: [{title: 'Đăng nhập', key: 'login'}, {title: 'Đăng ký', key: 'register'}, {title: 'Administrator'}]}
-    ],
-    logoURL: '/static/logo/logo.png'
+import Cookies from 'js-cookie';
+// customize header
+let headerObject = {
+  navbarLeft: [
+      {title: 'Mua', link: '#', data: [{title: 'Chung cư thường'}, {title: 'Chung cư cao cấp'}, {title: 'Nhà đất'}]},
+      {title: 'Bán', link: '#', data: [{title: 'Bán chung cư'}, {title: 'Bán nhà đất'}]},
+      {title: 'Thuê', link: '#', data: [{title: 'Nhà trọ sinh viên'}, {title: 'Chung cư mini'}, {title: 'Chung cư cao cấp'}]},
+      {title: 'Quảng cáo', link: '#', data: [{title: 'Liên nền tảng'}, {title: 'Nền tảng hiện tại'}, {title: 'Quảng cáo'}]},
+  ],
+  navbarRight: [
+      {title: 'Trợ giúp', link: 'help', data: [{title: 'Liên hệ quản trị viên'}, {title: 'Liên hệ nhân viên tư vấn'}, {title: 'Liên hệ abcxyz'}]},
+      {title: 'Điều khoản', link: '#', data: [{title: 'Quy định'}, {title: 'Chính sách'}, {title: 'Khiếu nại'}]},
+      {title: 'Quản lý', link: '#', data: [{title: 'Quản lý'}, {title: 'Quản lý'}, {title: 'Quản lý'}]},
+      {title: 'Tài khoản', link: '#', data: [{title: 'Đăng nhập', key: 'login'}, {title: 'Đăng ký', key: 'register'}, {title: 'Administrator'}]}
+  ],
+  logoURL: '/static/logo/logo.png'
 }
 
 const navStyle = ['origin', 'logo_center', 'no-logo'];
-
-export default function Header() {
+export default function Header(props) {
+  const {router} = props;
+  const {user} = props;
+  if (user) {
+    headerObject.navbarRight.pop();
+    headerObject.navbarRight.push(
+      {
+        title: <Avatar src={user.image}/>,
+        link: '#',
+        data: [
+          {
+          title: `Thông tin cá nhân `
+          },
+          {
+            title: `Cài đặt`
+          },
+          {
+            title: `Đăng xuất`, key: 'logout'
+          },
+        ]
+      }
+    );
+  }
   const [dropDownOpen, setDropDownOpen] = useState();
     return (
         <div className='container app-header'>
@@ -34,7 +56,7 @@ export default function Header() {
                       headerObject.navbarLeft.map((item, index) => {
                           return (
                             <li className='app-header-item me-4 ' key={index}>
-                                <Dropdown dropdownRender={() => <DropdownContent data={item.data}/>}>
+                                <Dropdown dropdownRender={() => <DropdownContent router={router} data={item.data}/>}>
                                   <Space>
                                     <Link className='app-header-link' href={item.link}>{item.title}</Link>
                                   </Space>
