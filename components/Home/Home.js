@@ -13,7 +13,7 @@ export default function Home(props) {
   const router = useRouter();
   return (
     <React.StrictMode>
-        <HeadTitle title="Trang chủ"/>
+        <HeadTitle title="ZeeHome"/>
         <div className='home-main'>
             <Header user={user} router={router}/>
             <Divider />

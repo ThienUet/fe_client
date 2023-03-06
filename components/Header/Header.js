@@ -26,6 +26,7 @@ const navStyle = ['origin', 'logo_center', 'no-logo'];
 export default function Header(props) {
   const {router} = props;
   const {user} = props;
+  console.log(user);
   if (user) {
     headerObject.navbarRight.pop();
     headerObject.navbarRight.push(
@@ -56,7 +57,7 @@ export default function Header(props) {
                       headerObject.navbarLeft.map((item, index) => {
                           return (
                             <li className='app-header-item me-4 ' key={index}>
-                                <Dropdown dropdownRender={() => <DropdownContent router={router} data={item.data}/>}>
+                                <Dropdown placement='bottomCenter' dropdownRender={() => <DropdownContent router={router} data={item.data}/>}>
                                   <Space>
                                     <Link className='app-header-link' href={item.link}>{item.title}</Link>
                                   </Space>
@@ -77,7 +78,7 @@ export default function Header(props) {
                       headerObject.navbarRight.map((item, index) => {
                           return (
                             <li className='app-header-item ms-4 ' key={index}>
-                                <Dropdown dropdownRender={() => <DropdownContent setDropDownOpen={setDropDownOpen} data={item.data}/>}>
+                                <Dropdown placement='bottomCenter' dropdownRender={() => <DropdownContent setDropDownOpen={setDropDownOpen} data={item.data}/>}>
                                   <Space>
                                     <Link className='app-header-link' href={item.link}>{item.title}</Link>
                                   </Space>

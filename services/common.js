@@ -6,3 +6,4 @@ export const getUser                = async()            => await axios.get('/ap
 
 //login+register
 export const Login                  = (body)            => axiosOrigin.post('http://103.162.20.167:8099/realms/nhatrotot/protocol/openid-connect/token', body, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+export const register               = (body)            => axiosOrigin.post('http://103.162.20.167/api/auth/signup', body, {headers: {'Content-Type': 'application/json'}});

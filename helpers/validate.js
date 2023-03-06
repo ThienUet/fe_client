@@ -12,8 +12,22 @@ export const checkPhone = (value) => {
     return err;
 }
 
+// Check email
 export const checkEmail = (value) => {
+  let error
+  const regex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+  const check = regex.test(value)
 
+  if (value) {
+    if (check) {
+      error = undefined
+    } else {
+      error = 'Không phải địa chỉ email'
+    }
+  } else {
+    error = undefined
+  }
+  return error
 }
 
 // Validate VietNam-Name

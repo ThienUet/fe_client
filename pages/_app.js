@@ -8,6 +8,8 @@ import { useUser } from '@/libs/auth-service';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { ConfigProvider } from 'antd';
 import PageLoader from '../components/loader';
+
+
 const LayoutApp = ({Component, ...rest}) => {
   const { user } = useUser();
   const router = useRouter();

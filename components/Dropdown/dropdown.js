@@ -16,7 +16,8 @@ export default function Dropdown({data, router}) {
         renderItem={(item, index) => (
           <List.Item>
             {
-              item.key === 'login' ? (
+              item.key === 'login' ? 
+              (
                 <Login router={router} onLoginOpen={onLoginOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen}/>
               ) 
               : 
