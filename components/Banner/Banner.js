@@ -32,9 +32,7 @@ export default function Banner() {
                 ? dataSlidePoster.map((slide, key) => {
                 return (
                   <SwiperSlide key={key}>
-                    
                       <Image src={slide.img_url} fill className="responsive"  alt={slide.name} loading="lazy" />
-                    
                   </SwiperSlide>
                 )
                })

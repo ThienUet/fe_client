@@ -14,7 +14,7 @@ export default function Footer() {
                 <div className="col-lg-4 col-md-6">
                     <h5 className="h3 text-left">
                       <div className='text-center'>
-                      <Image className="footer-image" src="/static/logo/logo1.png" alt="logo" />
+                      <Image className="footer-image" src="/static/logo/logo.png" alt="logo" />
                       </div>
                     </h5>              
                     <div className='row'>
