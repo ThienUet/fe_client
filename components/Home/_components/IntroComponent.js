@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from '@/components/Image/CustomImage'
-export default function IntroComponent({title, description, style}) {
+export default function IntroComponent({title, description, style, img1, img2, img3}) {
     let bg = '';
     if (style === 'left') {
         bg = '#f9f9fb';
@@ -17,13 +17,13 @@ export default function IntroComponent({title, description, style}) {
             <div className='col-7 d-flex justify-content-center align-items-center'>
                 <ul className='intro-component-picture'>
                     <li className="intro-component-picture-item">
-                        <Image src={'/static/banner/pexels-photo-298723.png'} objectFit='cover' alt={'picture'}/>
+                        <Image src={img1} objectFit='cover' alt={'picture'}/>
                     </li>
                     <li className="intro-component-picture-item">
-                        <Image src={'/static/banner/pexels-photo-298723.png'} objectFit='cover' alt={'picture'}/>
+                        <Image src={img2} objectFit='cover' alt={'picture'}/>
                     </li>
                     <li className="intro-component-picture-item">
-                        <Image src={'/static/banner/pexels-photo-298723.png'} objectFit='cover' alt={'picture'}/>
+                        <Image src={img3} objectFit='cover' alt={'picture'}/>
                     </li>
                 </ul>
             </div>
@@ -33,13 +33,13 @@ export default function IntroComponent({title, description, style}) {
             <div className='col-7 d-flex justify-content-center align-items-center'>
                 <ul className='intro-component-picture'>
                     <li className="intro-component-picture-item">
-                        <Image src={'/static/banner/pexels-photo-298723.png'} objectFit='cover' alt={'picture'}/>
+                        <Image src={img1} objectFit='cover' alt={'picture'}/>
                     </li>
                     <li className="intro-component-picture-item">
-                        <Image src={'/static/banner/pexels-photo-298723.png'} objectFit='cover' alt={'picture'}/>
+                        <Image src={img2} objectFit='cover' alt={'picture'}/>
                     </li>
                     <li className="intro-component-picture-item">
-                        <Image src={'/static/banner/pexels-photo-298723.png'} objectFit='cover' alt={'picture'}/>
+                        <Image src={img3} objectFit='cover' alt={'picture'}/>
                     </li>
                 </ul>
             </div>

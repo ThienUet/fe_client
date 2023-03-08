@@ -7,13 +7,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Link from 'next/link';
 
 const dataSlidePoster = [
-  {url: '#', img_url: '/static/banner/pexels-photo-298723.png', name: 'banner'},
-  {url: '#', img_url: '/static/banner/pexels-photo-298723.png', name: 'banner'},
-  {url: '#', img_url: '/static/banner/pexels-photo-298723.png', name: 'banner'},
+  {url: '#', img_url: '/static/banner/slider1.png', name: 'banner'},
+  {url: '#', img_url: '/static/banner/slider2.jpg', name: 'banner'},
+  {url: '#', img_url: '/static/banner/slider3.jpg', name: 'banner'},
 ]
 
-const dataBannerSale = {url: '#', img_url: '/static/banner/pexels-photo-298723.png', name: 'abc'}
-const dataBannerAdvertise = {url: '#', img_url: '/static/banner/pexels-photo-298723.png', name: 'abc'}
+const dataBannerSale = {url: '#', img_url: '/static/banner/phongtro1.jpg', name: 'abc'}
+const dataBannerAdvertise = {url: '#', img_url: '/static/banner/phongtro2.png', name: 'abc'}
 export default function Banner() {
 
   return (
@@ -32,9 +32,9 @@ export default function Banner() {
                 ? dataSlidePoster.map((slide, key) => {
                 return (
                   <SwiperSlide key={key}>
-                    <Link href={slide.url || '#'} target="_blank" className='link-banner'>
+                    
                       <Image src={slide.img_url} fill className="responsive"  alt={slide.name} loading="lazy" />
-                    </Link>
+                    
                   </SwiperSlide>
                 )
                })

@@ -20,11 +20,12 @@ body {
     overflow-x: hidden;
     -moz-user-select: none;
     -moz-user-select: none;
+    
+    cursor: url('/static/cursor/pointer.png'), auto;
+    
+
     &::-webkit-scrollbar {
         width: 5px;
-        &:hover {
-            width: 7px;
-        }
     }
     &::-webkit-scrollbar-track {
         // box-shadow: inset 0 0 5px black; 
@@ -35,4 +36,12 @@ body {
         border-radius: 10px;
     }
     
+}
+
+a {
+    cursor: url('/static/cursor/link.png'), auto !important;
+}
+
+input:hover {
+    cursor: url('/static/cursor/text.png'), auto !important;
 }

@@ -5,7 +5,7 @@ import { Login } from '@/services/common';
 import * as Auth from '@/storages/Auth'; 
 export default function LoginIn({onLoginOpen, setOnLoginOpen, setOnRegisterOpen, router}) {
     const [formLogin] = Form.useForm();
-
+    const [loading, setLoading] = useState(false);
     const callBackResult = (result) => {
         if (result) {
             if (router?.query?.next) {
@@ -18,7 +18,7 @@ export default function LoginIn({onLoginOpen, setOnLoginOpen, setOnRegisterOpen,
         }
     }
 
-    const onFinishLogin = () => {
+    const onFinishLogin = async() => {
         let data = formLogin.getFieldValue();
         const body = {
             client_id: 'backend',
@@ -27,16 +27,17 @@ export default function LoginIn({onLoginOpen, setOnLoginOpen, setOnRegisterOpen,
             grant_type: 'password',
             client_secret: '11UJJdC8M4fx3C7YzdlD2X9ruVcC9W3j'
         }
-        Login(body).then(({data}) => {
+        setLoading(true);
+        await Login(body).then(({data}) => {
             if(data.access_token) {
                 Auth.authenticateUser(data.access_token, data.refresh_token, data.expires_in, data.refresh_expires_in);
-                notification.success({message: `Đăng nhập thành công !`});
                 setOnLoginOpen(false);
                 callBackResult(!!data.access_token);
+                setLoading(false);
             }
-            console.log(data);
         }).catch(() => {
             notification.error({message: `Sai tài khoản hoặc mật khẩu !`});
+            setLoading(false);
         })
     }
   return (
@@ -80,7 +81,7 @@ export default function LoginIn({onLoginOpen, setOnLoginOpen, setOnRegisterOpen,
                     <Link className='log-reg-page-forgot-link' href={'#'}>Quên mật khẩu ?</Link>
                 </div>
                 <div className='log-reg-page-btn'>
-                    <Button type='primary' htmlType='submit'>Đăng nhập</Button>
+                    <Button loading={loading} type='primary' htmlType='submit'>{loading ? 'Vui lòng đợi' : 'Đăng nhập'}</Button>
                 </div>
             </Form>
         </Modal>

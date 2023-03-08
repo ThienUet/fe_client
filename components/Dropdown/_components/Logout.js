@@ -16,7 +16,7 @@ export default function Logout({title}) {
         okText="Có"
         cancelText="Không"
       >
-        <div className='logout-pop-title'>{title}</div>
+        <div className='logout-pop-title' title='Đăng xuất tài khoản'>{title}</div>
       </Popconfirm>
     </div>
   )

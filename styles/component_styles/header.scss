@@ -41,7 +41,7 @@
 
 .modal-log-reg-title {
     text-decoration: none;
-    cursor: pointer;
+    cursor: url('/static/cursor/link.png'), pointer;
     transition: all ease 0.1s;
     &:hover {
         color: $primary_color;
@@ -83,10 +83,24 @@
 }
 
 .logout-pop-title {
-    cursor: pointer;
+    cursor: url('/static/cursor/link.png'), pointer;
     transition: all ease 0.1s;
     &:hover {
         color: $primary_color;
         transform: scale(1.2,1.2);
+    }
+}
+
+.app-header-link {
+    cursor: url('/static/cursor/link.png'), pointer;
+    font-size: 20px;
+    &:hover {
+        color: $primary_color;
+    }
+}
+
+.user-name-show {
+    &:hover {
+        transform: unset;
     }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Button, Form, Input, Select, Option, DatePicker, notification } from 'antd';
+import { Modal, Button, Form, Input, Select, Option, DatePicker, notification, Checkbox } from 'antd';
 import Link from 'next/link';
 import { checkPhone, checkEmail, checkVietNameseName } from '@/helpers/validate';
 import { useMutation } from '@tanstack/react-query';
@@ -11,8 +11,9 @@ const optionGender =[
 ]
 export default function RegisterIn({setOnLoginOpen, onRegisterOpen, setOnRegisterOpen}) {
     const [formRegister] = Form.useForm();
-
-    const onFinishRegister = () => {
+    const [loading, setLoading] = useState(false);
+    const [acceptRule, setAcceptRule] = useState(false);
+    const onFinishRegister = async() => {
         const data = formRegister.getFieldValue();
         const body = {
             gender: data.gender,
@@ -28,8 +29,13 @@ export default function RegisterIn({setOnLoginOpen, onRegisterOpen, setOnRegiste
             banned: true,
             avgRating: '2',
         }
-        register(body).then((res) => {
-            console.log(res);
+        setLoading(true);
+        await register(body).then(() => {
+            notification.success({message: `Đăng ký thành công ! Vui lòng đăng nhập !`});
+            setLoading(false);
+            setOnRegisterOpen(false);
+        }).catch((error) => {
+            notification.error({message: `Đăng ký không thành công ! Lỗi do ${error}`});
         })
     }
   return (
@@ -102,7 +108,7 @@ export default function RegisterIn({setOnLoginOpen, onRegisterOpen, setOnRegiste
                     style={{marginBottom: '5px'}} 
                     label='Password'
                     name='password'
-                    rules={[{required: true, message: 'Không để trống mật khẩu !'}]}
+                    rules={[{validator: validatePassword}]}
                     >
                     <Input.Password placeholder='Nhập mật khẩu của bạn' autoComplete="new-password" />
                 </Form.Item>
@@ -124,8 +130,11 @@ export default function RegisterIn({setOnLoginOpen, onRegisterOpen, setOnRegiste
                     >
                     <Input.Password placeholder='Nhập mật khẩu của bạn' autoComplete="new-password" />
                 </Form.Item>
+                <div className='log-reg-accept-rule'>
+                    <Checkbox onChange={(e) => {console.log(e.target.checked);setAcceptRule(e.target.checked)}}>Tôi đồng ý với điều khoản và quy định đặt ra</Checkbox>
+                </div>
                 <div className='log-reg-page-btn'>
-                    <Button htmlType='submit'>Đăng ký</Button>
+                    <Button disabled={!acceptRule} loading={loading} htmlType='submit'>{loading ? 'Vui lòng đợi': 'Đăng ký'}</Button>
                 </div>
 
             </Form>
@@ -168,5 +177,17 @@ const validateEmail = (_, value) => {
         }
     } else {
         return Promise.reject(new Error("Không được để trống !"));
+    }
+}
+
+const validatePassword = (_, value) => {
+    if (value) {
+        if (value.length < 8) {
+            return Promise.reject(new Error('Mật khẩu phải lớn hơn 8 kí tự !'))
+        } else {
+            return Promise.resolve();
+        }
+    } else {
+        return Promise.reject(new Error('Không được để trống mật khẩu !'))
     }
 }

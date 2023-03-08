@@ -5,7 +5,7 @@ import Login from './_components/Login';
 import Register from './_components/Register';
 import * as Auth from '@/storages/Auth';
 import Logout from './_components/Logout';
-export default function Dropdown({data, router}) { 
+export default function Dropdown({data, router, user}) { 
   const [onLoginOpen, setOnLoginOpen] = useState(false);
   const [onRegisterOpen, setOnRegisterOpen] = useState(false);
   return (
@@ -17,9 +17,7 @@ export default function Dropdown({data, router}) {
           <List.Item>
             {
               item.key === 'login' ? 
-              (
-                <Login router={router} onLoginOpen={onLoginOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen}/>
-              ) 
+              (<Login router={router} onLoginOpen={onLoginOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen} />) 
               : 
               item.key === 'register' ?
               (<Register router={router} onRegisterOpen={onRegisterOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen} />) 
@@ -27,7 +25,10 @@ export default function Dropdown({data, router}) {
               item.key === 'logout' ?
               (<Logout title={item.title}/>)
               :
-              (<Link className='header-dropdown-link' title={`Đi đến ${item.title}`} href={'#'}>{item.title}</Link>)
+              item.key === 'link' ?
+              (<Link className='header-dropdown-link' title={`Đi đến ${item.title}`} href={item.link}>{item.title}</Link>)
+              :
+              (<div className='header-dropdown-link user-name-show' title={`Tài khoản của ${user.firstName} ${user.lastName} `}>{item.title}</div>)
             }
           </List.Item>
         )}/>
