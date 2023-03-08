@@ -5,3 +5,9 @@
 **lib:** react-query@tanstack, axios, bootstrap, sass, swiper, sharp, antd, nprogress, moment, js-cookies, local-storage, jotai, dotENV, ...
 
 **BE:** We use java spring boot as a backend server !
+
+**First**, fetch project and go to main folder and run cmd: npm install --legacy-peer-deps
+
+**Second**, run project with cmd: npm run dev
+
+----------------------------------------------------------------------------**END**--------------------------------------------------------------------------------------
