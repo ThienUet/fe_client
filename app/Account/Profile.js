@@ -10,12 +10,10 @@ export default function Profile(props) {
   const router = useRouter();
   return (
     <div className='main-profile'>
-        <div>
         <Header user={user} router={router}/>
-        </div>
         <Divider/>
         <div className='profile-content'>
-          <ProfileComponent {...props}/>
+          <ProfileComponent user={user} {...props}/>
         </div>
         <Divider/>
         <Footer />

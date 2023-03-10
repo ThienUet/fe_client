@@ -2,7 +2,7 @@ import axios from "axios";
 import * as Auth from '../storages/Auth';
 
 
-let BASE_PATH = 'http://103.162.20.167';
+let BASE_PATH = 'https://103.162.20.167';
 if (typeof window === undefined) {
     BASE_PATH = 'http://localhost:8888'
 }

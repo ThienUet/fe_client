@@ -1,0 +1,47 @@
+@import './variables.scss';
+.profile-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    .profile {
+        .left-profile {
+            margin-top: 10px;
+            border-right: 1px solid black;
+            .avatar-component {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .avatar {
+                    width: 250px;
+                    height: 250px;
+                    border: 3px solid $primary_color;
+                    border-radius: 100%;
+                    div {
+                        img {
+                            object-fit: cover;
+                            border-radius: 100%;
+                        }
+                        .ant-image-mask {
+                            border-radius: 100%;
+                        }
+                    }
+                }
+                .avatar-upload {
+                    margin-top: 10px;
+                }
+            }
+            .status {
+                text-align: center;
+                font-weight: bold;
+                
+                .active {
+                    color: #00FF08;
+                }
+                .banned {
+                    color: #FFB200;
+                }
+            }
+        }
+    }
+}
+

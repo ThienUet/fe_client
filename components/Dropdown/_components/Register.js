@@ -35,6 +35,7 @@ export default function RegisterIn({setOnLoginOpen, onRegisterOpen, setOnRegiste
             setLoading(false);
             setOnRegisterOpen(false);
         }).catch((error) => {
+            setLoading(false);
             notification.error({message: `Đăng ký không thành công ! Lỗi do ${error}`});
         })
     }
@@ -134,7 +135,7 @@ export default function RegisterIn({setOnLoginOpen, onRegisterOpen, setOnRegiste
                     <Checkbox onChange={(e) => {console.log(e.target.checked);setAcceptRule(e.target.checked)}}>Tôi đồng ý với điều khoản và quy định đặt ra</Checkbox>
                 </div>
                 <div className='log-reg-page-btn'>
-                    <Button disabled={!acceptRule} loading={loading} htmlType='submit'>{loading ? 'Vui lòng đợi': 'Đăng ký'}</Button>
+                    <Button disabled={!acceptRule} title={!acceptRule ? 'Bạn phải đồng ý với điều khoản của chúng tôi !': 'Đăng nhập vào ZeeHome'} loading={loading} htmlType='submit'>{loading ? 'Vui lòng đợi': 'Đăng ký'}</Button>
                 </div>
 
             </Form>
