@@ -13,11 +13,11 @@ import { getUser } from '@/services/common';
 
 
 const LayoutApp = ({Component, ...rest}) => {
-  const {user} = useUser();
+  const {user, refetch: userRefetch} = useUser();
   const router = useRouter();
   return (
     <>
-      <Component {...rest} user={user}/>
+      <Component {...rest} userRefetch={userRefetch} user={user}/>
     </>
   )
 }
