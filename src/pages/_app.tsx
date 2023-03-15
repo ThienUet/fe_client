@@ -9,11 +9,9 @@ import { useUser } from '../libs/auth-service';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { ConfigProvider } from 'antd';
 import PageLoader from '../components/loader';
-import { getUser } from '../services/common';
 
 const LayoutApp = ({ Component, ...rest }: { Component: any }) => {
   const { user } = useUser();
-  const router = useRouter();
   return (
     <>
       <Component {...rest} user={user} />

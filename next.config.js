@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol: 'http',
         hostname: 'int3509.s3.ap-southeast-1.amazonaws.com',
         port: '',
         pathname: '/account123/**',
