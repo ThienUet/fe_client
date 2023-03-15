@@ -3,14 +3,17 @@ import { Form, Modal, Input, Button, notification } from 'antd';
 import Link from 'next/link';
 import { Login } from '@/services/common';
 import * as Auth from '@/storages/Auth'; 
-export default function LoginIn({onLoginOpen, setOnLoginOpen, setOnRegisterOpen, router}) {
+export default function LoginIn({showText, onLoginOpen, setOnLoginOpen, setOnRegisterOpen, router}) {
     const [formLogin] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const callBackResult = (result) => {
         if (result) {
             if (router?.query?.next) {
                 window.location.replace(router?.query?.next);
-            } else {
+            } else if (router?.pathname !== '' && router?.pathname !== undefined) {
+                window.location.replace(router?.pathname);
+            }
+            else {
                 window.location.replace('/');
             }
         } else {
@@ -42,11 +45,10 @@ export default function LoginIn({onLoginOpen, setOnLoginOpen, setOnRegisterOpen,
     }
   return (
     <div>
-        <div className='modal-log-reg-title' onClick={() => {setOnLoginOpen(true); setOnRegisterOpen(false)}}>Đăng nhập</div>
+        <div className='modal-log-reg-title' onClick={() => {setOnLoginOpen(true); setOnRegisterOpen(false)}}>{showText && 'Đăng nhập'}</div>
         <Modal 
             open={onLoginOpen}
-            cancelText='Huỷ'
-            onCancel={() => {setOnLoginOpen(false)}}
+            onCancel={() => {setOnLoginOpen(false); window.location.replace('/')}}
             closable={true}
             footer={null}
             >
@@ -63,6 +65,7 @@ export default function LoginIn({onLoginOpen, setOnLoginOpen, setOnRegisterOpen,
                 scrollToFirstError
                 >
                 <div className='log-reg-page-title'>Đăng nhập</div>
+                <div className='log-reg-notice'>{!showText && 'Bạn phải đăng nhập trước !'}</div>
                 <Form.Item
                     label='Tài khoản'
                     name='username'
@@ -82,6 +85,9 @@ export default function LoginIn({onLoginOpen, setOnLoginOpen, setOnRegisterOpen,
                 </div>
                 <div className='log-reg-page-btn'>
                     <Button loading={loading} type='primary' htmlType='submit'>{loading ? 'Vui lòng đợi' : 'Đăng nhập'}</Button>
+                </div>
+                <div>
+                    Chưa có tài khoản ? <div>Đăng kí</div>
                 </div>
             </Form>
         </Modal>

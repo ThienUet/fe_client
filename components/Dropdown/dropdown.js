@@ -17,7 +17,7 @@ export default function Dropdown({data, router, user}) {
           <List.Item key={index}>
             {
               item.key === 'login' ? 
-              (<Login router={router} onLoginOpen={onLoginOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen} />) 
+              (<Login showText={true} router={router} onLoginOpen={onLoginOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen} />) 
               : 
               item.key === 'register' ?
               (<Register router={router} onRegisterOpen={onRegisterOpen} setOnLoginOpen={setOnLoginOpen} setOnRegisterOpen={setOnRegisterOpen} />) 
@@ -28,7 +28,7 @@ export default function Dropdown({data, router, user}) {
               item.key === 'link' ?
               (<Link className='header-dropdown-link' title={`Đi đến ${item.title}`} href={item.link}>{item.title}</Link>)
               :
-              (<div className='header-dropdown-link user-name-show' title={`Tài khoản của ${user.firstName} ${user.lastName} `}>{item.title}</div>)
+              (<div className='header-dropdown-link user-name-show' title={`Tài khoản của ${user?.firstName} ${user.lastName} `}>{item.title}</div>)
             }
           </List.Item>
         )}/>

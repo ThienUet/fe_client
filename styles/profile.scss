@@ -1,19 +1,25 @@
 @import './variables.scss';
 .profile-content {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto;
     .profile {
         .left-profile {
+            height: 590px;
             margin-top: 10px;
-            border-right: 1px solid black;
+            // box-shadow: 4px 4px 10px gray;
+            box-sizing: border-box;
+            padding: 20px 10px;
+            // border-top: 1px solid #D6DBDF;
+            // border-left: 1px solid #D6DBDF;
+            // border-radius: 20px 0px 0px 20px;
             .avatar-component {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 .avatar {
-                    width: 250px;
-                    height: 250px;
+                    width: 200px;
+                    height: 200px;
                     border: 3px solid $primary_color;
                     border-radius: 100%;
                     div {
@@ -40,6 +46,161 @@
                 .banned {
                     color: #FFB200;
                 }
+            }
+            .user-intro {
+                text-align: center;
+                font-size: 14px;
+                font-style: italic;
+                font-weight: bold;
+                margin-bottom: 10px;
+                margin-top: 10px;
+                .data {
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: normal;
+                    
+                }
+            }
+            .user-gender {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
+                font-style: italic;
+                font-weight: bold;
+                margin-bottom: 10px;
+                .data {
+                    margin-left: 5px;
+                    color: $primary_color;
+                    font-size: 16px;
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            }
+            .user-dateBirth {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
+                font-style: italic;
+                font-weight: bold;
+                margin-bottom: 10px;
+                .data {
+                    margin-left: 5px;
+                    color: $primary_color;
+                    font-size: 16px;
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            }
+            .user-balance {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-style: italic;
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                .data {
+                    margin-left: 5px;
+                    font-size: 20px;
+                    color: red;
+                    font-style: normal;
+                }
+            }
+            .user-rating {
+                text-align: center;
+                font-style: italic;
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                .data {
+                    margin-left: 5px;
+                    color: $primary_color;
+                }
+            }
+            .user-join-date {
+                display: flex;
+                justify-content: center;
+                font-style: italic;
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                align-items: center;
+                .data {
+                    margin-left: 5px;
+                    font-style: normal;
+                    font-weight: normal;
+                    color: $primary_color;
+                    font-size: 16px;
+                }
+            }
+        }
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        .right-profile {
+            padding-left: 20px;
+            padding-top: 30px;
+            .title {
+                font-size: 30px;
+                font-weight: bold;
+            }
+            .user-id {
+                display: flex;
+                align-items: center;
+                .ant-space-compact {
+                    width: 41% !important;
+                    input {
+                        margin-left: 10px;
+                        height: 30px;
+                        font-style: italic;
+                        user-select: none;
+                        border: 1px solid #D6DBDF;
+                    }
+                    button {
+                        height: 30px;
+                    }
+                }
+                
+            }
+            .user-info-profile {
+                .name, .gender, .birth-date, .email, .phone, .balance {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 10px;
+                    border: 1px solid #F4F7F7;
+                    box-shadow: 2px 2px 5px #AEB6BF;
+                    border-radius: 10px;
+                    padding: 5px 0px 5px 20px;
+                    &:hover {
+                        background-color: #D1F2EB;
+                    }
+                    .name-label, .gender-label, .birth-date-label, .email-label, .phone-label, .balance-label {
+                        width: 30%;
+                        font-size: 18px;
+                    }
+                    .name-value, .gender-value, .birth-date-value, .email-value, .phone-value, .balance-value {
+                        font-size: 18px;
+                        color: $primary_color;
+                    }
+                    .balance-value {
+                        color: red;
+                    }
+                }
+            }
+            .change-info-form {
+                .form-title {
+                    font-size: 20px;
+                    font-weight: bold;
+                    text-align: center;
+                }
+                .btn-confirm {
+                    display: flex;
+                    justify-content: center;
+                    button {
+                        
+                    }
+                }
+                
             }
         }
     }
