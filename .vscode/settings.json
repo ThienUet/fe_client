@@ -3,6 +3,7 @@
         "antd",
         "khoản",
         "Popconfirm",
-        "swiper"
+        "swiper",
+        "fullname"
     ]
 }

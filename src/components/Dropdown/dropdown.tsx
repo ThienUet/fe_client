@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
-import { List } from 'antd';
+import { List, Modal } from 'antd';
 import Link from 'next/link';
 import Login from './_components/Login';
 import Register from './_components/Register';
+import * as Auth from '@/storages/Auth';
 import Logout from './_components/Logout';
-export default function Dropdown({
-  data,
-  router,
-  user,
-  setDropDownOpen,
-}: {
-  data?: any;
-  router?: any;
-  user?: any;
-  setDropDownOpen?: any;
-}) {
+export default function Dropdown({ data, router, user }) {
   const [onLoginOpen, setOnLoginOpen] = useState(false);
   const [onRegisterOpen, setOnRegisterOpen] = useState(false);
   return (
@@ -22,10 +13,11 @@ export default function Dropdown({
       <List
         itemLayout='horizontal'
         dataSource={data}
-        renderItem={(item: any, index: number) => (
+        renderItem={(item, index) => (
           <List.Item key={index}>
             {item.key === 'login' ? (
               <Login
+                showText={true}
                 router={router}
                 onLoginOpen={onLoginOpen}
                 setOnLoginOpen={setOnLoginOpen}
@@ -51,7 +43,7 @@ export default function Dropdown({
             ) : (
               <div
                 className='header-dropdown-link user-name-show'
-                title={`Tài khoản của ${user.firstName} ${user.lastName} `}
+                title={`Tài khoản của ${user?.firstName} ${user.lastName} `}
               >
                 {item.title}
               </div>

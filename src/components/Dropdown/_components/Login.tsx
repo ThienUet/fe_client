@@ -3,23 +3,30 @@ import { Form, Modal, Input, Button, notification } from 'antd';
 import Link from 'next/link';
 import { Login } from '../../../services/common';
 import * as Auth from '../../../storages/Auth';
+
+interface Props {
+  showText?: any;
+  onLoginOpen?: any;
+  setOnLoginOpen?: any;
+  setOnRegisterOpen?: any;
+  router?: any;
+}
+
 export default function LoginIn({
+  showText,
   onLoginOpen,
   setOnLoginOpen,
   setOnRegisterOpen,
   router,
-}: {
-  onLoginOpen: any;
-  setOnLoginOpen: any;
-  setOnRegisterOpen: any;
-  router: any;
-}) {
+}: Props) {
   const [formLogin] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const callBackResult = (result) => {
     if (result) {
       if (router?.query?.next) {
         window.location.replace(router?.query?.next);
+      } else if (router?.pathname !== '' && router?.pathname !== undefined) {
+        window.location.replace(router?.pathname);
       } else {
         window.location.replace('/');
       }
@@ -66,13 +73,13 @@ export default function LoginIn({
           setOnRegisterOpen(false);
         }}
       >
-        Đăng nhập
+        {showText && 'Đăng nhập'}
       </div>
       <Modal
         open={onLoginOpen}
-        cancelText='Huỷ'
         onCancel={() => {
           setOnLoginOpen(false);
+          window.location.replace('/');
         }}
         closable={true}
         footer={null}
@@ -90,6 +97,7 @@ export default function LoginIn({
           scrollToFirstError
         >
           <div className='log-reg-page-title'>Đăng nhập</div>
+          <div className='log-reg-notice'>{!showText && 'Bạn phải đăng nhập trước !'}</div>
           <Form.Item
             label='Tài khoản'
             name='username'
@@ -113,6 +121,9 @@ export default function LoginIn({
             <Button loading={loading} type='primary' htmlType='submit'>
               {loading ? 'Vui lòng đợi' : 'Đăng nhập'}
             </Button>
+          </div>
+          <div>
+            Chưa có tài khoản ? <div>Đăng kí</div>
           </div>
         </Form>
       </Modal>

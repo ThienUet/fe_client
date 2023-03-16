@@ -3,6 +3,7 @@ import axiosOrigin from 'axios';
 // ALL USER API THROUGH WITH TOKEN
 export const getUser = async () =>
   await axios.get('/api/users/me/my-info').then((data) => data || null);
+export const updateUserInfo = async (body) => await axios.put('/api/users/me/my-info', body);
 
 //login+register => NO TOKEN
 export const Login = async (body) =>

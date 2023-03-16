@@ -10,11 +10,21 @@ import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query
 import { ConfigProvider } from 'antd';
 import PageLoader from '../components/loader';
 
+<<<<<<< HEAD:src/pages/_app.tsx
 const LayoutApp = ({ Component, ...rest }: { Component: any }) => {
   const { user } = useUser();
   return (
     <>
       <Component {...rest} user={user} />
+=======
+
+const LayoutApp = ({Component, ...rest}) => {
+  const {user, refetch: userRefetch} = useUser();
+  const router = useRouter();
+  return (
+    <>
+      <Component {...rest} userRefetch={userRefetch} user={user}/>
+>>>>>>> cf777c4d2385b7cbe94e38dafc02dd30d09e3108:pages/_app.js
     </>
   );
 };
