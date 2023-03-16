@@ -1,11 +1,10 @@
-import React from 'react'
-import dynamic from 'next/dynamic'
-import Head from 'next/head';
-const ProfilePage = dynamic(() => import('@/app/Account/Profile'), {ssr: false});
-export default function index(props) {
+import React from 'react';
+import dynamic from 'next/dynamic';
+const ProfilePage = dynamic(() => import('../../app/Account/Profile'), { ssr: false });
+export default function index(props: JSX.IntrinsicAttributes & { user: any; userRefetch: any }) {
   return (
     <div>
-        <ProfilePage {...props}/>
+      <ProfilePage {...props} />
     </div>
-  )
+  );
 }

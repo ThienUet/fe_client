@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Input, Select, DatePicker, notification, Checkbox } from 'antd';
 import { register } from '../../../services/common';
+import { checkVietNameseName, checkPhone, checkEmail } from '../../../helpers/validate';
 import moment from 'moment/moment';
 const optionGender = [
   { value: 'male', label: 'Nam' },
   { value: 'female', label: 'Nữ' },
 ];
 export default function RegisterIn({
+  router,
   setOnLoginOpen,
   onRegisterOpen,
   setOnRegisterOpen,
 }: {
+  router: any;
   setOnLoginOpen: any;
   onRegisterOpen: any;
   setOnRegisterOpen: any;
@@ -73,7 +76,7 @@ export default function RegisterIn({
             style={{ marginBottom: '5px' }}
             label='Họ đệm'
             name='first_name'
-            // rules={[{ validator: validateName }]}
+            rules={[{ validator: validateName }]}
           >
             <Input placeholder='ex: Nguyễn Văn' autoComplete='off' />
           </Form.Item>
@@ -81,7 +84,7 @@ export default function RegisterIn({
             style={{ marginBottom: '5px' }}
             label='Tên'
             name='last_name'
-            // rules={[{ validator: validateName }]}
+            rules={[{ validator: validateName }]}
           >
             <Input placeholder='ex: Tú, Linh, Loan,..' autoComplete='off' />
           </Form.Item>
@@ -89,7 +92,7 @@ export default function RegisterIn({
             style={{ marginBottom: '5px' }}
             label='Điện thoại'
             name='phone'
-            // rules={[{ validator: validatePhoneNumber }]}
+            rules={[{ validator: validatePhoneNumber }]}
           >
             <Input placeholder='Nhập số điện thoại của bạn' autoComplete='off' />
           </Form.Item>
@@ -97,7 +100,7 @@ export default function RegisterIn({
             style={{ marginBottom: '5px' }}
             label='Email'
             name='email'
-            // rules={[{ validator: validateEmail }]}
+            rules={[{ validator: validateEmail }]}
           >
             <Input placeholder='Nhập địa chỉ email của bạn' />
           </Form.Item>
@@ -121,7 +124,7 @@ export default function RegisterIn({
             style={{ marginBottom: '5px' }}
             label='Password'
             name='password'
-            // rules={[{ validator: validatePassword }]}
+            rules={[{ validator: validatePassword }]}
           >
             <Input.Password placeholder='Nhập mật khẩu của bạn' autoComplete='new-password' />
           </Form.Item>
@@ -176,3 +179,51 @@ export default function RegisterIn({
     </div>
   );
 }
+
+const validateName = (_, value) => {
+  if (value) {
+    if (!checkVietNameseName(value)) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject(new Error('Sai định dạng tên !'));
+    }
+  } else {
+    return Promise.reject(new Error('Không được để trống !'));
+  }
+};
+
+const validatePhoneNumber = (_, value) => {
+  if (value) {
+    if (!checkPhone(value)) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject(new Error('Sai số điện thoại !'));
+    }
+  } else {
+    return Promise.reject(new Error('Không được để trống !'));
+  }
+};
+
+const validateEmail = (_, value) => {
+  if (value) {
+    if (!checkEmail(value)) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject(new Error('Sai địa chỉ Email !'));
+    }
+  } else {
+    return Promise.reject(new Error('Không được để trống !'));
+  }
+};
+
+const validatePassword = (_, value) => {
+  if (value) {
+    if (value.length < 8) {
+      return Promise.reject(new Error('Mật khẩu phải lớn hơn 8 kí tự !'));
+    } else {
+      return Promise.resolve();
+    }
+  } else {
+    return Promise.reject(new Error('Không được để trống mật khẩu !'));
+  }
+};

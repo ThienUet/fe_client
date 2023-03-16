@@ -17,7 +17,7 @@ const getList = async (params: HouseListParams) => {
 export const useGetHouseList = (params: HouseListParams) => {
   const option = {
     retry: 1,
-    onError: (err) => {
+    onError: (err: any) => {
       console.log(err);
     },
   };

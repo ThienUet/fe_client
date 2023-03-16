@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { List, Modal } from 'antd';
+import { List } from 'antd';
 import Link from 'next/link';
 import Login from './_components/Login';
 import Register from './_components/Register';
-import * as Auth from '@/storages/Auth';
 import Logout from './_components/Logout';
-export default function Dropdown({ data, router, user }) {
+
+interface Props {
+  data: any;
+  router: any;
+  user: any;
+}
+
+export default function Dropdown(props: Props) {
+  const { data, router, user } = props;
   const [onLoginOpen, setOnLoginOpen] = useState(false);
   const [onRegisterOpen, setOnRegisterOpen] = useState(false);
   return (
@@ -13,8 +20,8 @@ export default function Dropdown({ data, router, user }) {
       <List
         itemLayout='horizontal'
         dataSource={data}
-        renderItem={(item, index) => (
-          <List.Item key={index}>
+        renderItem={(item: any) => (
+          <List.Item>
             {item.key === 'login' ? (
               <Login
                 showText={true}
