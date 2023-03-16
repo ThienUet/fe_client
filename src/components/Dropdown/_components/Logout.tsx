@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popconfirm, Button } from 'antd';
+import { Popconfirm } from 'antd';
 import * as Auth from '../../../storages/Auth';
 export default function Logout({ title }: { title: any }) {
   const onLogout = () => {
