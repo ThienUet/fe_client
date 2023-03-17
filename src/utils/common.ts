@@ -30,6 +30,7 @@ const uploadApi = (file: any, fileType: any) => {
       formData.append('GUID', guidValue);
       formData.append('file', file);
       formData.append('file_type', fileType);
+      console.log(formData);
       const res = await axiosUtlis._post('api/file', formData, {
         'Content-Type': 'multipart/form-data',
       });

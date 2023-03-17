@@ -27,7 +27,7 @@ const Test = () => {
           <CustomUploadFiles type='image' />
         </Form.Item>
         <Form.Item name='thumbnail'>
-          <CustomUploadFile type='image'></CustomUploadFile>
+          <CustomUploadFile type='video'></CustomUploadFile>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 0, span: 16 }}>
           <Button type='primary' htmlType='submit'>
