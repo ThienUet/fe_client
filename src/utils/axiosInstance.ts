@@ -24,14 +24,12 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (err) => {
-    console.log(err, 'error in axios request');
     Promise.reject(err);
   },
 );
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response);
     return response?.data;
   },
   (err) => {
@@ -46,48 +44,48 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-// const _get = <Reqtype, ResType>(
-//   url: string,
-//   params?: Reqtype,
-//   customHeaders?: any,
-// ): Promise<ResType> => {
-//   return axiosInstance.get(url, { params, headers: customHeaders });
-// };
+const _get = <Reqtype, ResType>(
+  url: string,
+  params?: Reqtype,
+  customHeaders?: any,
+): Promise<ResType> => {
+  return axiosInstance.get(url, { params, headers: customHeaders });
+};
 
-// const _post = <Reqtype, ResType>(
-//   url: string,
-//   data: Reqtype,
-//   customHeaders?: any,
-// ): Promise<ResType> => {
-//   return axiosInstance.post(url, data, { headers: customHeaders });
-// };
+const _post = <Reqtype, ResType>(
+  url: string,
+  data: Reqtype,
+  customHeaders?: any,
+): Promise<ResType> => {
+  return axiosInstance.post(url, data, { headers: customHeaders });
+};
 
-// async function _put<Reqtype, ResType>(
-//   url: string,
-//   data: Reqtype,
-//   customHeaders?: any,
-// ): Promise<ResType> {
-//   return axiosInstance.put(url, data, { headers: customHeaders });
-// }
+async function _put<Reqtype, ResType>(
+  url: string,
+  data: Reqtype,
+  customHeaders?: any,
+): Promise<ResType> {
+  return axiosInstance.put(url, data, { headers: customHeaders });
+}
 
-// async function _delete<Reqtype, Restype>(
-//   url: string,
-//   params?: Reqtype,
-//   customHeaders?: any,
-// ): Promise<Restype> {
-//   return axiosInstance.delete(url, { params, headers: customHeaders });
-// }
+async function _delete<Reqtype, Restype>(
+  url: string,
+  params?: Reqtype,
+  customHeaders?: any,
+): Promise<Restype> {
+  return axiosInstance.delete(url, { params, headers: customHeaders });
+}
 
-// async function f_delete<Reqtype, Restype>(
-//   url: string,
-//   data?: Reqtype,
-//   customHeaders?: any,
-// ): Promise<Restype> {
-//   return axiosInstance.delete(url, { data: data, headers: customHeaders });
-// }
+async function f_delete<Reqtype, Restype>(
+  url: string,
+  data?: Reqtype,
+  customHeaders?: any,
+): Promise<Restype> {
+  return axiosInstance.delete(url, { data: data, headers: customHeaders });
+}
 
-// const axiosUtlis = { _post, _put, _get, _delete, f_delete };
+const axiosUtlis = { _post, _put, _get, _delete, f_delete };
 
-// export { axiosUtlis };
+export { axiosUtlis };
 
 export default axiosInstance;
