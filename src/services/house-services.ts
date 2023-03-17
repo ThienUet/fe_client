@@ -1,4 +1,5 @@
 import axiosInstance from '../utils/axiosInstance';
+import axios from 'axios';
 
 export interface HouseListParams {
   queryFor: 'map' | 'normal';
@@ -35,12 +36,6 @@ export interface HouseListParams {
   sortOrder?: 'asc' | 'desc';
 }
 
-// export const getHouseList = async (params: HouseListParams) => {
-//   const data = await axiosUtlis._get<any, AxiosStatic>('api/houses', params);
-//   console.log(data);
-//   return data;
-// };
-
-export const getHouse = async (params: HouseListParams) => {
-  return await axiosInstance.get('/api/houses', { params: params }).then((data) => data || null);
+export const getList = async (params: HouseListParams) => {
+  return await axiosInstance.get('/api/houses', { params: params });
 };
