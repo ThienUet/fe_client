@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dropdown, Space, Avatar } from 'antd';
-import { SmileOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import Image from '../Image/CustomImage';
 import DropdownContent from '../Dropdown/dropdown';
-import Cookies from 'js-cookie';
 // customize header
-const headerObject = {
+interface headerObj {
+  navbarLeft: any;
+  navbarRight: any;
+  logoURL: any;
+}
+const headerObject: headerObj = {
   navbarLeft: [
     {
       title: 'Mua',
@@ -92,8 +95,6 @@ const headerObject = {
   logoURL: '/static/logo/logo.png',
 };
 
-const navStyle = ['origin', 'logo_center', 'no-logo'];
-
 interface Props {
   router?: any;
   user?: any;
@@ -103,11 +104,11 @@ export default function Header({ router, user }: Props) {
   if (user) {
     headerObject.navbarRight.pop();
     headerObject.navbarRight.push({
-      // title: <Avatar src={user.image} />,
+      title: <Avatar src={user.image} />,
       data: [
-        // {
-        //   title: `${user.firstName} ${user.lastName}`,
-        // },
+        {
+          title: `${user.firstName} ${user.lastName}`,
+        },
         {
           title: 'Thông báo',
           key: 'link',
@@ -123,13 +124,8 @@ export default function Header({ router, user }: Props) {
           key: 'logout',
         },
       ],
-      title: 'This is title',
-      key: 'This is key',
     });
   }
-
-  const [dropDownOpen, setDropDownOpen] = useState();
-
   return (
     <div className='container app-header'>
       <div className='row'>
@@ -176,11 +172,7 @@ export default function Header({ router, user }: Props) {
                   <Dropdown
                     placement='bottom'
                     dropdownRender={() => (
-                      <DropdownContent
-                        user={user}
-                        setDropDownOpen={setDropDownOpen}
-                        data={item.data}
-                      />
+                      <DropdownContent user={user} router={router} data={item.data} />
                     )}
                   >
                     <Space>

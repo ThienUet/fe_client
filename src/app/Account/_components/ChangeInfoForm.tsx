@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Input, DatePicker, Select, notification } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import moment from 'moment';
 import { useMutation } from '@tanstack/react-query';
 import { updateUserInfo } from '../../../services/common';
 import { checkPhone } from '../../../helpers/validate';
@@ -35,7 +34,7 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
     userRefetch();
   };
 
-  const onError = (error) => {
+  const onError = (error: any) => {
     notification.error({ message: `Cập nhật thông tin thất bại ! Do lỗi ${error?.exMessage}` });
     console.log(error);
   };
@@ -119,7 +118,7 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
   );
 }
 
-const validatePhoneNumber = (_, value) => {
+const validatePhoneNumber = (_: any, value: any) => {
   if (value) {
     if (!checkPhone(value)) {
       return Promise.resolve();

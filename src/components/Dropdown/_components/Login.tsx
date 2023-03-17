@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Modal, Input, Button, notification } from 'antd';
 import Link from 'next/link';
 import { Login } from '../../../services/common';
@@ -131,7 +131,7 @@ export default function LoginIn({
   );
 }
 
-const validateNotNull = (_, value) => {
+const validateNotNull = (_: any, value: any) => {
   if (value) {
     return Promise.resolve();
   } else {
