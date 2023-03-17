@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as Auth from '../storages/Auth';
 
-const BASE_PATH = 'http://103.162.20.167';
+const BASE_PATH = 'https://huydt.online/';
 
 const axiosInstance = axios.create({
   baseURL: BASE_PATH,

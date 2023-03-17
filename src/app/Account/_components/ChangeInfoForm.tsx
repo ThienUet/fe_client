@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Form, Button, Input, DatePicker, Select, notification } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useMutation } from '@tanstack/react-query';
@@ -39,7 +39,7 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
     console.log(error);
   };
 
-  const { mutate, isLoading: loading } = useMutation({
+  const { mutate } = useMutation({
     onError: onError,
     onSuccess: onSuccess,
     mutationFn: (body) => updateUserInfo(body),

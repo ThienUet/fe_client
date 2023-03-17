@@ -46,7 +46,7 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
       <Hydrate state={pageProps.dehydratedState}>
         <ConfigProvider>
           {loading ? (
-            <PageLoader showText={true} />
+            <PageLoader showText={true} text={'Vui lòng chờ...'} />
           ) : (
             <LayoutApp {...pageProps} Component={Component} />
           )}

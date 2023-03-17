@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { AutoComplete, Input } from 'antd';
-const mockVal = (str, repeat = 1) => ({
+
+const mockVal = (str: string, repeat = 1) => ({
   value: str.repeat(repeat),
 });
-export default function Search() {
-  const [value, setValue] = useState();
-  const [options, setOptions] = useState();
-  const getPanelValue = (searchText) =>
+
+const Search: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [value, setValue] = React.useState();
+  const [options, setOptions] = useState<{ value: string }[]>([]);
+  const getPanelValue = (searchText: string) =>
     !searchText ? [] : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)];
 
-  const onSelect = (data) => {
+  const onSelect = (data: any) => {
     console.log('onSelect', data);
   };
 
-  const onChange = (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onChange = (data: any) => {
     setValue(data);
   };
 
@@ -25,7 +29,7 @@ export default function Search() {
           width: 500,
         }}
         onSelect={onSelect}
-        onSearch={(text) => setOptions(getPanelValue(text))}
+        onSearch={(text: string) => setOptions(getPanelValue(text))}
       >
         <Input.Search
           size='large'
@@ -35,4 +39,6 @@ export default function Search() {
       </AutoComplete>
     </div>
   );
-}
+};
+
+export default Search;

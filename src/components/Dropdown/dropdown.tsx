@@ -32,7 +32,6 @@ export default function Dropdown(props: Props) {
               />
             ) : item.key === 'register' ? (
               <Register
-                router={router}
                 onRegisterOpen={onRegisterOpen}
                 setOnLoginOpen={setOnLoginOpen}
                 setOnRegisterOpen={setOnRegisterOpen}

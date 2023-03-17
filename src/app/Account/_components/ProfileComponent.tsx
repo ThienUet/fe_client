@@ -1,8 +1,6 @@
-import LoginIn from '../../../components/Dropdown/_components/Login';
-import { Avatar, Upload, Button, Image, Rate, Tabs, Input, Space, notification } from 'antd';
+import { Upload, Button, Image, Rate, Input, Space, notification } from 'antd';
 import moment from 'moment';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import TabsRight from './TabsRight';
 
 export default function ProfileComponent({ user, userRefetch }: { user: any; userRefetch: any }) {

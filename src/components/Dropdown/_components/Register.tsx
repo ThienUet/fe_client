@@ -8,12 +8,10 @@ const optionGender = [
   { value: 'female', label: 'Nữ' },
 ];
 export default function RegisterIn({
-  router,
   setOnLoginOpen,
   onRegisterOpen,
   setOnRegisterOpen,
 }: {
-  router: any;
   setOnLoginOpen: any;
   onRegisterOpen: any;
   setOnRegisterOpen: any;
