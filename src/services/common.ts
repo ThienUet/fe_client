@@ -8,11 +8,11 @@ export const updateUserInfo = async (body) => await axios.put('/api/users/me/my-
 //login+register => NO TOKEN
 export const Login = async (body: any) =>
   await axiosOrigin.post(
-    'https://huydt.online/auth/realms/nhatrotot/protocol/openid-connect/token',
+    'http://103.162.20.167:8099/realms/nhatrotot/protocol/openid-connect/token',
     body,
     { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
   );
-export const register = async (body: any) =>
-  await axiosOrigin.post('https://huydt.online/api/auth/signup', body, {
+export const register = async (body) =>
+  await axiosOrigin.post('http://103.162.20.167/api/auth/signup', body, {
     headers: { 'Content-Type': 'application/json' },
   });

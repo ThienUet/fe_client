@@ -8,6 +8,7 @@ import { Drawer } from 'antd';
 import { queryName } from 'utils/query-const';
 import { useQuery } from '@tanstack/react-query';
 import { useGetHouseList } from 'libs/house-service';
+import HouseList from 'components/google-map/house-list';
 
 const House: NextPage = () => {
   const libraries = useMemo(() => ['places'], []);
@@ -27,13 +28,14 @@ const House: NextPage = () => {
     lng: 85.31184012689732,
   });
 
-  const { data } = useGetHouseList({
+  const { data, isLoading, refetch } = useGetHouseList({
     queryFor: 'map',
     queryType: 'distance',
     distance: 10,
     // lat: 21.027964, lng: 105.8510132
     mapPoint: '105.8510132,21.027964',
   });
+  console.log(data);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAT-29Vo1xQZU4nCKMCgvKfRivVJ2KkHhU',
@@ -77,8 +79,9 @@ const House: NextPage = () => {
           getContainer={false}
           maskClosable={false}
           mask={false}
+          width={'40vw'}
         >
-          <p>Some contents...</p>
+          <HouseList houseList={data}></HouseList>
         </Drawer>
       </div>
     </div>
