@@ -1,32 +1,25 @@
-/* eslint-disable react/display-name */
 import React, { useRef, useState } from 'react';
 import { handleDeleteFile, handleUploadFile } from './../../../utils/common';
 import ReactPlayer from 'react-player';
 import { Button } from 'antd';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+interface fileDir {
+  fileKey: string;
+  fileUrl: string;
+}
 
 interface Props {
   style?: any;
-  name?: string;
   maxFileSize?: any;
   onChange?: any;
   type: 'image' | 'audio' | 'video';
-  preId?: string;
-  label: string;
-  value?: any;
   previewStyle?: any;
+  value?: fileDir;
 }
 
-const CustomUploadFile = ({
-  style,
-  name,
-  onChange,
-  type,
-  preId,
-  maxFileSize,
-  label,
-  value,
-  previewStyle,
-}: Props) => {
+const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, value }: Props) => {
   const fileAccept = () => {
     switch (type) {
       case 'image':
@@ -84,33 +77,27 @@ const CustomUploadFile = ({
       setLoading(true);
       const fileUploaded = await handleUploadFile(newFile, type, String(maxFileSize));
       onChange({
-        [name]: {
-          fileKey: fileUploaded.data,
-          fileUrl: fileUploaded.data,
-        },
+        fileKey: fileUploaded,
+        fileUrl: fileUploaded,
       });
     } catch (err) {
       onChange({
-        [name]: {
-          fileKey: '',
-          fileUrl: '',
-        },
+        fileKey: '',
+        fileUrl: '',
       });
     }
   };
 
-  const handleClickDelete = async (fileKey: string | number) => {
+  const handleClickDelete = async () => {
+    const fileKey = value.fileKey;
+    onChange({
+      fileKey: '',
+      fileUrl: '',
+    });
     try {
       await handleDeleteFile(fileKey);
-      onChange({
-        [name]: {
-          fileKey: '',
-          fileUrl: '',
-        },
-      });
     } catch (err: any) {
-      console.log(err);
-      setErr(err);
+      // console.log(err);
     }
   };
 
@@ -118,8 +105,9 @@ const CustomUploadFile = ({
     uploadInputRef?.current?.click();
   };
 
-  const renderFileItem = () => {
-    return (
+  return (
+    <div style={style}>
+      {' '}
       <div
         style={{
           border: `1px solid ${err ? '#d32f2f' : 'rgb(240, 240, 240)'}`,
@@ -150,12 +138,12 @@ const CustomUploadFile = ({
                   top: 4,
                   right: 4,
                   zIndex: 999999,
-                  backgroundColor: 'white',
                   padding: 0.5,
                 }}
-                onClick={() => handleClickDelete(value.fileKey)}
+                onClick={() => handleClickDelete()}
+                shape='circle'
               >
-                {/* <DeleteOutlineIcon sx={{ fontSize: '1.1rem' }} /> */}
+                <FontAwesomeIcon icon={faTrashCan} />
               </Button>
               {renderPreview(value.fileUrl)}
             </div>
@@ -165,28 +153,16 @@ const CustomUploadFile = ({
         <div style={{ marginTop: '32px' }}>
           <input
             style={{ display: 'none' }}
-            name={name}
             type='file'
             onChange={(e) => handleInputOnChange(e)}
             onClick={(e: any) => (e.target.value = null)}
-            id={`${preId}_${name}`}
+            id={`image_upload`}
             accept={fileAccept()}
             ref={uploadInputRef}
           ></input>
-          <Button onClick={() => handleClickUpload()}>
-            {/* <UploadFileIcon></UploadFileIcon> */}
-            upload file
-          </Button>
+          <Button onClick={() => handleClickUpload()}>upload file</Button>
         </div>
       </div>
-    );
-  };
-
-  return (
-    <div style={style}>
-      <p style={{ color: 'black' }}>{label}</p>
-      {renderFileItem()}
-      <p id='my-helper-text'>{err}</p>
     </div>
   );
 };

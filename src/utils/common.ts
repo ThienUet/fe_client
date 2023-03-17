@@ -18,7 +18,6 @@ const uploadApi = (file: any, fileType: any) => {
       progress.addEventListener('progress', (event: any) => {
         const result = JSON.parse(event.data);
         if (result === '100') {
-          console.log('100');
           progress.close();
         }
         progress.addEventListener('complete', (event: any) => {

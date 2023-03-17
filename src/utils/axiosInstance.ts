@@ -17,9 +17,6 @@ axiosInstance.interceptors.request.use(
     const token = Auth.getToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      config.headers['Content-Type'] = 'application/json';
-    } else if (publicUrl.includes(config.url)) {
-      config.headers['Content-Type'] = 'application/json';
     }
     return config;
   },
