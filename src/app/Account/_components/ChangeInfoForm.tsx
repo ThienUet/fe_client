@@ -39,7 +39,7 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
     console.log(error);
   };
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading: loading } = useMutation({
     onError: onError,
     onSuccess: onSuccess,
     mutationFn: (body) => updateUserInfo(body),
@@ -70,7 +70,7 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
             title: 'Không thay đổi vì chính sách của ZeeHome, Hãy liên hệ quản trị viên !',
           }}
         >
-          <Input disabled={true} />
+          <Input />
         </Form.Item>
         <Form.Item
           label='Tên'
@@ -79,7 +79,7 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
             title: 'Không thay đổi vì chính sách của ZeeHome, Hãy liên hệ quản trị viên !',
           }}
         >
-          <Input disabled={true} />
+          <Input />
         </Form.Item>
         <Form.Item label='Ngày sinh' name='birthDate'>
           <DatePicker placeholder={user?.birthDate} style={{ width: '100%' }} />
@@ -111,7 +111,9 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
           <TextArea rows={6} showCount maxLength={255} />
         </Form.Item>
         <div className='btn-confirm'>
-          <Button htmlType='submit'>Xác nhận</Button>
+          <Button loading={loading} htmlType='submit'>
+            Xác nhận
+          </Button>
         </div>
       </Form>
     </div>

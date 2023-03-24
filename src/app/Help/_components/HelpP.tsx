@@ -30,13 +30,13 @@ export default function HelpP() {
 
         <li className='blocks-item'>
           <a href='' className='blocks-item-link'>
-            <span className='blocks-item-title'>Cách tạo tài khoản người dùng & Sale</span>
+            <span className='blocks-item-title'>Khi nào liên hệ quản trị viên</span>
           </a>
         </li>
 
         <li className='blocks-item'>
           <a href='' className='blocks-item-link'>
-            <span className='blocks-item-title'>Mua nhà như thế nào</span>
+            <span className='blocks-item-title'>Khi nào liên hệ nhân viên tư vấn ?</span>
           </a>
         </li>
 
@@ -60,7 +60,7 @@ export default function HelpP() {
 
         <li className='blocks-item'>
           <a href='' className='blocks-item-link'>
-            <span className='blocks-item-title'>Cách tìm bạn trọ ghép </span>
+            <span className='blocks-item-title'>Mua nhà như thế nào</span>
           </a>
         </li>
 

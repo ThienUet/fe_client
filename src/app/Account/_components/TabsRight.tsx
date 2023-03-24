@@ -3,7 +3,7 @@ import { Tabs } from 'antd';
 import ChangeInfoForm from './ChangeInfoForm';
 import UpgradeService from './UpgradeService';
 import UserView from './UserView';
-
+import PaymentHistory from './PaymentHistory';
 export default function TabsRight({ user, userRefetch }: { user: any; userRefetch: any }) {
   const items = [
     {
@@ -19,11 +19,11 @@ export default function TabsRight({ user, userRefetch }: { user: any; userRefetc
     {
       key: '3',
       label: `Lịch sử thanh toán`,
-      children: <UpgradeService />,
+      children: <PaymentHistory data={user} />,
     },
     {
       key: '4',
-      label: `Cài đặt`,
+      label: `Dịch vụ`,
       children: <UpgradeService />,
     },
   ];

@@ -55,11 +55,10 @@ const headerObject: headerObj = {
     {
       title: 'Trợ giúp',
       link: 'help',
-      key: 'link',
       data: [
+        { title: 'Câu hỏi thường gặp', link: '/help', key: 'link' },
         { title: 'Liên hệ quản trị viên', link: '#', key: 'link' },
-        { title: 'Liên hệ nhân viên tư vấn', link: '#', key: 'link' },
-        { title: 'Liên hệ abcxyz', link: '#', key: 'link' },
+        { title: 'Liên hệ nhân viên tư vấn', link: '#', key: 'link' }
       ],
     },
     {
@@ -76,11 +75,7 @@ const headerObject: headerObj = {
       title: 'Quản lý',
       link: '#',
       key: 'link',
-      data: [
-        { title: 'Quản lý', link: '#', key: 'link' },
-        { title: 'Quản lý', link: '#', key: 'link' },
-        { title: 'Quản lý', link: '#', key: 'link' },
-      ],
+      data: [{ title: 'Quản lý đăng tin', link: '/account/service-manager', key: 'link' }],
     },
     {
       title: 'Tài khoản',

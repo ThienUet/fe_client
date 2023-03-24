@@ -1,8 +1,8 @@
-import { Upload, Button, Image, Rate, Input, Space, notification } from 'antd';
+import { Button, Image, Rate, Input, Space, notification } from 'antd';
 import moment from 'moment';
 import React from 'react';
 import TabsRight from './TabsRight';
-
+import UploadAvatar from './UploadAvatar';
 export default function ProfileComponent({ user, userRefetch }: { user: any; userRefetch: any }) {
   return (
     <React.StrictMode>
@@ -20,9 +20,7 @@ export default function ProfileComponent({ user, userRefetch }: { user: any; use
                 />
               </div>
               <div className='avatar-upload'>
-                <Upload>
-                  <Button>Sửa ảnh</Button>
-                </Upload>
+                <UploadAvatar user={user} userRefetch={userRefetch} />
               </div>
             </div>
             <div className='status'>
@@ -67,10 +65,10 @@ export default function ProfileComponent({ user, userRefetch }: { user: any; use
               {user?.firstName} {user?.lastName}
             </div>
             <div className='user-id'>
-              ID:
+              Email:
               <Space.Compact style={{ width: '100%' }}>
                 <Input
-                  value={user?.userId}
+                  value={user?.email}
                   readOnly
                   onCopy={(e) => {
                     e.preventDefault();

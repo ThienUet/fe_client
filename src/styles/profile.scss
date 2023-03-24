@@ -138,8 +138,7 @@
         }
         // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         .right-profile {
-            padding-left: 20px;
-            padding-top: 30px;
+            padding-top: 25px;
             .title {
                 font-size: 30px;
                 font-weight: bold;
@@ -147,14 +146,20 @@
             .user-id {
                 display: flex;
                 align-items: center;
+                width: 300px;
                 .ant-space-compact {
-                    width: 41% !important;
                     input {
                         margin-left: 10px;
                         height: 30px;
                         font-style: italic;
-                        user-select: none;
+                        user-select: none !important;
                         border: 1px solid #D6DBDF;
+                        user-select: none;
+                        -moz-user-select: none;
+                        -khtml-user-select: none;
+                        -webkit-user-select: none;
+                        -o-user-select: none;
+                        pointer-events: none;
                     }
                     button {
                         height: 30px;
@@ -206,3 +211,12 @@
     }
 }
 
+
+.upgrade-services{
+    .service-title {
+        font-size: 16px;
+        display: block;
+        text-align: center;
+        font-weight: bold;
+    }
+}

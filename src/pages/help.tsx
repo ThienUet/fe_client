@@ -8,7 +8,7 @@ const Help = (props: any) => {
   return (
     <>
       <Head>
-        <title>Liên hệ</title>
+        <title>Câu hỏi thường gặp</title>
       </Head>
       <div className='main-app'>
         <HelpPage />

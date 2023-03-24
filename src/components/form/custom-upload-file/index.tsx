@@ -160,7 +160,7 @@ const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, va
             accept={fileAccept()}
             ref={uploadInputRef}
           ></input>
-          <Button onClick={() => handleClickUpload()}>upload file</Button>
+          <Button onClick={() => handleClickUpload()}>Tải ảnh lên</Button>
         </div>
       </div>
     </div>

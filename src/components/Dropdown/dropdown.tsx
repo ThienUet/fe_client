@@ -49,7 +49,7 @@ export default function Dropdown(props: Props) {
             ) : (
               <div
                 className='header-dropdown-link user-name-show'
-                title={`Tài khoản của ${user?.firstName} ${user.lastName} `}
+                title={`Tài khoản của ${user?.firstName} ${user?.lastName} `}
               >
                 {item.title}
               </div>
