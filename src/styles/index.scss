@@ -44,6 +44,10 @@ a {
     cursor: url('/static/cursor/link.png'), auto !important;
 }
 
-input:hover {
-   
+.btn-cancel {
+    background-color: $alert-color;
+    &:hover {
+        background-color: $alert-color !important;
+        border: none !important;
+    }
 }

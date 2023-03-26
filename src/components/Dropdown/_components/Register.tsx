@@ -164,12 +164,14 @@ export default function RegisterIn({
               title={
                 !acceptRule
                   ? 'Bạn phải đồng ý với điều khoản của chúng tôi !'
-                  : 'Đăng nhập vào ZeeHome'
+                  : loading
+                  ? 'Vui lòng đợi'
+                  : 'Đăng ký vào ZeeHome'
               }
               loading={loading}
               htmlType='submit'
             >
-              {loading ? 'Vui lòng đợi' : 'Đăng ký'}
+              {loading ? '' : 'Đăng ký'}
             </Button>
           </div>
         </Form>

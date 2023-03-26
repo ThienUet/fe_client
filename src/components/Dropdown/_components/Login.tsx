@@ -119,7 +119,7 @@ export default function LoginIn({
           </div>
           <div className='log-reg-page-btn'>
             <Button loading={loading} type='primary' htmlType='submit'>
-              {loading ? 'Vui lòng đợi' : 'Đăng nhập'}
+              {loading ? '' : 'Đăng nhập'}
             </Button>
           </div>
           <div>

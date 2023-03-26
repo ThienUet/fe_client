@@ -12,7 +12,6 @@ interface Props {
 const UploadAvatar = (props: Props) => {
   const { user } = props;
   const { userRefetch } = props;
-  console.log(user);
   const [onOpen, setOnOpen] = useState(false);
   const [formUpload] = Form.useForm();
   const onSuccess = () => {
@@ -35,7 +34,7 @@ const UploadAvatar = (props: Props) => {
 
   const onSubmit = () => {
     const value = formUpload.getFieldsValue();
-    const newBody = {
+    const newBody: any = {
       gender: user.gender || '',
       phoneNumber: user.phoneNumber || '',
       intro: user.intro || '',
