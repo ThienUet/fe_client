@@ -58,7 +58,7 @@ const headerObject: headerObj = {
       data: [
         { title: 'Câu hỏi thường gặp', link: '/help', key: 'link' },
         { title: 'Liên hệ quản trị viên', link: '#', key: 'link' },
-        { title: 'Liên hệ nhân viên tư vấn', link: '#', key: 'link' }
+        { title: 'Liên hệ nhân viên tư vấn', link: '#', key: 'link' },
       ],
     },
     {
@@ -136,8 +136,8 @@ export default function Header({ router, user }: Props) {
                     )}
                   >
                     <Space>
-                      <Link className='app-header-link' href={item.link}>
-                        {item.title}
+                      <Link legacyBehavior className='app-header-link' href={item.link}>
+                        <a>{item.title}</a>
                       </Link>
                     </Space>
                   </Dropdown>
@@ -149,13 +149,12 @@ export default function Header({ router, user }: Props) {
         <div className='col-2 col-sm-2 col-md-2 position-relative app-header-logo'>
           <div className='col-12'>
             <Link href={'/'}>
-              {' '}
               <Image
                 className={'logoHeaderImg'}
                 objectFit='contain'
                 src={headerObject.logoURL}
                 alt='LOGO'
-              />{' '}
+              />
             </Link>
           </div>
         </div>
@@ -172,8 +171,8 @@ export default function Header({ router, user }: Props) {
                   >
                     <Space>
                       {item.key === 'link' ? (
-                        <Link className='app-header-link' href={item.link}>
-                          {item.title}
+                        <Link legacyBehavior className='app-header-link' href={item.link}>
+                          <a>{item.title}</a>
                         </Link>
                       ) : (
                         <div className='app-header-link'>{item.title}</div>

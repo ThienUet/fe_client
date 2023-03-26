@@ -24,7 +24,7 @@ const UploadAvatar = (props: Props) => {
   };
   const onError = (error: any) => {
     notification.error({
-      message: `Cập nhật ảnh đại diện thất bại! Do ${error}`,
+      message: `Cập nhật ảnh đại diện thất bại! Do ${error?.exMessage}`,
     });
   };
   const { mutate, isLoading: loading } = useMutation({

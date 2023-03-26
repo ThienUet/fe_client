@@ -40,11 +40,13 @@ export default function Dropdown(props: Props) {
               <Logout title={item.title} />
             ) : item.key === 'link' ? (
               <Link
+                prefetch={true}
+                legacyBehavior
                 className='header-dropdown-link'
                 title={`Đi đến ${item.title}`}
                 href={item.link}
               >
-                {item.title}
+                <a>{item.title}</a>
               </Link>
             ) : (
               <div

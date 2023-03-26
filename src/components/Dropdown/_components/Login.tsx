@@ -28,7 +28,7 @@ export default function LoginIn({
       } else if (router?.pathname !== '' && router?.pathname !== undefined) {
         window.location.replace(router?.pathname);
       } else {
-        window.location.replace('/');
+        router.push('/');
       }
     } else {
       notification.error({ message: 'Đăng nhập thất bại !' });
