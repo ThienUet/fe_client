@@ -22,15 +22,7 @@ export default function Dropdown(props: Props) {
         dataSource={data}
         renderItem={(item: any) => (
           <List.Item>
-            {item.key === 'login' ? (
-              <Login
-                showText={true}
-                router={router}
-                onLoginOpen={onLoginOpen}
-                setOnLoginOpen={setOnLoginOpen}
-                setOnRegisterOpen={setOnRegisterOpen}
-              />
-            ) : item.key === 'register' ? (
+            {item.key === 'register' ? (
               <Register
                 onRegisterOpen={onRegisterOpen}
                 setOnLoginOpen={setOnLoginOpen}

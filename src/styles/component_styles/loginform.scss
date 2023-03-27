@@ -1,0 +1,54 @@
+@import '../variables.scss';
+.main-login-form {
+    background-image: url('/static/images/background-loginlogin.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    z-index: 500;
+    width: 100%;
+    height: 100% !important;
+    &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.4); 
+    }
+    .log-res-form {
+        position: absolute;
+        margin: 0 auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        background-color: white;
+        z-index: 99999;
+        border-radius: 5px;
+        padding: 5px 25px 25px 25px;
+        .login-form {
+            .ant-form {
+                .log-reg-page-title {
+                    font-size: 20px;
+                    margin: 10px 0;
+                }
+                .log-reg-page-welcome {
+                    label{ 
+                        display: block;
+                        text-align: center;
+                        color: $primary_color;
+                    }
+                }
+                .ant-form-item {
+                    .ant-row {
+                        .ant-col{
+                            label {
+                                font-size: 15px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
