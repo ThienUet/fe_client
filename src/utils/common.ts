@@ -42,8 +42,13 @@ const uploadApi = (file: any, fileType: any) => {
 
 // get progress
 export const handleUploadFile = async (file: any, fileType: any, limit?: string): Promise<any> => {
-  const res = await uploadApi(file, fileType);
-  return res;
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const res = await uploadApi(file, fileType);
+    return res;
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const handleDeleteFile = async (fileKey: any): Promise<any> => {

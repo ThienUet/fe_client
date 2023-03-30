@@ -16,13 +16,15 @@
         background-color: rgba(0, 0, 0, 0.4); 
     }
     .log-res-form {
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
         position: absolute;
         margin: 0 auto;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 500px;
-        background-color: white;
+        background-color: rgba(223, 222, 237, 0.3);
         z-index: 99999;
         border-radius: 5px;
         padding: 5px 25px 25px 25px;
@@ -36,7 +38,7 @@
                     label{ 
                         display: block;
                         text-align: center;
-                        color: $primary_color;
+                        font-size: 20px;
                     }
                 }
                 .ant-form-item {

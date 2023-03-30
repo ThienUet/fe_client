@@ -4,6 +4,7 @@ import ReactPlayer from 'react-player';
 import { Button } from 'antd';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { log } from 'console';
 
 interface fileDir {
   fileKey: string;

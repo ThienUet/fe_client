@@ -1,16 +1,14 @@
 import { usePaymentHistory } from 'query/common';
 import React, { PropsWithChildren } from 'react';
 import moment from 'moment';
-import { Button, Popconfirm, Spin } from 'antd';
+import { Popconfirm, Spin } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import Loading from 'components/Loading/Loading';
 interface Props extends PropsWithChildren {
   formatter: any;
 }
 
 const PaymentHistory: React.FC<Props> = ({ formatter }) => {
-  const { data: payment, isLoading: loading, refetch }: any = usePaymentHistory();
-  console.log(payment);
+  const { data: payment, isLoading: loading }: any = usePaymentHistory();
   const payments = payment?.payments;
   return (
     <div className='view-payment'>
