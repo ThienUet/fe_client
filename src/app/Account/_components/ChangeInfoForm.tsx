@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Form, Button, Input, DatePicker, Select, notification } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useMutation } from '@tanstack/react-query';
@@ -70,7 +70,7 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
             title: 'Không thay đổi vì chính sách của ZeeHome, Hãy liên hệ quản trị viên !',
           }}
         >
-          <Input disabled={true} />
+          <Input />
         </Form.Item>
         <Form.Item
           label='Tên'
@@ -79,7 +79,7 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
             title: 'Không thay đổi vì chính sách của ZeeHome, Hãy liên hệ quản trị viên !',
           }}
         >
-          <Input disabled={true} />
+          <Input />
         </Form.Item>
         <Form.Item label='Ngày sinh' name='birthDate'>
           <DatePicker placeholder={user?.birthDate} style={{ width: '100%' }} />
@@ -111,7 +111,9 @@ export default function ChangeInfoForm({ user, userRefetch }: { user: any; userR
           <TextArea rows={6} showCount maxLength={255} />
         </Form.Item>
         <div className='btn-confirm'>
-          <Button htmlType='submit'>Xác nhận</Button>
+          <Button loading={loading} htmlType='submit'>
+            Xác nhận
+          </Button>
         </div>
       </Form>
     </div>

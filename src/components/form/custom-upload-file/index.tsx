@@ -4,6 +4,7 @@ import ReactPlayer from 'react-player';
 import { Button } from 'antd';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { log } from 'console';
 
 interface fileDir {
   fileKey: string;
@@ -155,7 +156,7 @@ const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, va
             accept={fileAccept()}
             ref={uploadInputRef}
           ></input>
-          <Button onClick={() => handleClickUpload()}>upload file</Button>
+          <Button onClick={() => handleClickUpload()}>Tải ảnh lên</Button>
         </div>
       </div>
     </div>

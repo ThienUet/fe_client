@@ -7,7 +7,11 @@ import ProfileComponent from './_components/ProfileComponent';
 import LoginIn from '../../components/Dropdown/_components/Login';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-export default function Profile({ user, userRefetch }: { user: any; userRefetch: any }) {
+interface Props {
+  user: any;
+  userRefetch: any;
+}
+export default function Profile({ user, userRefetch }: Props) {
   const router = useRouter();
   const [openLogin, setOpenLogin] = useState(false);
   useEffect(() => {

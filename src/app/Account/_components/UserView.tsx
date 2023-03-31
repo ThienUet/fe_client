@@ -1,8 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 
-export default function UserView({ user }: { user: any }) {
-  // console.log(user);
+export default function UserView({ formatter, user }: { formatter: any; user: any }) {
   return (
     <div className='user-info-profile'>
       <div className='name'>
@@ -28,8 +27,8 @@ export default function UserView({ user }: { user: any }) {
         <div className='phone-value'>{user?.phoneNumber}</div>
       </div>
       <div className='balance'>
-        <div className='balance-label'>Số dư tài khoản hiện có:</div>{' '}
-        <div className='balance-value'>{user?.balance} VND</div>
+        <div className='balance-label'>Số dư tài khoản hiện có:</div>
+        <div className='balance-value'>{formatter.format(user?.balance / 100)}</div>
       </div>
     </div>
   );

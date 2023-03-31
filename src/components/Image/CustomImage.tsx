@@ -10,15 +10,7 @@ interface Props {
   loading?: any;
 }
 
-export default function CustomImage({
-  src,
-  alt,
-  className,
-  objectFit,
-  fill,
-  loading,
-  ...rest
-}: Props) {
+export default function CustomImage({ src, alt, className, objectFit, fill, loading }: Props) {
   const _imgDefault = '/static/err_icon/err_load_image.png';
   return (
     <Image

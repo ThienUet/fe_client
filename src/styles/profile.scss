@@ -138,8 +138,7 @@
         }
         // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         .right-profile {
-            padding-left: 20px;
-            padding-top: 30px;
+            padding-top: 25px;
             .title {
                 font-size: 30px;
                 font-weight: bold;
@@ -147,14 +146,20 @@
             .user-id {
                 display: flex;
                 align-items: center;
+                width: 300px;
                 .ant-space-compact {
-                    width: 41% !important;
                     input {
                         margin-left: 10px;
                         height: 30px;
                         font-style: italic;
-                        user-select: none;
+                        user-select: none !important;
                         border: 1px solid #D6DBDF;
+                        user-select: none;
+                        -moz-user-select: none;
+                        -khtml-user-select: none;
+                        -webkit-user-select: none;
+                        -o-user-select: none;
+                        pointer-events: none;
                     }
                     button {
                         height: 30px;
@@ -206,3 +211,97 @@
     }
 }
 
+
+.upgrade-services{
+    .service-title {
+        font-size: 16px;
+        display: block;
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.wallet-form {
+    .wallet-form-component {
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            display: block;
+        }
+        .content {
+            .way {
+                label {
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+                p {
+                    font-style: italic;
+                    padding-left: 10px;
+                }
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
+        .ant-form-item {
+            .ant-row {
+                .ant-col {
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+                .ant-form-item-control-input {
+                    padding: 0 10px;
+                    .ant-form-item-control-input-content {
+                        .ant-radio-group {
+                            label {
+                                font-weight: normal !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .btn-submit-wallet {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+.view-payment {
+    .table {
+        .table-item {
+            &:hover {
+                background-color: $hover-item-table-color;
+            }
+            td {
+                &:nth-child(4) {
+                    font-weight: bold;
+                }
+                &:nth-child(6) {
+                    button {
+                        height: 25px;
+                        background-color: transparent !important;
+                        border: none !important;
+                        color: black;
+                        &:hover {
+                            color: black !important;
+                        }
+                        span {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.spin-loader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

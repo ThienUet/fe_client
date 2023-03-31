@@ -1,11 +1,20 @@
-import LoginIn from '../../../components/Dropdown/_components/Login';
-import { Avatar, Upload, Button, Image, Rate, Tabs, Input, Space, notification } from 'antd';
+import { Button, Image, Rate, Input, Space, notification } from 'antd';
 import moment from 'moment';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import TabsRight from './TabsRight';
-
-export default function ProfileComponent({ user, userRefetch }: { user: any; userRefetch: any }) {
+import UploadAvatar from './UploadAvatar';
+import { PropsWithChildren } from 'react';
+interface Props extends PropsWithChildren {
+  user: any;
+  userRefetch: any;
+}
+const ProfileComponent: React.FC<Props> = (props) => {
+  const { user } = props;
+  const { userRefetch } = props;
+  const formatter: any = new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  });
   return (
     <React.StrictMode>
       <div className='profile'>
@@ -22,9 +31,7 @@ export default function ProfileComponent({ user, userRefetch }: { user: any; use
                 />
               </div>
               <div className='avatar-upload'>
-                <Upload>
-                  <Button>Sửa ảnh</Button>
-                </Upload>
+                <UploadAvatar user={user} userRefetch={userRefetch} />
               </div>
             </div>
             <div className='status'>
@@ -51,7 +58,7 @@ export default function ProfileComponent({ user, userRefetch }: { user: any; use
             </div>
             <div className='user-balance'>
               Số dư:
-              <div className='data'>{user?.balance} VND</div>
+              <div className='data'>{formatter.format(user?.balance / 100)}</div>
             </div>
             <div className='user-rating'>
               Đánh giá:
@@ -69,10 +76,10 @@ export default function ProfileComponent({ user, userRefetch }: { user: any; use
               {user?.firstName} {user?.lastName}
             </div>
             <div className='user-id'>
-              ID:
+              Email:
               <Space.Compact style={{ width: '100%' }}>
                 <Input
-                  value={user?.userId}
+                  value={user?.email}
                   readOnly
                   onCopy={(e) => {
                     e.preventDefault();
@@ -91,10 +98,12 @@ export default function ProfileComponent({ user, userRefetch }: { user: any; use
                 </Button>
               </Space.Compact>
             </div>
-            <TabsRight userRefetch={userRefetch} user={user} />
+            <TabsRight formatter={formatter} userRefetch={userRefetch} user={user} />
           </div>
         </div>
       </div>
     </React.StrictMode>
   );
-}
+};
+
+export default ProfileComponent;

@@ -2,11 +2,12 @@ import * as Auth from './../storages/Auth';
 import { axiosUtlis } from './axiosInstance';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
+//Upload File
 const uploadApi = (file: any, fileType: any) => {
   return new Promise((resolve, reject) => {
     const formData = new FormData();
     const token = Auth.getToken();
-    const progress = new EventSourcePolyfill('http://103.162.20.167/api/progress', {
+    const progress = new EventSourcePolyfill('https://huydt.online/api/progress', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -38,10 +39,15 @@ const uploadApi = (file: any, fileType: any) => {
   });
 };
 
+// get progress
 export const handleUploadFile = async (file: any, fileType: any, limit?: string): Promise<any> => {
-  // get progress
-  const res = await uploadApi(file, fileType);
-  return res;
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const res = await uploadApi(file, fileType);
+    return res;
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const handleDeleteFile = async (fileKey: any): Promise<any> => {

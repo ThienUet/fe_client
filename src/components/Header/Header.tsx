@@ -55,11 +55,10 @@ const headerObject: headerObj = {
     {
       title: 'Trợ giúp',
       link: 'help',
-      key: 'link',
       data: [
+        { title: 'Câu hỏi thường gặp', link: '/help', key: 'link' },
         { title: 'Liên hệ quản trị viên', link: '#', key: 'link' },
         { title: 'Liên hệ nhân viên tư vấn', link: '#', key: 'link' },
-        { title: 'Liên hệ abcxyz', link: '#', key: 'link' },
       ],
     },
     {
@@ -76,17 +75,13 @@ const headerObject: headerObj = {
       title: 'Quản lý',
       link: '#',
       key: 'link',
-      data: [
-        { title: 'Quản lý', link: '#', key: 'link' },
-        { title: 'Quản lý', link: '#', key: 'link' },
-        { title: 'Quản lý', link: '#', key: 'link' },
-      ],
+      data: [{ title: 'Quản lý đăng tin', link: '/account/service-manager', key: 'link' }],
     },
     {
       title: 'Tài khoản',
       key: 'no-link',
       data: [
-        { title: 'Đăng nhập', key: 'login' },
+        { title: 'Đăng nhập', key: 'link', link: '/account/join_zee_home' },
         { title: 'Đăng ký', key: 'register' },
         { title: 'Administrator', key: 'link', link: '#' },
       ],
@@ -141,8 +136,8 @@ export default function Header({ router, user }: Props) {
                     )}
                   >
                     <Space>
-                      <Link className='app-header-link' href={item.link}>
-                        {item.title}
+                      <Link legacyBehavior className='app-header-link' href={item.link}>
+                        <a>{item.title}</a>
                       </Link>
                     </Space>
                   </Dropdown>
@@ -154,13 +149,12 @@ export default function Header({ router, user }: Props) {
         <div className='col-2 col-sm-2 col-md-2 position-relative app-header-logo'>
           <div className='col-12'>
             <Link href={'/'}>
-              {' '}
               <Image
                 className={'logoHeaderImg'}
                 objectFit='contain'
                 src={headerObject.logoURL}
                 alt='LOGO'
-              />{' '}
+              />
             </Link>
           </div>
         </div>
@@ -177,8 +171,8 @@ export default function Header({ router, user }: Props) {
                   >
                     <Space>
                       {item.key === 'link' ? (
-                        <Link className='app-header-link' href={item.link}>
-                          {item.title}
+                        <Link legacyBehavior className='app-header-link' href={item.link}>
+                          <a>{item.title}</a>
                         </Link>
                       ) : (
                         <div className='app-header-link'>{item.title}</div>

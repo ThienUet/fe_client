@@ -28,7 +28,7 @@ export default function LoginIn({
       } else if (router?.pathname !== '' && router?.pathname !== undefined) {
         window.location.replace(router?.pathname);
       } else {
-        window.location.replace('/');
+        router.push('/');
       }
     } else {
       notification.error({ message: 'Đăng nhập thất bại !' });
@@ -119,7 +119,7 @@ export default function LoginIn({
           </div>
           <div className='log-reg-page-btn'>
             <Button loading={loading} type='primary' htmlType='submit'>
-              {loading ? 'Vui lòng đợi' : 'Đăng nhập'}
+              {loading ? '' : 'Đăng nhập'}
             </Button>
           </div>
           <div>

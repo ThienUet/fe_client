@@ -22,17 +22,8 @@ export default function Dropdown(props: Props) {
         dataSource={data}
         renderItem={(item: any) => (
           <List.Item>
-            {item.key === 'login' ? (
-              <Login
-                showText={true}
-                router={router}
-                onLoginOpen={onLoginOpen}
-                setOnLoginOpen={setOnLoginOpen}
-                setOnRegisterOpen={setOnRegisterOpen}
-              />
-            ) : item.key === 'register' ? (
+            {item.key === 'register' ? (
               <Register
-                router={router}
                 onRegisterOpen={onRegisterOpen}
                 setOnLoginOpen={setOnLoginOpen}
                 setOnRegisterOpen={setOnRegisterOpen}
@@ -41,16 +32,18 @@ export default function Dropdown(props: Props) {
               <Logout title={item.title} />
             ) : item.key === 'link' ? (
               <Link
+                prefetch={true}
+                legacyBehavior
                 className='header-dropdown-link'
                 title={`Đi đến ${item.title}`}
                 href={item.link}
               >
-                {item.title}
+                <a>{item.title}</a>
               </Link>
             ) : (
               <div
                 className='header-dropdown-link user-name-show'
-                title={`Tài khoản của ${user?.firstName} ${user.lastName} `}
+                title={`Tài khoản của ${user?.firstName} ${user?.lastName} `}
               >
                 {item.title}
               </div>
