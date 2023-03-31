@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 
 export default function UserView({ user }: { user: any }) {
-  console.log(user);
+  // console.log(user);
   return (
     <div className='user-info-profile'>
       <div className='name'>

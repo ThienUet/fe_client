@@ -1,0 +1,30 @@
+
+.selectPositionContainer {
+  .addressElipsis {
+    display: inline-block;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    // height: 40px;
+    line-height: 18px;
+    margin-bottom: 18px;
+  }
+  .mapInfoSlide {
+    position: absolute;
+    bottom: -400px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all .3s ease-in-out;
+  }
+  .slideActive {
+    transition: all .3s ease-in-out;
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

@@ -10,3 +10,56 @@
         box-shadow: 2px 2px 5px gray;
     }
 }
+
+.ant-modal .ant-modal-content {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.text-editor {
+  .ql-container {
+     border-bottom-left-radius: 0.5em;
+     border-bottom-right-radius: 0.5em;
+     background: #ffffff;
+   }
+   
+   /* Snow Theme */
+  .ql-snow.ql-toolbar {
+     display: flex;
+     border-top-left-radius: 0.5em;
+     border-top-right-radius: 0.5em;
+   }
+   
+   /* Bubble Theme */
+  .ql-bubble .ql-editor {
+     border: 1px solid #ccc;
+     border-radius: 0.5em;
+   }
+   
+  .ql-editor {
+     min-height: 18em;
+   }
+   
+   .themeSwitcher {
+     margin-top: 0.5em;
+     font-size: small;
+   }
+   .ql-formats {
+     margin: 0;
+   }
+ }
+
+ .anchor-swiper {
+  .swiper-slide {
+    width: auto !important;
+  }
+  .swiper-slide:hover {
+    cursor: pointer;
+  }
+ }
+
+html {
+  scroll-behavior: smooth !important;
+}
+ 

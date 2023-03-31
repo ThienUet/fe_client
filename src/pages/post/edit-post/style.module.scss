@@ -1,0 +1,14 @@
+.editPostContainer {
+  .addressElipsis {
+    display: inline-block;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    margin-top: 8px;
+    line-height: 1.6rem;
+  }
+}

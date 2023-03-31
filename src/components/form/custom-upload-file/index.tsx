@@ -49,12 +49,12 @@ const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, va
           return (
             <img
               onClick={() => window.open(fileUrl)}
-              style={{ width: '100%', borderRadius: 8 }}
+              style={{ width: '100%', maxHeight: '200px', borderRadius: 8 }}
               src={fileUrl}
             ></img>
           );
         case 'video':
-          return <ReactPlayer width={500} height={'100%'} controls url={fileUrl}></ReactPlayer>;
+          return <ReactPlayer height={'100%'} width={'100%'} controls url={fileUrl}></ReactPlayer>;
       }
     } else {
       return;
@@ -81,19 +81,13 @@ const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, va
         fileUrl: fileUploaded,
       });
     } catch (err) {
-      onChange({
-        fileKey: '',
-        fileUrl: '',
-      });
+      onChange(null);
     }
   };
 
   const handleClickDelete = async () => {
     const fileKey = value.fileKey;
-    onChange({
-      fileKey: '',
-      fileUrl: '',
-    });
+    onChange(null);
     try {
       await handleDeleteFile(fileKey);
     } catch (err: any) {
@@ -118,14 +112,15 @@ const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, va
           position: 'relative',
         }}
       >
-        <div style={{ width: '100px', height: '100px' }}>
+        <div style={{ width: '600px', height: '200px' }}>
           {value?.fileUrl && (
             <div
               style={
                 previewStyle
                   ? previewStyle
                   : {
-                      width: 120,
+                      width: 300,
+                      height: 200,
                       borderRadius: 8,
                       cursor: 'pointer',
                       position: 'relative',

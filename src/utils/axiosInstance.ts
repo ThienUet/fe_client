@@ -15,7 +15,7 @@ const publicUrl = ['/api/houses'];
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = Auth.getToken();
-    if (token) {
+    if (token && !(publicUrl.includes(config.url) && config.method === 'GET')) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -30,9 +30,7 @@ axiosInstance.interceptors.response.use(
     return response?.data;
   },
   (err) => {
-    console.log(err);
     if (err.response) {
-      console.log(err, 'error');
       const { data, status } = err.response;
       if (data || status) {
         return Promise.reject(data);
