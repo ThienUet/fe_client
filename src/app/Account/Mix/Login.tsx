@@ -1,10 +1,11 @@
-import React, { PropsWithChildren, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import Link from 'next/link';
 import { Login } from 'services/common';
 import * as Auth from '../../../storages/Auth';
 
 const LoginForm: React.FC = () => {
+  const [forgotOpen, setForgotOpen] = useState();
   const [formLogin] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const callBackResult = (result: any) => {
@@ -14,7 +15,8 @@ const LoginForm: React.FC = () => {
       notification.error({ message: 'Đăng nhập thất bại !' });
     }
   };
-
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const resetPassword = async () => {};
   const onFinishLogin = async () => {
     const data = formLogin.getFieldsValue();
     const body = {
@@ -71,9 +73,9 @@ const LoginForm: React.FC = () => {
           <Input.Password placeholder='Nhập mật khẩu của bạn' autoComplete='new-password' />
         </Form.Item>
         <div className='log-reg-page-forgot'>
-          <Link className='log-reg-page-forgot-link' href={'#'}>
+          <label className='log-reg-page-forgot-link' onClick={resetPassword}>
             Quên mật khẩu ?
-          </Link>
+          </label>
         </div>
         <div className='log-reg-page-btn'>
           <Button loading={loading} type='primary' htmlType='submit'>

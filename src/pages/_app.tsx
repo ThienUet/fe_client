@@ -2,9 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../public/libs/font-awesome/css/font-awesome.min.css';
 import React, { useEffect, useState } from 'react';
 import '../styles/index.scss';
-import Head from 'next/head';
-import App from 'next/app';
-import { Router, useRouter } from 'next/router';
+import { Router } from 'next/router';
 import { useUser } from '../libs/auth-service';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { ConfigProvider } from 'antd';
@@ -12,7 +10,6 @@ import PageLoader from '../components/loader';
 
 const LayoutApp = ({ Component, ...rest }: { Component: any }) => {
   const { user, refetch: userRefetch } = useUser();
-  const router = useRouter();
   return (
     <>
       <Component {...rest} userRefetch={userRefetch} user={user} />

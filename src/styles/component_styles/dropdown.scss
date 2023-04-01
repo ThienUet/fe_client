@@ -11,4 +11,17 @@
             transform: scale(1.1,1.1);
         }
     }
+    .ant-list  {
+        .ant-spin-nested-loadin {
+            .ant-spin-container {
+                .ant-list-items {
+                    .ant-list-item {
+                        a {
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

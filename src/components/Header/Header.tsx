@@ -82,7 +82,7 @@ const headerObject: headerObj = {
       key: 'no-link',
       data: [
         { title: 'Đăng nhập', key: 'link', link: '/account/join_zee_home' },
-        { title: 'Đăng ký', key: 'register' },
+        { title: 'Đăng ký', key: 'link', link: '/account/join_zee_home?tab=register' },
         { title: 'Administrator', key: 'link', link: '#' },
       ],
     },
