@@ -54,6 +54,13 @@ body {
 
 a {
     cursor: url('/static/cursor/link.png'), auto !important;
+    text-decoration: none;
+    color: inherit;
+    transition: all ease 0.1s;
+    &:hover {
+        color: $primary_color;
+        transform: scale(1.1,1.1);
+    }
 }
 
 .btn-cancel {

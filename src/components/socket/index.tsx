@@ -11,7 +11,7 @@ export default function SocketComponent() {
   const [fooEvents, setFooEvents] = useState([]);
 
   useEffect(() => {
-    socket.connect();
+    // socket.connect();
 
     const receiveMessage = () => {
       console.log('receive');

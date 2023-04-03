@@ -2,23 +2,27 @@ import React from 'react';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import LoginForm from './Login';
+import RegisterIn from './Register';
+import { useRouter } from 'next/router';
 const items: TabsProps['items'] = [
   {
-    key: '1',
+    key: 'login',
     label: `ĐĂNG NHẬP`,
     children: <LoginForm />,
   },
   {
-    key: '2',
+    key: 'register',
     label: `ĐĂNG KÝ`,
-    children: `Content of Tab Pane 2`,
+    children: <RegisterIn />,
   },
 ];
 
 const LoginRegister: React.FC = () => {
+  const router = useRouter();
+  const { query }: any = router;
   return (
     <div className='log-res-form'>
-      <Tabs defaultActiveKey='1' items={items} />
+      <Tabs defaultActiveKey={query.tab || 'login'} items={items} />
     </div>
   );
 };

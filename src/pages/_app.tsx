@@ -2,15 +2,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../public/libs/font-awesome/css/font-awesome.min.css';
 import React, { useEffect, useMemo, useState } from 'react';
 import '../styles/index.scss';
-import Head from 'next/head';
-import App from 'next/app';
 import { Router, useRouter } from 'next/router';
 import { useUser } from '../libs/auth-service';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { ConfigProvider } from 'antd';
 import PageLoader from '../components/loader';
-import { LoadScript, useLoadScript } from '@react-google-maps/api';
-import dynamic from 'next/dynamic';
+import { LoadScript } from '@react-google-maps/api';
 import Header from 'components/Header/Header';
 
 const loginPaths = '/account/join_zee_home';

@@ -50,10 +50,10 @@
     }
 }
 .log-reg-page-title {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 25px;
+    font-size: 19px !important;
+    margin: 5px 0 !important;
     font-weight: bold;
+    text-align: center;
 }
 .log-reg-page-btn {
     display: flex;
@@ -64,7 +64,7 @@
 .log-reg-page-forgot {
     display: flex;
     justify-content: right;
-    a {
+    label {
         text-decoration: none;
         color: $alert-color;
         font-style: italic;
@@ -73,6 +73,7 @@
             transform: scale(1.1,1.1);
             color: red;
         }
+        cursor: url('/static/cursor/link.png'), pointer;
     }
 }
 .log-reg-form-group {
@@ -103,5 +104,14 @@
 .user-name-show {
     &:hover {
         transform: unset;
+    }
+}
+
+
+.group-item{
+    display: flex;
+    justify-content: space-between;
+    .ant-form-item {
+        width: 49%;
     }
 }

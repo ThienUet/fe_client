@@ -1,7 +1,7 @@
 @import '../variables.scss';
 .main-login-form {
     background-image: url('/static/images/background-loginlogin.jpg');
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
     position: relative;
     z-index: 500;
@@ -31,8 +31,8 @@
         .login-form {
             .ant-form {
                 .log-reg-page-title {
-                    font-size: 20px;
-                    margin: 10px 0;
+                    font-size: 19px !important;
+                    margin: 5px 0 !important;
                 }
                 .log-reg-page-welcome {
                     label{ 
@@ -53,4 +53,8 @@
             }
         }
     }
+}
+
+.form-register {
+    height: 100%;
 }

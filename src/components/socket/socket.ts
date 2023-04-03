@@ -12,4 +12,5 @@ export const socket = io(URL, {
   },
   path: '/chat/socket.io',
   transports: ['websocket', 'polling'],
+  autoConnect: true,
 });
