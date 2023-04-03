@@ -71,7 +71,7 @@ const PostList = ({ user, userRefetch }: Props) => {
 
   const columns = [
     {
-      title: 'title',
+      title: 'Tiêu đề',
       dataIndex: 'title',
       key: 'title',
     },
@@ -125,8 +125,21 @@ const PostList = ({ user, userRefetch }: Props) => {
   ];
 
   return (
-    <div style={{ padding: '8px' }}>
-      <p>Danh sách bài đăng</p>
+    <div
+      style={{ padding: '8px 200px', backgroundColor: '#a6a6a6', minHeight: 'calc(100vh - 70px)' }}
+    >
+      <div
+        style={{
+          backgroundColor: 'white',
+          padding: '16px 32px',
+          borderRadius: '6px',
+          marginBottom: '8px',
+          fontSize: '1.6rem',
+          fontWeight: '600',
+        }}
+      >
+        Danh sách bài đăng
+      </div>
       <Table columns={columns} dataSource={houses} rowKey={(record) => record.houseId}></Table>
     </div>
   );

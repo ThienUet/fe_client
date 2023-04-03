@@ -1,16 +1,16 @@
 @import '../variables.scss';
-.ant-btn {
-    background-color: $primary_color;
-    color: $white-color;
-    transition: all ease 0.1s;
-    cursor: url('/static/cursor/link.png'), auto !important;
-    &:hover {
-        background-color: $primary_color !important;
-        transform: scale(1.03,1.03);
-        color: $white-color !important;
-        box-shadow: 2px 2px 5px gray;
-    }
-}
+// .ant-btn {
+//     background-color: $primary_color;
+//     color: $white-color;
+//     transition: all ease 0.1s;
+//     cursor: url('/static/cursor/link.png'), auto !important;
+//     &:hover {
+//         background-color: $primary_color !important;
+//         transform: scale(1.03,1.03);
+//         color: $white-color !important;
+//         box-shadow: 2px 2px 5px gray;
+//     }
+// }
 
 .ant-modal .ant-modal-content {
     margin: 0px;

@@ -1,15 +1,11 @@
-import React, { Dispatch } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Divider, Input, Select, Space, Button, Radio } from 'antd';
-import type { InputRef } from 'antd';
+import React, { Dispatch, useEffect } from 'react';
 import { HouseListParams } from 'type/house';
 import { SetStateAction } from 'jotai';
 import HouseType from './house-type';
-import PlacesAutocomplete from '../auto-complete';
-import style from './style.module.scss';
 import HouseFor from './house-for';
 import HousePrice from './house-price';
 import HouseRoom from './house-room';
+import { useRouter } from 'next/router';
 
 interface Props {
   params: HouseListParams;
@@ -17,12 +13,15 @@ interface Props {
 }
 
 const CustomFilter = ({ params, setParams }: Props) => {
-  const handleChangePlace = ({ lat, lng, address }) => {
-    setParams({
+  const router = useRouter();
+  useEffect(() => {
+    const { lat, lng, houseCategory } = router.query;
+    handleChange({
       ...params,
       mapPoint: `${lng},${lat}`,
+      houseCategory: houseCategory,
     });
-  };
+  }, [router]);
 
   const handleChange = (subParams: any) => {
     setParams({
@@ -32,16 +31,7 @@ const CustomFilter = ({ params, setParams }: Props) => {
   };
 
   return (
-    <div
-      className={style.filterContainer}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        flexWrap: 'wrap',
-      }}
-    >
-      <PlacesAutocomplete handleChangePlace={handleChangePlace} />
+    <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
       <HouseFor params={params} handleChange={handleChange} />
       <HousePrice params={params} handleChange={handleChange} />
       <HouseRoom params={params} handleChange={handleChange} />

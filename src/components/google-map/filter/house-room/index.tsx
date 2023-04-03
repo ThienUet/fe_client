@@ -19,15 +19,15 @@ const HouseRoom = ({ params, handleChange }: Props) => {
     <Select
       style={{ width: 200 }}
       value='1'
-      options={[{ value: '1', label: 'Beds and Baths' }]}
+      options={[{ value: '1', label: 'Phòng' }]}
       dropdownMatchSelectWidth={false}
       dropdownRender={() => {
         return (
           <div>
-            <p>Number of bedrooms</p>
+            <p>Chọn số phòng</p>
             <div style={{ padding: '8px' }}>
               <div>
-                <p style={{ margin: '0px' }}>Bedrooms</p>
+                <p style={{ margin: '0px' }}>Phòng ngủ</p>
                 <div>
                   <Radio.Group
                     defaultValue='any'
@@ -46,7 +46,7 @@ const HouseRoom = ({ params, handleChange }: Props) => {
                 </div>
               </div>
               <div style={{ marginTop: '8px' }}>
-                <p style={{ margin: '0px' }}>Bathrooms</p>
+                <p style={{ margin: '0px' }}>Phòng tắm</p>
                 <div>
                   <Radio.Group
                     defaultValue='any'

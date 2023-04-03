@@ -18,8 +18,8 @@ const HouseFor = ({ params, handleChange }: Props) => {
       style={{ width: 200 }}
       defaultValue='1'
       options={[
-        { value: '1', label: 'For sell' },
-        { value: '2', label: 'For lease' },
+        { value: '1', label: 'Mua nhà' },
+        { value: '2', label: 'Thuê nhà' },
       ]}
       value={params.houseCategory ? params.houseCategory : null}
       onChange={handleOnChange}

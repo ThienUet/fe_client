@@ -3,11 +3,11 @@ import { Radio, Select, Space } from 'antd';
 import { HouseListParams } from 'type/house';
 
 const options = [
-  { value: 1, label: 'Apartments' },
-  { value: 2, label: 'Houses' },
-  { value: 3, label: 'Lots/Land' },
-  { value: 4, label: 'Condos/Co-ops' },
-  { value: 5, label: 'Motels' },
+  { value: 1, label: 'Căn hộ' },
+  { value: 2, label: 'Nhà' },
+  { value: 3, label: 'Đất' },
+  { value: 4, label: 'Văn phòng' },
+  { value: 5, label: 'Nhà trọ' },
 ];
 
 interface Props {
@@ -26,7 +26,7 @@ const HouseType = ({ handleChange, params }: Props) => {
     <>
       <Select
         value='1'
-        options={[{ value: '1', label: 'House Type' }]}
+        options={[{ value: '1', label: 'Loại BDS' }]}
         dropdownMatchSelectWidth={false}
         dropdownStyle={{ width: '300px', padding: '16px' }}
         dropdownRender={() => {

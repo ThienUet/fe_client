@@ -45,7 +45,7 @@ const HouseList = ({ houseList, params, setParams }: Props) => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'start',
           gap: '16px',
           flexWrap: 'wrap',
         }}
@@ -55,7 +55,8 @@ const HouseList = ({ houseList, params, setParams }: Props) => {
             <div
               key={index}
               style={{
-                width: '280px',
+                width: '45%',
+                minWidth: '240px',
                 borderRadius: '6px',
                 boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
                 position: 'relative',

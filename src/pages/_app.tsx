@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../public/libs/font-awesome/css/font-awesome.min.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import '../styles/index.scss';
 import Head from 'next/head';
 import App from 'next/app';
@@ -9,13 +9,28 @@ import { useUser } from '../libs/auth-service';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { ConfigProvider } from 'antd';
 import PageLoader from '../components/loader';
+import { LoadScript, useLoadScript } from '@react-google-maps/api';
+import dynamic from 'next/dynamic';
+import Header from 'components/Header/Header';
+
+const loginPaths = '/account/join_zee_home';
 
 const LayoutApp = ({ Component, ...rest }: { Component: any }) => {
   const { user, refetch: userRefetch } = useUser();
   const router = useRouter();
+
   return (
     <>
-      <Component {...rest} userRefetch={userRefetch} user={user} />
+      <LoadScript
+        googleMapsApiKey={'AIzaSyAT-29Vo1xQZU4nCKMCgvKfRivVJ2KkHhU'}
+        language='en'
+        region='EN'
+        version='weekly'
+        libraries={['places']}
+      >
+        {router.pathname !== loginPaths ? <Header user={user} router={router} /> : null}
+        <Component {...rest} userRefetch={userRefetch} user={user} />
+      </LoadScript>
     </>
   );
 };

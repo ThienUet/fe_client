@@ -29,7 +29,6 @@ export default function Profile({ user, userRefetch }: Props) {
             <title>Trang cá nhân</title>
           </Head>
           <div className='main-profile'>
-            <Header user={user} router={router} />
             <Divider />
             <div className='profile-content'>
               <ProfileComponent userRefetch={userRefetch} user={user} />

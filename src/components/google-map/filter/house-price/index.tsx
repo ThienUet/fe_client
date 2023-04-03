@@ -1,6 +1,5 @@
 import { Select } from 'antd';
-import { SetStateAction } from 'jotai';
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { HouseListParams } from 'type/house';
 
 interface Props {
@@ -27,7 +26,7 @@ const HousePrice = ({ params, handleChange }: Props) => {
       style={{ width: 200 }}
       dropdownMatchSelectWidth={false}
       value='1'
-      options={[{ value: '1', label: 'Price' }]}
+      options={[{ value: '1', label: 'Giá' }]}
       dropdownRender={() => {
         return (
           <div
@@ -36,14 +35,14 @@ const HousePrice = ({ params, handleChange }: Props) => {
               e.stopPropagation();
             }}
           >
-            <p>Price Range</p>
+            <p>Mức giá</p>
             <div style={{ display: 'flex', padding: '8px 16px', gap: '8px' }}>
               <div>
                 <p style={{ margin: '0px' }}>Minimum</p>
                 <Select
                   style={{ width: 120 }}
                   value={params.priceFrom ? params.priceFrom : null}
-                  placeholder='No Min'
+                  placeholder='Tối thiểu'
                   dropdownMatchSelectWidth={false}
                   options={options}
                   onChange={(_) => handleOnChange(_, 'priceFrom')}
@@ -54,7 +53,7 @@ const HousePrice = ({ params, handleChange }: Props) => {
                   <p style={{ margin: '0px' }}>Maximum</p>
                   <Select
                     style={{ width: 120 }}
-                    placeholder='No Max'
+                    placeholder='Tối đa'
                     dropdownMatchSelectWidth={false}
                     options={options}
                     value={params.priceTo ? params.priceTo : null}

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Dropdown, Space, Avatar } from 'antd';
 import Link from 'next/link';
-import Image from '../Image/CustomImage';
 import DropdownContent from '../Dropdown/dropdown';
 // customize header
+import style from './style.module.scss';
+import HeaderSearch from 'components/google-map/header-search';
+import { LoadScript } from '@react-google-maps/api';
+
 interface headerObj {
   navbarLeft: any;
   navbarRight: any;
@@ -96,6 +99,8 @@ interface Props {
 }
 
 export default function Header({ router, user }: Props) {
+  const libraries = useMemo(() => ['places'], []);
+
   if (user) {
     headerObject.navbarRight.pop();
     headerObject.navbarRight.push({
@@ -121,11 +126,61 @@ export default function Header({ router, user }: Props) {
       ],
     });
   }
+
+  const handleChangePlace = ({
+    lat,
+    lng,
+    houseType,
+  }: {
+    lat: number;
+    lng: number;
+    houseType?: string;
+  }) => {
+    router.push({ pathname: '/house', query: { lat: lat, lng: lng, houseCategory: houseType } });
+  };
+
   return (
-    <div className='container app-header'>
-      <div className='row'>
-        <div className='col-5 col-sm-5 col-md-5'>
-          <ul className='d-flex app-header-ul justify-content-start'>
+    <div>
+      <div className='container app-header'>
+        <div className='row'>
+          <div className='col-2 col-sm-2 col-md-2 position-relative app-header-logo'>
+            <div className='col-12'>
+              <Link href={'/'} style={{ textDecoration: 'none' }}>
+                <div className={style.intro}>
+                  <div className={style.appIcon}>
+                    <img src='/static/logo/logo.png'></img>
+                  </div>
+                  <div>
+                    <span
+                      style={{
+                        color: '#00004d',
+                        fontWeight: '900',
+                        fontSize: '1.3rem',
+                        letterSpacing: '2px',
+                      }}
+                    >
+                      Zee
+                    </span>
+                    <span
+                      style={{
+                        color: '#00004d',
+                        fontSize: '1.3rem',
+                      }}
+                    >
+                      Home
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div
+            className='col-5 col-sm-5 col-md-5'
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <HeaderSearch handleChangePlace={handleChangePlace} />
+
+            {/* <ul className='d-flex app-header-ul justify-content-start'>
             {headerObject.navbarLeft.map((item, index) => {
               return (
                 <li className='app-header-item me-4 ' key={index}>
@@ -144,45 +199,34 @@ export default function Header({ router, user }: Props) {
                 </li>
               );
             })}
-          </ul>
-        </div>
-        <div className='col-2 col-sm-2 col-md-2 position-relative app-header-logo'>
-          <div className='col-12'>
-            <Link href={'/'}>
-              <Image
-                className={'logoHeaderImg'}
-                objectFit='contain'
-                src={headerObject.logoURL}
-                alt='LOGO'
-              />
-            </Link>
+          </ul> */}
           </div>
-        </div>
-        <div className='col-5 col-sm-5 col-md-5'>
-          <ul className='d-flex app-header-ul justify-content-end'>
-            {headerObject.navbarRight.map((item, index) => {
-              return (
-                <li className='app-header-item ms-4 ' key={index}>
-                  <Dropdown
-                    placement='bottom'
-                    dropdownRender={() => (
-                      <DropdownContent user={user} router={router} data={item.data} />
-                    )}
-                  >
-                    <Space>
-                      {item.key === 'link' ? (
-                        <Link legacyBehavior className='app-header-link' href={item.link}>
-                          <a>{item.title}</a>
-                        </Link>
-                      ) : (
-                        <div className='app-header-link'>{item.title}</div>
+          <div className='col-5 col-sm-5 col-md-5'>
+            <ul className='d-flex app-header-ul justify-content-end'>
+              {headerObject.navbarRight.map((item, index) => {
+                return (
+                  <li className='app-header-item ms-4 ' key={index}>
+                    <Dropdown
+                      placement='bottom'
+                      dropdownRender={() => (
+                        <DropdownContent user={user} router={router} data={item.data} />
                       )}
-                    </Space>
-                  </Dropdown>
-                </li>
-              );
-            })}
-          </ul>
+                    >
+                      <Space>
+                        {item.key === 'link' ? (
+                          <Link legacyBehavior className='app-header-link' href={item.link}>
+                            <a>{item.title}</a>
+                          </Link>
+                        ) : (
+                          <div className='app-header-link'>{item.title}</div>
+                        )}
+                      </Space>
+                    </Dropdown>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

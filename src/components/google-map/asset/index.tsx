@@ -8,14 +8,13 @@ import {
   faWind,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GoogleMap, useLoadScript, DirectionsRenderer, Marker } from '@react-google-maps/api';
-import { Anchor, Avatar, Button, Collapse } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import { GoogleMap, DirectionsRenderer, Marker } from '@react-google-maps/api';
+import { Avatar, Button } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { mapStyling } from 'services/map';
 import { Owner } from 'type/house';
 import PlacesAutocomplete from '../auto-complete';
 import style from './style.module.scss';
-const GOOGLE_MAP_API_KEY = 'AIzaSyAT-29Vo1xQZU4nCKMCgvKfRivVJ2KkHhU';
 
 interface DividerProps {
   style?: React.CSSProperties;
@@ -75,10 +74,6 @@ type Nearby = {
 };
 
 const MapArea = ({ lat, lng, setNearBySchool }: MapAreaProps) => {
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: GOOGLE_MAP_API_KEY,
-  // });
-
   const [targetPosition, setTargetPosition] = useState<{
     lat: number;
     lng: number;

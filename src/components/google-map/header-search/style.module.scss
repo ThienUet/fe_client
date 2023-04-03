@@ -1,0 +1,52 @@
+.placeAutoComplete {
+  position: relative;
+  // width: 100%;
+  // width: 400px;
+  border: 1px solid rgb(198, 198, 198);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  box-sizing: content-box;
+  justify-content: space-between;
+  .searchItem {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 6px 12px;
+    transition: all .1s ease-in-out;
+  }
+  .searchItem:hover {
+    cursor: pointer;
+    background-color: rgb(241, 241, 241);
+  }
+  .searchIcon {
+    font-size: .7rem;
+    color: rgb(147, 147, 147)
+  }
+  .button {
+    height: 40px;
+    width: 120px;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px 0px 0px 6px;
+  }
+  .button:hover {
+    background-color: rgb(243, 243, 243)
+  }
+  .searchDivider {
+    width: 1px;
+    height: 40%;
+    background-color: black;
+    margin-right: 8px;
+  }
+  .searchButton {
+    border: none;
+    height: 100%;
+    border-radius: 0px 6px 6px 0px;
+    width: 48px;
+  }
+};

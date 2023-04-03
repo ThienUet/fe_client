@@ -1,6 +1,6 @@
 import { useLoadScript } from '@react-google-maps/api';
 import { useMutation } from '@tanstack/react-query';
-import { Button, Form, Input, Radio, Select } from 'antd';
+import { Button, Form, Input, Radio, Select, notification } from 'antd';
 import CustomFormEditor from 'components/form/custom-editor';
 import CustomUploadFile from 'components/form/custom-upload-file';
 import CustomUploadFiles from 'components/form/custom-upload-files';
@@ -14,9 +14,9 @@ import { createHouse } from 'services/house-services';
 import { House } from 'type/house';
 import { admitOptions, furnishedOptions, houseTypeOptions, trueFalseOptions } from 'utils/options';
 import { Validation } from 'utils/validations';
+import { useRouter } from 'next/router';
 
 const CreateHouse = () => {
-  const libraries = useMemo(() => ['places'], []);
   const [form] = Form.useForm();
   const provinceWatch = Form.useWatch('province', form);
   const districtWatch = Form.useWatch('district', form);
@@ -24,12 +24,29 @@ const CreateHouse = () => {
     house: null,
     isOpen: false,
   });
+  const router = useRouter();
 
-  const createHouseMutation = useMutation(createHouse);
+  const onError = () => {
+    api['error']({
+      message: 'Tạo bài đăng thất bại',
+      description: 'Hãy tạo lại bài đăng',
+    });
+  };
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAT-29Vo1xQZU4nCKMCgvKfRivVJ2KkHhU',
-    libraries: libraries as any,
+  const [api, contextHolder] = notification.useNotification();
+
+  const onSuccess = () => {
+    api['success']({
+      message: 'Tạo bài đăng thành công',
+      description: 'Giờ đây mọi người đã có thể nhìn thấy bài đăng của bạn',
+    });
+    router.push('/post');
+  };
+
+  const createHouseMutation = useMutation({
+    onError: onError,
+    onSuccess: onSuccess,
+    mutationFn: createHouse,
   });
 
   const { data: provinceList } = useGetProvinces();
@@ -78,15 +95,36 @@ const CreateHouse = () => {
     createHouseMutation.mutate(newHouse);
   };
 
-  if (!isLoaded) {
-    return <p>Loading...</p>;
-  }
+  // if (!isLoaded) {
+  //   return <p>Loading...</p>;
+  // }
 
   return (
-    <div style={{ padding: '8px 200px' }}>
-      <div>Đăng tin bất động sản miễn phí</div>
+    <div style={{ padding: '8px 200px', backgroundColor: '#a6a6a6' }}>
+      {contextHolder}
+      <div
+        style={{
+          backgroundColor: 'white',
+          padding: '16px 32px',
+          borderRadius: '6px',
+          marginBottom: '8px',
+          fontSize: '1.6rem',
+          fontWeight: '600',
+        }}
+      >
+        Đăng tin bất động sản miễn phí
+      </div>
       <Form onFinish={onFinish} form={form} layout='horizontal'>
-        <div style={{ display: 'flex', gap: '32px' }}>
+        <div
+          style={{
+            backgroundColor: 'white',
+            padding: '16px 32px',
+            borderRadius: '6px',
+            marginBottom: '8px',
+            gap: '32px',
+            display: 'flex',
+          }}
+        >
           <div style={{ flex: '1' }}>
             <Form.Item
               name='title'
@@ -166,7 +204,16 @@ const CreateHouse = () => {
             </Form.Item>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '32px' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: '32px',
+            backgroundColor: 'white',
+            padding: '16px 32px',
+            borderRadius: '6px',
+            marginBottom: '8px',
+          }}
+        >
           <div style={{ flex: '1' }}>
             <Form.Item
               name='price'
@@ -292,7 +339,14 @@ const CreateHouse = () => {
             </Form.Item>
           </div>
         </div>
-        <div>
+        <div
+          style={{
+            backgroundColor: 'white',
+            padding: '16px 32px',
+            borderRadius: '6px',
+            marginBottom: '8px',
+          }}
+        >
           <Form.Item name='thumbnail' rules={[Validation.required]}>
             <CustomUploadFile type='image'></CustomUploadFile>
           </Form.Item>
@@ -303,16 +357,29 @@ const CreateHouse = () => {
             <CustomUploadFile type='video'></CustomUploadFile>
           </Form.Item>
         </div>
-        <Form.Item>
+        <div
+          style={{
+            backgroundColor: 'white',
+            padding: '16px 32px',
+            borderRadius: '6px',
+            marginBottom: '8px',
+            display: 'flex',
+            gap: '16px',
+            alignItems: 'center',
+            // justifyContent: 'center',
+          }}
+        >
+          {/* <Form.Item> */}
           <Button type='primary' htmlType='submit'>
             Submit
           </Button>
-        </Form.Item>
-        <Form.Item>
+          {/* </Form.Item> */}
+          {/* <Form.Item> */}
           <Button type='primary' onClick={houseConvert}>
             Xem trước
           </Button>
-        </Form.Item>
+          {/* </Form.Item> */}
+        </div>
       </Form>
       <HouseDetail
         isOpen={isOpenHouseDetail.isOpen}

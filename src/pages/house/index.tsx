@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLoadScript, GoogleMap, Marker } from '@react-google-maps/api';
 import type { NextPage } from 'next';
 import { useMemo } from 'react';
-import { Button, Drawer } from 'antd';
+import { Button, Drawer, Empty, Spin } from 'antd';
 import { useGetHouseList } from 'libs/house-service';
 import HouseList from 'components/google-map/house-list';
 import { House, HouseListParams } from 'type/house';
@@ -43,10 +43,10 @@ const House: NextPage = () => {
     ...listParams,
   });
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAT-29Vo1xQZU4nCKMCgvKfRivVJ2KkHhU',
-    libraries: libraries as any,
-  });
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: 'AIzaSyAT-29Vo1xQZU4nCKMCgvKfRivVJ2KkHhU',
+  //   libraries: libraries as any,
+  // });
 
   const handleClickHouseMarker = (houseData: House) => {
     setIsOpenHouseDetail({
@@ -96,18 +96,21 @@ const House: NextPage = () => {
     }
   }, 1000);
 
-  if (!isLoaded) {
-    return <p>Loading...</p>;
-  }
+  // if (!isLoaded) {
+  //   return <p>Loading...</p>;
+  // }
 
   return (
     <div className={style.housePage}>
-      <div>side bar</div>
       <div
         style={{
-          padding: '8px',
-          borderTop: '1px solid black',
-          borderBottom: '1px solid black',
+          // padding: '8px',
+          height: '60px',
+          paddingLeft: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          borderTop: '1px solid #bfbfbf',
+          borderBottom: '1px solid #bfbfbf',
         }}
       >
         <CustomFilter params={listParams} setParams={setListParams} />
@@ -123,7 +126,7 @@ const House: NextPage = () => {
           }}
           zoom={14}
           mapTypeId={google.maps.MapTypeId.ROADMAP}
-          mapContainerStyle={{ width: '100vw', height: '100vh' }}
+          mapContainerStyle={{ width: '100vw', height: 'calc(100vh - 70px - 60px)' }}
           onLoad={(map) => {
             setMap(map);
             map.panTo({
@@ -172,7 +175,24 @@ const House: NextPage = () => {
             className={openDawer ? style.buttonActive : style.button}
             onClick={toggleDrawer}
           />
-          <HouseList params={listParams} setParams={setListParams} houseList={data}></HouseList>
+          {isLoading ? (
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Spin tip='Loading' size='large'></Spin>
+            </div>
+          ) : (
+            <HouseList params={listParams} setParams={setListParams} houseList={data}></HouseList>
+          )}
+          {!isLoading && !data?.houses?.length ? (
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          ) : null}
         </Drawer>
         <Button
           icon={<FontAwesomeIcon icon={faArrowCircleLeft} />}
