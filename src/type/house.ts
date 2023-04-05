@@ -61,7 +61,7 @@ export interface Owner {
 }
 
 export interface HouseListParams {
-  queryFor: 'map' | 'normal';
+  queryFor?: 'map' | 'normal' | '';
   queryType: 'distance' | 'polygon' | 'all';
   distance?: number; // maximum 100 km;
   polygonPoints?: string; //min item 8

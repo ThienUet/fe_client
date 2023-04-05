@@ -3,6 +3,8 @@ import { House, HouseListParams } from 'type/house';
 import CustomImage from '../custom-image';
 import HouseDetail from '../house-detail';
 import styles from './style.module.scss';
+import { useMutation } from '@tanstack/react-query';
+import { getHouseDetail } from 'services/house-services';
 
 interface Props {
   houseList: {
@@ -25,11 +27,27 @@ const HouseList = ({ houseList, params, setParams }: Props) => {
     data: null,
   });
 
-  const handleOpenHouseDetail = (item: House) => {
+  const onSuccess = (value: any) => {
     setIsOpenHouseDetail({
       isOpen: true,
-      data: item,
+      data: value,
     });
+  };
+
+  const onError = (value: any) => {
+    // console.log(value, 'value');
+  };
+
+  const houseDetail: { data: any; mutate: any } = useMutation({
+    onSuccess: onSuccess,
+    onError: onError,
+    mutationFn: getHouseDetail,
+  });
+
+  const handleOpenHouseDetail = (id: string) => {
+    if (id && typeof id === 'string') {
+      houseDetail.mutate({ id: id });
+    }
   };
 
   const handleCloseHouseDetail = () => {
@@ -61,7 +79,7 @@ const HouseList = ({ houseList, params, setParams }: Props) => {
                 boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
                 position: 'relative',
               }}
-              onClick={() => handleOpenHouseDetail(item)}
+              onClick={() => handleOpenHouseDetail(item.houseId)}
             >
               <div className={styles.houseMask}></div>
               <div

@@ -7,10 +7,14 @@ const URL = 'https://huydt.online';
 const token = Auth.getToken();
 
 export const socket = io(URL, {
+  path: '/chat/socket.io',
+  transports: ['websocket', 'polling'],
   extraHeaders: {
     Authorization: `Bearer ${token}`,
   },
-  path: '/chat/socket.io',
-  transports: ['websocket', 'polling'],
   autoConnect: true,
+  timeout: 5000,
+  auth: {
+    token: token,
+  },
 });

@@ -20,6 +20,7 @@ interface Props {
     houseType?: string;
   }) => void;
   mode?: 'insideMap';
+  handleClickSearch: () => void;
 }
 
 const items: {
@@ -41,7 +42,7 @@ const items: {
   },
 ];
 
-function HeaderSearch({ handleChangePlace, mode }: Props) {
+function HeaderSearch({ handleChangePlace, mode, handleClickSearch }: Props) {
   const {
     ready,
     value,
@@ -131,6 +132,7 @@ function HeaderSearch({ handleChangePlace, mode }: Props) {
         ></input>
       </div>
       <Button
+        onClick={handleClickSearch}
         type='primary'
         className={style.searchButton}
         icon={<FontAwesomeIcon icon={faMagnifyingGlass} />}

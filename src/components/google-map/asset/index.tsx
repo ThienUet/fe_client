@@ -15,6 +15,7 @@ import { mapStyling } from 'services/map';
 import { Owner } from 'type/house';
 import PlacesAutocomplete from '../auto-complete';
 import style from './style.module.scss';
+import { useRouter } from 'next/router';
 
 interface DividerProps {
   style?: React.CSSProperties;
@@ -435,6 +436,8 @@ const TravelModeScore = ({
 };
 
 const LeasingAgent = ({ user }: { user: Owner }) => {
+  const router = useRouter();
+
   return (
     <div>
       <div
@@ -450,9 +453,9 @@ const LeasingAgent = ({ user }: { user: Owner }) => {
         </div>
         <div>
           <p style={{ margin: '0', fontWeight: '600' }}>
-            {user?.firstName} {user?.lastName} user name
+            {user?.firstName} {user?.lastName}
           </p>
-          <p style={{ margin: '0' }}>{user?.email} tqhuy@gmail.com</p>
+          <p style={{ margin: '0' }}>{user?.email}</p>
           <div style={{ color: 'rgb(5, 94, 22)' }}>
             <CheckOutlined style={{ fontSize: '.8rem' }} />
             <span style={{ marginBottom: '4px', marginLeft: '6px' }}>Uy tín</span>
@@ -460,11 +463,23 @@ const LeasingAgent = ({ user }: { user: Owner }) => {
           <div
             style={{ borderTop: '.5px dashed rgb(5, 94, 22)', width: '100%', height: '.2px' }}
           ></div>
-          <p style={{ margin: '0' }}>{user?.phoneNumber} 0029843</p>
+          <p style={{ margin: '0' }}>{user?.phoneNumber}</p>
         </div>
       </div>
       <div style={{ marginTop: '8px' }}>
-        <Button style={{ flex: '1', width: '100%' }}>Send Message</Button>
+        <Button
+          onClick={() => {
+            router.push({
+              pathname: 'chat',
+              query: {
+                id: user.userId,
+              },
+            });
+          }}
+          style={{ flex: '1', width: '100%' }}
+        >
+          Gửi tin nhắn
+        </Button>
       </div>
     </div>
   );
@@ -487,7 +502,7 @@ const KeyFeature = ({
     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '1rem' }}>
         <FontAwesomeIcon icon={faWind} style={{ fontSize: '1.2rem', color: 'rgb(0, 106, 255)' }} />
-        <div>Air conditioner</div>
+        <div>Điều hòa</div>
       </div>
 
       {parking ? (
@@ -496,7 +511,7 @@ const KeyFeature = ({
             icon={faSquareParking}
             style={{ fontSize: '1.2rem', color: 'rgb(0, 106, 255)' }}
           />
-          <div>Parking lot</div>
+          <div>Bãi gửi xe</div>
         </div>
       ) : null}
       {elevator ? (
@@ -505,13 +520,13 @@ const KeyFeature = ({
             icon={faElevator}
             style={{ fontSize: '1.2rem', color: 'rgb(0, 106, 255)' }}
           />
-          <div>Elevator</div>
+          <div>Thang máy</div>
         </div>
       ) : null}
       {pet ? (
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '1rem' }}>
           <FontAwesomeIcon icon={faDog} style={{ fontSize: '1.2rem', color: 'rgb(0, 106, 255)' }} />
-          <div>Pet-friendly</div>
+          <div>Thú nuôi</div>
         </div>
       ) : null}
       {furnished ? (
@@ -520,7 +535,7 @@ const KeyFeature = ({
             icon={faCouch}
             style={{ fontSize: '1.2rem', color: 'rgb(0, 106, 255)' }}
           />
-          <div>furnished</div>
+          <div>Thiết bị</div>
         </div>
       ) : null}
     </div>
@@ -550,22 +565,22 @@ const Furnish = ({
     >
       <div style={{ padding: '8px 0' }}>
         <span style={{ padding: '8px 16px', backgroundColor: '#296BCE', borderRadius: '18px' }}>
-          Rooms: {rooms ? rooms : 0}
+          Phòng: {rooms ? rooms : 0}
         </span>
       </div>
       <div style={{ padding: '8px 0' }}>
         <span style={{ padding: '8px 16px', backgroundColor: '#297C1B', borderRadius: '18px' }}>
-          Bathrooms: {bathRooms ? bathRooms : 0}
+          Phòng tắm: {bathRooms ? bathRooms : 0}
         </span>
       </div>
       <div style={{ padding: '8px 0' }}>
         <span style={{ padding: '8px 16px', backgroundColor: '#828282', borderRadius: '18px' }}>
-          Bedrooms: {bedRooms ? bedRooms : 0}
+          Phòng ngủ: {bedRooms ? bedRooms : 0}
         </span>
       </div>
       <div style={{ padding: '8px 0' }}>
         <span style={{ padding: '8px 16px', backgroundColor: '#5409CD', borderRadius: '18px' }}>
-          Maintenance fee: {maintenanceFee ? maintenanceFee : 0} VND
+          Phụ thu: {maintenanceFee ? maintenanceFee : 0} VND
         </span>
       </div>
     </div>

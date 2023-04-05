@@ -1,0 +1,13 @@
+.messageElipsis {
+  display: inline-block;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-weight: 400;
+  margin-top: 8px;
+  margin: 0px;
+}

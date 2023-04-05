@@ -1,13 +1,11 @@
 import SocketComponent from 'components/socket';
-import React, { useState } from 'react';
+import React from 'react';
+import { User } from 'type/user';
 
-const Test = () => {
-  const [check, setCheck] = useState<boolean>(true);
-  const [render, setRender] = useState<any>();
-
+const Test = ({ user }: { user: User }) => {
   return (
     <div>
-      <SocketComponent />
+      <SocketComponent user={user} />
     </div>
   );
 };

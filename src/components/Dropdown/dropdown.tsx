@@ -20,7 +20,7 @@ export default function Dropdown(props: Props) {
       <List
         itemLayout='horizontal'
         dataSource={data}
-        renderItem={(item: any) => (
+        renderItem={(item: any, index: number) => (
           <List.Item>
             {item.key === 'register' ? (
               <Register
@@ -37,6 +37,7 @@ export default function Dropdown(props: Props) {
                 className='header-dropdown-link'
                 title={`Đi đến ${item.title}`}
                 href={item.link}
+                key={index}
               >
                 <a>{item.title}</a>
               </Link>

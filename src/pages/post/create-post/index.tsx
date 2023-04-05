@@ -100,7 +100,7 @@ const CreateHouse = () => {
   // }
 
   return (
-    <div style={{ padding: '8px 200px', backgroundColor: '#a6a6a6' }}>
+    <div style={{ padding: '8px 200px', backgroundColor: '#e6e6e6' }}>
       {contextHolder}
       <div
         style={{
