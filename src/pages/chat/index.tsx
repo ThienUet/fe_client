@@ -1,17 +1,15 @@
+import SocketComponent from 'components/socket';
 import React from 'react';
+import { User } from 'type/user';
 
-const Chat = () => {
+interface Props {
+  user: User;
+}
+
+const Chat = ({ user }: Props) => {
   return (
-    <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
-      <div style={{ flex: '0.3' }}>
-        <div>
-          <p>Chats</p>
-        </div>
-        <div>Inbox</div>
-        <div></div>
-      </div>
-      <div style={{ flex: '0.4' }}></div>
-      <div style={{ flex: '0.3' }}></div>
+    <div>
+      <SocketComponent user={user} />
     </div>
   );
 };

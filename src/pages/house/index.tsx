@@ -1,89 +1,223 @@
-import React, { useState } from 'react';
-import { useLoadScript, GoogleMap } from '@react-google-maps/api';
+import React, { useEffect, useState } from 'react';
+import { useLoadScript, GoogleMap, Marker } from '@react-google-maps/api';
 import type { NextPage } from 'next';
 import { useMemo } from 'react';
-import PlacesAutocomplete from 'components/google-map/auto-complete';
-import { Position } from 'type/google-map';
-import { Drawer } from 'antd';
-import { queryName } from 'utils/query-const';
-import { useQuery } from '@tanstack/react-query';
+import { Button, Drawer, Empty, Spin } from 'antd';
 import { useGetHouseList } from 'libs/house-service';
 import HouseList from 'components/google-map/house-list';
+import { House, HouseListParams } from 'type/house';
+import CustomFilter from 'components/google-map/filter';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
+import HouseDetail from 'components/google-map/house-detail';
+import style from './style.module.scss';
+import _, { set } from 'lodash';
+import { mapStyling } from 'services/map';
+import { useRouter } from 'next/router';
+
+interface HouseDetailProps {
+  isOpen: boolean;
+  data?: House | null;
+}
 
 const House: NextPage = () => {
-  const libraries = useMemo(() => ['places'], []);
-
-  const [open, setOpen] = useState(true);
-
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
-
-  const [center, setCenter] = useState<Position>({
-    lat: 27.672932021393862,
-    lng: 85.31184012689732,
-  });
-
-  const { data, isLoading, refetch } = useGetHouseList({
+  const router = useRouter();
+  const { lat, lng, houseCategory } = router.query;
+  const [listParams, setListParams] = useState<HouseListParams>({
     queryFor: 'map',
     queryType: 'distance',
     distance: 10,
-    // lat: 21.027964, lng: 105.8510132
-    mapPoint: '105.8510132,21.027964',
+    pageNumber: 0,
+    pageSize: 10,
   });
+
+  const [map, setMap] = useState<google.maps.Map>(null);
+
+  const [isOpenHouseDetail, setIsOpenHouseDetail] = useState<HouseDetailProps>({
+    isOpen: false,
+    data: null,
+  });
+
+  const [openDawer, setOpenDrawer] = useState(true);
+
+  const { data, isLoading, refetch } = useGetHouseList({
+    ...listParams,
+  });
+
   console.log(data);
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAT-29Vo1xQZU4nCKMCgvKfRivVJ2KkHhU',
-    libraries: libraries as any,
-  });
-
-  if (!isLoaded) {
-    return <p>Loading...</p>;
-  }
-
-  const handleChangePlace = ({ lat, lng }) => {
-    setCenter({ lat: lat, lng: lng });
+  const handleClickHouseMarker = (houseData: House) => {
+    setIsOpenHouseDetail({
+      isOpen: true,
+      data: houseData,
+    });
   };
 
+  const handleCloseHouseDetail = () => {
+    setIsOpenHouseDetail({
+      isOpen: false,
+      data: null,
+    });
+  };
+
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDawer);
+  };
+
+  const debounceBoundChange = _.debounce((m: google.maps.Map) => {
+    if (m) {
+      const bound = m.getBounds();
+      if (bound) {
+        const northWest = {
+          lat: bound.getNorthEast().lat(),
+          lng: bound.getSouthWest().lng(),
+        };
+        const northEast = {
+          lat: bound.getNorthEast().lat(),
+          lng: bound.getNorthEast().lng(),
+        };
+        const southEast = {
+          lat: bound.getSouthWest().lat(),
+          lng: bound.getNorthEast().lng(),
+        };
+        // here search api here
+        const southWest = {
+          lat: bound.getSouthWest().lat(),
+          lng: bound.getSouthWest().lng(),
+        };
+        setListParams({
+          ...listParams,
+          queryType: 'polygon',
+          polygonPoints: `${northWest.lng},${northWest.lat},${northEast.lng},${northEast.lat},${southEast.lng},${southEast.lat},${southWest.lng},${southWest.lat}`,
+        });
+      }
+    }
+  }, 1000);
+
+  useEffect(() => {
+    if (lat && lng) {
+      map &&
+        lat &&
+        lng &&
+        map?.panTo({
+          lat: parseFloat(lat as string),
+          lng: parseFloat(lng as string),
+        });
+    } else {
+      map &&
+        map.panTo({
+          lat: 21.02851,
+          lng: 105.804817,
+        });
+    }
+  }, [map]);
+
   return (
-    <div>
-      <div>side bar</div>
+    <div className={style.housePage}>
       <div
-        style={{ padding: '8px', borderTop: '1px solid black', borderBottom: '1px solid black' }}
+        style={{
+          height: '60px',
+          paddingLeft: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          borderTop: '1px solid #bfbfbf',
+          borderBottom: '1px solid #bfbfbf',
+        }}
       >
-        <PlacesAutocomplete handleChangePlace={handleChangePlace} />
+        <CustomFilter params={listParams} setParams={setListParams} />
       </div>
+
       <div style={{ position: 'relative' }}>
         <GoogleMap
           options={{
             disableDefaultUI: true,
             clickableIcons: true,
-            scrollwheel: false,
+            scrollwheel: true,
+            styles: mapStyling,
           }}
           zoom={14}
-          center={center}
           mapTypeId={google.maps.MapTypeId.ROADMAP}
-          mapContainerStyle={{ width: '100vw', height: '100vh' }}
-          onLoad={() => console.log('Map Component Loaded...')}
-        />
+          mapContainerStyle={{ width: '100vw', height: 'calc(100vh - 70px - 60px)' }}
+          onLoad={(map) => {
+            setMap(map);
+          }}
+          onBoundsChanged={() => {
+            debounceBoundChange(map);
+          }}
+        >
+          <Marker
+            position={{
+              lat: parseFloat(lat as string),
+              lng: parseFloat(lng as string),
+            }}
+          />
+          {data?.houses?.map((item, index) => {
+            return (
+              <Marker
+                onClick={() => handleClickHouseMarker(item)}
+                key={index}
+                position={{
+                  lat: item.latitude,
+                  lng: item.longitude,
+                }}
+                icon={'/static/icons/pin.png'}
+              />
+            );
+          })}
+        </GoogleMap>
         <Drawer
           placement='right'
           closable={false}
-          onClose={onClose}
-          open={open}
+          open={openDawer}
           getContainer={false}
           maskClosable={false}
           mask={false}
           width={'40vw'}
+          destroyOnClose={false}
+          className='this'
         >
-          <HouseList houseList={data}></HouseList>
+          <Button
+            icon={<FontAwesomeIcon icon={faArrowCircleRight} />}
+            shape='circle'
+            className={openDawer ? style.buttonActive : style.button}
+            onClick={toggleDrawer}
+          />
+          {isLoading ? (
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Spin tip='Loading' size='large'></Spin>
+            </div>
+          ) : (
+            <HouseList params={listParams} setParams={setListParams} houseList={data}></HouseList>
+          )}
+          {!isLoading && !data?.houses?.length ? (
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          ) : null}
         </Drawer>
+        <Button
+          icon={<FontAwesomeIcon icon={faArrowCircleLeft} />}
+          shape='circle'
+          style={{
+            position: 'absolute',
+            top: '45%',
+            transform: 'translateY(-50%)',
+            right: '4px',
+          }}
+          onClick={toggleDrawer}
+        />
       </div>
+      <HouseDetail
+        isOpen={isOpenHouseDetail.isOpen}
+        handleClose={handleCloseHouseDetail}
+        data={isOpenHouseDetail.data}
+      />
     </div>
   );
 };

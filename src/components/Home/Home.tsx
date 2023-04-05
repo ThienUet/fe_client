@@ -19,8 +19,6 @@ export default function Home({ user }: Props) {
     <React.StrictMode>
       <HeadTitle title='ZeeHome' />
       <div className='home-main'>
-        <Header user={user} router={router} />
-        <Divider />
         <Search />
         <Divider />
         <Banner />
