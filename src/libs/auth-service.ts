@@ -9,7 +9,7 @@ export function useUser() {
     enabled: isAuthorized,
     onError: (err) => {
       setAuthorized(false);
-      console.log(err);
+      // console.log(err);
     },
   };
   const { data, refetch, isLoading, error } = useQuery(['/me'], getUser, option);

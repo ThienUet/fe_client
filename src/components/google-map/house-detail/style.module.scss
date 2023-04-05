@@ -1,0 +1,54 @@
+.houseDetailContainer {
+  .ant-modal-content {
+    border-radius: 0 !important;
+  }
+  .houseDetail {
+    .houseImages{
+      flex: .65;
+      height: 100%;
+      overflow-y: scroll;
+      height: calc(100vh);
+    }
+  }
+
+  // .link {
+  //   color: black;
+  // }
+
+  // .link.linkActive {
+  //   color: red;
+  // }
+
+  .addressElipsis {
+    display: inline-block;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-top: 8px;
+    line-height: 1.6rem;
+  }
+
+  .intro {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    .appIcon {
+      overflow: hidden;
+      background-color: white;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      padding: 6px 5px 4px 5px;
+      border-radius: 8px;
+      transform: scale(0.8);
+      img {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
