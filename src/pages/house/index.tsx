@@ -11,8 +11,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import HouseDetail from 'components/google-map/house-detail';
 import style from './style.module.scss';
-import _ from 'lodash';
+import _, { set } from 'lodash';
 import { mapStyling } from 'services/map';
+import { useRouter } from 'next/router';
 
 interface HouseDetailProps {
   isOpen: boolean;
@@ -20,12 +21,12 @@ interface HouseDetailProps {
 }
 
 const House: NextPage = () => {
-  const libraries = useMemo(() => ['places'], []);
+  const router = useRouter();
+  const { lat, lng, houseCategory } = router.query;
   const [listParams, setListParams] = useState<HouseListParams>({
     queryFor: 'map',
     queryType: 'distance',
     distance: 10,
-    mapPoint: '105.8510132,21.027964',
     pageNumber: 0,
     pageSize: 10,
   });
@@ -43,10 +44,7 @@ const House: NextPage = () => {
     ...listParams,
   });
 
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: 'AIzaSyAT-29Vo1xQZU4nCKMCgvKfRivVJ2KkHhU',
-  //   libraries: libraries as any,
-  // });
+  console.log(data);
 
   const handleClickHouseMarker = (houseData: House) => {
     setIsOpenHouseDetail({
@@ -96,15 +94,28 @@ const House: NextPage = () => {
     }
   }, 1000);
 
-  // if (!isLoaded) {
-  //   return <p>Loading...</p>;
-  // }
+  useEffect(() => {
+    if (lat && lng) {
+      map &&
+        lat &&
+        lng &&
+        map?.panTo({
+          lat: parseFloat(lat as string),
+          lng: parseFloat(lng as string),
+        });
+    } else {
+      map &&
+        map.panTo({
+          lat: 21.02851,
+          lng: 105.804817,
+        });
+    }
+  }, [map]);
 
   return (
     <div className={style.housePage}>
       <div
         style={{
-          // padding: '8px',
           height: '60px',
           paddingLeft: '12px',
           display: 'flex',
@@ -129,10 +140,6 @@ const House: NextPage = () => {
           mapContainerStyle={{ width: '100vw', height: 'calc(100vh - 70px - 60px)' }}
           onLoad={(map) => {
             setMap(map);
-            map.panTo({
-              lat: parseFloat(listParams.mapPoint.split(',')[1]),
-              lng: parseFloat(listParams.mapPoint.split(',')[0]),
-            });
           }}
           onBoundsChanged={() => {
             debounceBoundChange(map);
@@ -140,8 +147,8 @@ const House: NextPage = () => {
         >
           <Marker
             position={{
-              lat: parseFloat(listParams.mapPoint.split(',')[1]),
-              lng: parseFloat(listParams.mapPoint.split(',')[0]),
+              lat: parseFloat(lat as string),
+              lng: parseFloat(lng as string),
             }}
           />
           {data?.houses?.map((item, index) => {

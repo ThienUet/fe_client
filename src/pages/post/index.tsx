@@ -126,7 +126,7 @@ const PostList = ({ user, userRefetch }: Props) => {
 
   return (
     <div
-      style={{ padding: '8px 200px', backgroundColor: '#a6a6a6', minHeight: 'calc(100vh - 70px)' }}
+      style={{ padding: '8px 200px', backgroundColor: '#e6e6e6', minHeight: 'calc(100vh - 70px)' }}
     >
       <div
         style={{

@@ -3,7 +3,7 @@ import { Button, Col, Modal, Row } from 'antd';
 import { House } from 'type/house';
 import CustomImage from '../custom-image';
 import style from './style.module.scss';
-import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
+import { Link, Element } from 'react-scroll';
 
 import {
   Divider,
@@ -27,11 +27,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactPlayer from 'react-player';
-// import Swiper from 'swiper';
 import { SwiperSlide, Swiper as SwiperContainer } from 'swiper/react';
 import 'swiper/css';
-// import 'swiper/css/scrollbar';
-import Swiper, { Scrollbar, Mousewheel } from 'swiper';
+import Swiper, { Mousewheel } from 'swiper';
+import { useRouter } from 'next/router';
 
 interface Props {
   isOpen: boolean;
@@ -52,6 +51,7 @@ const slideData: {
 ];
 
 const HouseDetail = ({ isOpen, handleClose, data }: Props) => {
+  const router = useRouter();
   const [swiper, setSwiper] = useState<Swiper>(null);
   const [selectedAnchor, setSelectedAnchor] = useState<
     'unit' | 'building_overview' | 'fact_and_feature' | 'area_of_interest' | 'near_by_school'
@@ -92,7 +92,6 @@ const HouseDetail = ({ isOpen, handleClose, data }: Props) => {
                 </div>
                 <Row>
                   {data?.images?.map((item: string, index: number) => {
-                    console.log(data.images);
                     return (
                       <Col
                         key={index}
@@ -195,8 +194,34 @@ const HouseDetail = ({ isOpen, handleClose, data }: Props) => {
                       gap: '16px',
                     }}
                   >
-                    <Button style={{ flex: '1' }}>Request to apply</Button>
-                    <Button style={{ flex: '1' }}>Request a tour</Button>
+                    <Button
+                      style={{ flex: '1' }}
+                      onClick={() => {
+                        router.push({
+                          pathname: 'chat',
+                          query: {
+                            id: data.owner.userId,
+                            type: '1',
+                          },
+                        });
+                      }}
+                    >
+                      Tôi muốn mua
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        router.push({
+                          pathname: 'chat',
+                          query: {
+                            id: data.owner.userId,
+                            type: '2',
+                          },
+                        });
+                      }}
+                      style={{ flex: '1' }}
+                    >
+                      Tôi muốn xem
+                    </Button>
                   </div>
                 </div>
                 <Divider style={{ height: '0.5px', marginBottom: '4px', marginTop: '16px' }} />

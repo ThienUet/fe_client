@@ -5,7 +5,7 @@ import '../styles/index.scss';
 import { Router, useRouter } from 'next/router';
 import { useUser } from '../libs/auth-service';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Spin } from 'antd';
 import PageLoader from '../components/loader';
 import { LoadScript } from '@react-google-maps/api';
 import Header from 'components/Header/Header';
@@ -58,7 +58,18 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
       <Hydrate state={pageProps.dehydratedState}>
         <ConfigProvider>
           {loading ? (
-            <PageLoader showText={true} text={'Vui lòng chờ...'} />
+            <div
+              style={{
+                height: '100vh',
+                width: '100vw',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              <Spin tip='Loading' size='large'></Spin>
+            </div>
           ) : (
             <LayoutApp {...pageProps} Component={Component} />
           )}
