@@ -70,7 +70,7 @@ function PlacesAutocomplete({ handleChangePlace, mode }: Props) {
   return (
     <div style={{ position: 'relative', width: '100%' }} className={style.placeAutoComplete}>
       <input
-        placeholder='Search'
+        placeholder='Tìm kiếm'
         value={value}
         onChange={handleInput}
         disabled={!ready}

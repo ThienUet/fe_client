@@ -169,8 +169,8 @@ const EditPost = () => {
               rules={[Validation.required]}
             >
               <Radio.Group buttonStyle='solid'>
-                <Radio.Button value={1}>For sell</Radio.Button>
-                <Radio.Button value={2}>For lease</Radio.Button>
+                <Radio.Button value={1}>Bán</Radio.Button>
+                <Radio.Button value={2}>Cho thuê</Radio.Button>
               </Radio.Group>
             </Form.Item>
             <Form.Item

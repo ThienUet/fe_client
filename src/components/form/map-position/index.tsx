@@ -80,7 +80,7 @@ const CustomFormSelectLocation = ({ value, onChange }: Props) => {
           >
             <div style={{ display: 'flex', marginTop: '0px', gap: '24px' }}>
               <div>
-                <span style={{ fontSize: '.8rem' }}>latitude</span>
+                <span style={{ fontSize: '.8rem' }}>lat</span>
                 <Input
                   value={value?.lat ? value?.lat : ''}
                   onChange={handlePositionOnChange}
@@ -90,7 +90,7 @@ const CustomFormSelectLocation = ({ value, onChange }: Props) => {
                 ></Input>
               </div>
               <div>
-                <span style={{ fontSize: '.8rem' }}>longtitude</span>
+                <span style={{ fontSize: '.8rem' }}>lng</span>
                 <Input
                   value={value?.lng ? value?.lng : ''}
                   onChange={handlePositionOnChange}
