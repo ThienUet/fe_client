@@ -1,14 +1,14 @@
 export const houseTypeOptions = [
-  { value: 1, label: 'Apartments' },
-  { value: 2, label: 'Houses' },
-  { value: 3, label: 'Lots/Land' },
-  { value: 4, label: 'Condos/Co-ops' },
-  { value: 5, label: 'Motels' },
+  { value: 1, label: 'Chung cư' },
+  { value: 2, label: 'Nhà' },
+  { value: 3, label: 'Đất' },
+  { value: 4, label: 'Văn phòng cho thuê' },
+  { value: 5, label: 'Nhà trọ' },
 ];
 
 export const houseCategoryOptions = [
-  { value: '1', label: 'For sell' },
-  { value: '2', label: 'For lease' },
+  { value: '1', label: 'Nhà bán' },
+  { value: '2', label: 'Nhà cho thuê' },
 ];
 
 export const trueFalseOptions = [
