@@ -178,7 +178,6 @@ export default function Header({ router, user }: Props) {
           <div className='col-5 col-sm-5 col-md-5'>
             <ul className='d-flex app-header-ul justify-content-end'>
               {headerObject.navbarRight.map((item, index: number) => {
-                console.log(item);
                 return (
                   <li className='app-header-item ms-4 ' key={index}>
                     <Dropdown

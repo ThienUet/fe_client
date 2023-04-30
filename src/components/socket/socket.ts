@@ -8,12 +8,12 @@ const token = Auth.getToken();
 
 export const socket = io(URL, {
   path: '/chat/socket.io',
-  transports: ['websocket', 'polling'],
-  extraHeaders: {
-    Authorization: `Bearer ${token}`,
-  },
+  transports: ['websocket'],
+  // extraHeaders: {
+  //   Authorization: `Bearer ${token}`,
+  // },
   autoConnect: true,
-  timeout: 5000,
+  // timeout: 5000,
   auth: {
     token: token,
   },

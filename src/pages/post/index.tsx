@@ -53,8 +53,9 @@ const PostList = ({ user, userRefetch }: Props) => {
   const { mutate: editPostMutation, isLoading: loading } = useMutation({
     onError: onError,
     onSuccess: (_, { data, id }) => onSuccess(id),
-    mutationFn: ({ data, id }: { data: HouseEditable; id: string }) =>
-      editHouseDetail({ data, id }),
+    mutationFn: ({ data, id }: { data: HouseEditable; id: string }) => {
+      return editHouseDetail({ data, id });
+    },
   });
 
   const handleClickSetVisible = (id: string) => {
@@ -100,9 +101,9 @@ const PostList = ({ user, userRefetch }: Props) => {
                 Router.push(`/post/edit-post?id=${record.houseId}`);
               }}
             >
-              Edit
+              Chỉnh sửa
             </Button>
-            <Button>delete</Button>
+            <Button>Xóa bào viết</Button>
           </div>
         );
       },
