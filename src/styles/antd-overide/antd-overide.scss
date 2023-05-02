@@ -64,3 +64,11 @@ html {
   scroll-behavior: smooth !important;
 }
  
+.ant-list-item {
+  a {
+    white-space: nowrap;
+  }
+}
+.header-dropdown-link {
+  white-space: nowrap;
+}
