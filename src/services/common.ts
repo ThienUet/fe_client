@@ -16,3 +16,8 @@ export const register = async (body: any) =>
   await axiosOrigin.post('https://huydt.online/api/auth/signup', body, {
     headers: { 'Content-Type': 'application/json' },
   });
+
+// RESET PASSWORD
+export const resetPasswordService = async (body: any) => {
+  await axios.post('/api/auth/reset', body);
+};

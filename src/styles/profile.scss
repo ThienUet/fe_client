@@ -305,3 +305,25 @@
     justify-content: center;
     align-items: center;
 }
+
+.modal-forgot-password {
+    padding: 10px;
+}
+.forgot-password {
+    .title {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    p {
+        text-align: center;
+        font-size: 15px;
+
+    }
+    .btn-forgot-pass {
+        text-align: center;
+    }
+}
+.ant-modal-content {
+    padding: 10px !important;
+}
