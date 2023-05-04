@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, notification } from 'antd';
+import { Form, Input, Button, notification, Modal } from 'antd';
 import Link from 'next/link';
 import { Login } from 'services/common';
 import * as Auth from '../../../storages/Auth';
-
+import ForgotPassword from '../_components/ForgotPassword';
 const LoginForm: React.FC = () => {
-  const [forgotOpen, setForgotOpen] = useState();
+  const [forgotOpen, setForgotOpen] = useState(false);
   const [formLogin] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const callBackResult = (result: any) => {
@@ -15,8 +15,13 @@ const LoginForm: React.FC = () => {
       notification.error({ message: 'Đăng nhập thất bại !' });
     }
   };
+  const close = () => {
+    setForgotOpen(false);
+  }
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const resetPassword = async () => {};
+  const resetPassword = () => {
+    setForgotOpen(true);
+  };
   const onFinishLogin = async () => {
     const data = formLogin.getFieldsValue();
     const body = {
@@ -83,6 +88,20 @@ const LoginForm: React.FC = () => {
           </Button>
         </div>
       </Form>
+      <Modal
+        className='modal-forgot-password'
+        open={forgotOpen}
+        onCancel={() => setForgotOpen(false)}
+        closable={false}
+        footer={
+          <Button type='primary' onClick={() => setForgotOpen(false)}>
+            Hủy
+          </Button>
+        }
+        maskClosable
+      >
+        <ForgotPassword />
+      </Modal>
     </div>
   );
 };
