@@ -15,9 +15,6 @@ const LoginForm: React.FC = () => {
       notification.error({ message: 'Đăng nhập thất bại !' });
     }
   };
-  const close = () => {
-    setForgotOpen(false);
-  }
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const resetPassword = () => {
     setForgotOpen(true);
