@@ -71,3 +71,19 @@ a {
         border: none !important;
     }
 }
+
+.done-payment {
+    margin: 20px auto;
+    width: 600px;
+    .title {
+        font-size: 20px;
+        text-align: center;
+    }
+    p {
+        text-align: center;
+    }
+    .action-payment-done {
+        display: flex;
+        justify-content: center;
+    }
+}
