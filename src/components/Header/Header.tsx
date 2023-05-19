@@ -1,12 +1,9 @@
-import React, { useMemo, useState } from 'react';
-import { Dropdown, Space, Avatar, Button } from 'antd';
+import React, { useState } from 'react';
+import { Dropdown, Space, Avatar } from 'antd';
 import Link from 'next/link';
 import DropdownContent from '../Dropdown/dropdown';
 // customize header
 import style from './style.module.scss';
-import HeaderSearch from 'components/google-map/header-search';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMap } from '@fortawesome/free-solid-svg-icons';
 
 interface headerObj {
   // navbarLeft: any;
@@ -16,11 +13,25 @@ interface headerObj {
 const headerObject: headerObj = {
   navbarRight: [
     {
+      title: 'Giới thiệu',
+      data: [
+        { title: 'Về chúng tôi', link: '/intro', key: 'link', id: '1' },
+        { title: 'Liên hệ trực tiếp', link: '/contact', key: 'link', id: '2' },
+      ],
+    },
+    {
+      title: 'Điều khoản',
+      data: [
+        { title: 'Quy định của chúng tôi', link: '/post', key: 'link', id: '1' },
+        { title: 'FA&Q', link: '/post/create-post', key: 'link', id: '2' },
+        { title: 'Hỗ trợ', link: '/chat', key: 'link', id: '3' },
+      ],
+    },
+    {
       title: 'Quản lý',
       data: [
         { title: 'Quản lý đăng tin', link: '/post', key: 'link', id: '1' },
         { title: 'Đăng tin mới', link: '/post/create-post', key: 'link', id: '2' },
-        { title: 'Chat', link: '/chat', key: 'link', id: '3' },
       ],
     },
     {
@@ -40,31 +51,6 @@ interface Props {
 }
 
 export default function Header({ router, user }: Props) {
-  const [searchHouse, setSearchHouse] = useState<{
-    pathName: '/search' | '/house';
-    query: {
-      lat: number;
-      lng: number;
-      houseCategory: string;
-    };
-  }>({
-    pathName: '/search',
-    query: null,
-  });
-
-  const handleClickSearch = () => {
-    if (searchHouse?.pathName && searchHouse?.query?.houseCategory && searchHouse?.query?.lat) {
-      router.push({
-        pathname: searchHouse.pathName,
-        query: {
-          lat: searchHouse.query.lat,
-          lng: searchHouse.query.lng,
-          houseCategory: searchHouse.query.houseCategory,
-        },
-      });
-    }
-  };
-
   if (user) {
     headerObject.navbarRight.pop();
     headerObject.navbarRight.push({
@@ -88,97 +74,46 @@ export default function Header({ router, user }: Props) {
     });
   }
 
-  const handleChangePlace = ({
-    lat,
-    lng,
-    houseType,
-  }: {
-    lat: number;
-    lng: number;
-    houseType?: string;
-  }) => {
-    setSearchHouse({
-      ...searchHouse,
-      query: { lat: lat, lng: lng, houseCategory: houseType },
-    });
-  };
-
   return (
     <div className={style.headerContainer}>
       <div className='app-header'>
         <div className='row'>
-          <div className='col-2 col-sm-2 col-md-2 position-relative app-header-logo'>
-            <div className='col-12'>
-              <Link href={'/'} style={{ textDecoration: 'none' }}>
-                <div className={style.intro}>
-                  <div className={style.appIcon}>
-                    <img src='/static/logo/logo.png'></img>
-                  </div>
-                  <div>
-                    <span
-                      style={{
-                        color: '#00004d',
-                        fontWeight: '900',
-                        fontSize: '1.3rem',
-                        letterSpacing: '2px',
-                      }}
-                    >
-                      Zee
-                    </span>
-                    <span
-                      style={{
-                        color: '#00004d',
-                        fontSize: '1.3rem',
-                      }}
-                    >
-                      Home
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          </div>
           <div
-            className='col-5 col-sm-5 col-md-5'
-            style={{ display: 'flex', alignItems: 'center' }}
+            style={{ width: '11%' }}
+            className='col-2 col-sm-2 col-md-2 position-relative app-header-logo'
           >
-            <HeaderSearch
-              handleChangePlace={handleChangePlace}
-              handleClickSearch={handleClickSearch}
-            />
-            <div
-              style={{
-                width: '100px',
-                marginLeft: '12px',
-                height: '40px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                padding: '0px 8px',
-                borderRadius: '6px',
-                transition: 'all .3s ease-in-out',
-                cursor: 'pointer',
-                border: '1px solid #cccccc',
-                backgroundColor: searchHouse.pathName === '/house' ? '#1677ff' : 'white',
-                color: searchHouse.pathName === '/house' ? 'white' : 'black',
-              }}
-              onClick={() => {
-                if (searchHouse.pathName === '/house') {
-                  setSearchHouse({ ...searchHouse, pathName: '/search' });
-                } else {
-                  setSearchHouse({ ...searchHouse, pathName: '/house' });
-                }
-              }}
-            >
-              <FontAwesomeIcon icon={faMap} />
-              Bản đồ
-            </div>
+            <Link href={'/'} style={{ textDecoration: 'none' }}>
+              <div className={style.intro}>
+                <div className={style.appIcon}>
+                  <img src='/static/logo/logo.png'></img>
+                </div>
+                <div>
+                  <span
+                    style={{
+                      color: '#00004d',
+                      fontWeight: '900',
+                      fontSize: '1.3rem',
+                      letterSpacing: '2px',
+                    }}
+                  >
+                    Zee
+                  </span>
+                  <span
+                    style={{
+                      color: '#00004d',
+                      fontSize: '1.3rem',
+                    }}
+                  >
+                    Home
+                  </span>
+                </div>
+              </div>
+            </Link>
           </div>
-          <div className='col-5 col-sm-5 col-md-5'>
-            <ul className='d-flex app-header-ul justify-content-end'>
-              {headerObject.navbarRight.map((item, index: number) => {
-                console.log(item);
+          {/* Break */}
+          <div style={{ width: '89%' }} className='right-nav col-5 col-sm-5 col-md-5'>
+            <ul className='right-nav-list d-flex app-header-ul justify-content-end'>
+              {headerObject.navbarRight.map((item: any, index: number) => {
                 return (
                   <li className='app-header-item ms-4 ' key={index}>
                     <Dropdown

@@ -1,4 +1,5 @@
-import SocketComponent from 'components/socket';
+import dynamic from 'next/dynamic';
+const SocketComponent = dynamic(() => import('../../components/socket'), { ssr: false });
 import React from 'react';
 import { User } from 'type/user';
 

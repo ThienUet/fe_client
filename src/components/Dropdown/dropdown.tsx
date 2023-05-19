@@ -12,9 +12,7 @@ interface Props {
 }
 
 export default function Dropdown(props: Props) {
-  const { data, router, user } = props;
-  const [onLoginOpen, setOnLoginOpen] = useState(false);
-  const [onRegisterOpen, setOnRegisterOpen] = useState(false);
+  const { data, user } = props;
   return (
     <div className='header_drop_down'>
       <List
@@ -22,13 +20,7 @@ export default function Dropdown(props: Props) {
         dataSource={data}
         renderItem={(item: any, index: number) => (
           <List.Item>
-            {item.key === 'register' ? (
-              <Register
-                onRegisterOpen={onRegisterOpen}
-                setOnLoginOpen={setOnLoginOpen}
-                setOnRegisterOpen={setOnRegisterOpen}
-              />
-            ) : item.key === 'logout' ? (
+            {item.key === 'logout' ? (
               <Logout title={item.title} />
             ) : item.key === 'link' ? (
               <Link

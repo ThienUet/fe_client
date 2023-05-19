@@ -7,20 +7,17 @@ import Footer from '../Footer/Footer';
 import SocialBarRelative from '../SocialBarRelative/SocialBarRelative';
 import HeadTitle from '../Head/head';
 import IntroComponent from './_components/IntroComponent';
-import { useRouter } from 'next/router';
 
 interface Props {
   user: any;
 }
 
 export default function Home({ user }: Props) {
-  const router = useRouter();
   return (
     <React.StrictMode>
       <HeadTitle title='ZeeHome' />
       <div className='home-main'>
         <Search />
-        <Divider />
         <Banner />
         <Divider />
         <IntroComponent
