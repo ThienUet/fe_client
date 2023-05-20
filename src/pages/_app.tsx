@@ -10,8 +10,12 @@ import PageLoader from '../components/loader';
 import { LoadScript } from '@react-google-maps/api';
 import Header from 'components/Header/Header';
 import { SyncOutlined } from '@ant-design/icons';
+import dynamic from 'next/dynamic';
 const loginPaths = '/account/join_zee_home';
-
+const SocialBarRelative = dynamic(
+  () => import('../components/SocialBarRelative/SocialBarRelative'),
+  { ssr: false },
+);
 const antIcon = (
   <SyncOutlined
     style={{
@@ -37,6 +41,7 @@ const LayoutApp = ({ Component, ...rest }: { Component: any }) => {
       >
         {router.pathname !== loginPaths ? <Header user={user} router={router} /> : null}
         <Component {...rest} userRefetch={userRefetch} user={user} />
+        <SocialBarRelative />
       </LoadScript>
     </>
   );
