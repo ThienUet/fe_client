@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/Account/post/index.js"  ],
   "exclude": [
     "node_modules"
   ]

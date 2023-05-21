@@ -20,7 +20,6 @@ export default function CustomImage({ src, alt, className, objectFit, fill, load
       alt={alt || 'ZILLOW.com'}
       src={src || _imgDefault}
       loading={loading ? loading : 'lazy'}
-      fill={fill}
     />
   );
 }

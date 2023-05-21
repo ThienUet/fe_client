@@ -63,7 +63,7 @@ export default function SocketComponent({ user }: Props) {
     }
   };
 
-  const onError = (error: any) => {
+  const onError: any = (error: any) => {
     console.log(error);
   };
 

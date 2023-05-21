@@ -1,12 +1,25 @@
 @import '../variables.scss';
 .app-header {
     height: 70px;
-    // position: fixed;
-    // z-index: 99999999999999;
     background-color: white;
     width: 100vw;
     padding: 0px 16px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    .row {
+        .right-nav {
+            .right-nav-list {
+                .app-header-item {
+                    .ant-space {
+                        .ant-space-item {
+                            .app-header-link{
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .app-header-logo {
         padding: 10px;
     }

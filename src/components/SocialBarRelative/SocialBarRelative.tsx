@@ -21,7 +21,7 @@ export default function SocialBarRelative() {
           </Link>
         </li>
         <li className='social-bar-relative-item'>
-          <Link title='Chat với tư vấn viên' href='#'>
+          <Link title='Chat với tư vấn viên' href='/chat'>
             <Image src={'/static/icons/message.ico'} alt={'image'} />
           </Link>
         </li>

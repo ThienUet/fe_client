@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from '../Image/CustomImage';
 import { Autoplay, Pagination, Navigation, EffectCoverflow } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
-
+import HeaderSearch from 'components/google-map/header-search';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMap } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 const dataSlidePoster = [
   { url: '#', img_url: '/static/banner/slider1.png', name: 'banner' },
   { url: '#', img_url: '/static/banner/slider2.jpg', name: 'banner' },
@@ -12,67 +15,86 @@ const dataSlidePoster = [
 
 const dataBannerSale = { url: '#', img_url: '/static/banner/phongtro1.jpg', name: 'abc' };
 const dataBannerAdvertise = { url: '#', img_url: '/static/banner/phongtro2.png', name: 'abc' };
+
 export default function Banner() {
+  const router = useRouter();
+  const [searchHouse, setSearchHouse] = useState<{
+    pathName: '/search' | '/house';
+    query: {
+      lat: number;
+      lng: number;
+      houseCategory: string;
+    };
+  }>({
+    pathName: '/search',
+    query: null,
+  });
+
+  const handleChangePlace = ({
+    lat,
+    lng,
+    houseType,
+  }: {
+    lat: number;
+    lng: number;
+    houseType?: string;
+  }) => {
+    setSearchHouse({
+      ...searchHouse,
+      query: { lat: lat, lng: lng, houseCategory: houseType },
+    });
+  };
+
+  const handleClickSearch = () => {
+    if (searchHouse?.pathName && searchHouse?.query?.houseCategory && searchHouse?.query?.lat) {
+      router.push({
+        pathname: searchHouse.pathName,
+        query: {
+          lat: searchHouse.query.lat,
+          lng: searchHouse.query.lng,
+          houseCategory: searchHouse.query.houseCategory,
+        },
+      });
+    }
+  };
+
   return (
     <div className='banner-main'>
-      <div className='row'>
-        <div className='col-7 ps-2 pe-1'>
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={30}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
-            loop={true}
-            pagination={{ clickable: true }}
-            navigation={true}
-            className='swiper-main'
-            modules={[Autoplay, Pagination, Navigation, EffectCoverflow]}
-            effect='coverflow'
+      <Image src={'/static/banner/slider3.jpg'} />
+      <div className='content'>
+        <div className='banner-title'>Khám phá những địa điểm bạn muốn sống</div>
+        <div className='search-box'>
+          <HeaderSearch
+            handleChangePlace={handleChangePlace}
+            handleClickSearch={handleClickSearch}
+          />
+          <div
+            style={{
+              width: '100px',
+              marginLeft: '12px',
+              height: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              padding: '0px 8px',
+              borderRadius: '6px',
+              transition: 'all .3s ease-in-out',
+              cursor: 'pointer',
+              border: '1px solid #cccccc',
+              backgroundColor: searchHouse.pathName === '/house' ? '#1677ff' : 'white',
+              color: searchHouse.pathName === '/house' ? 'white' : 'black',
+            }}
+            onClick={() => {
+              if (searchHouse.pathName === '/house') {
+                setSearchHouse({ ...searchHouse, pathName: '/search' });
+              } else {
+                setSearchHouse({ ...searchHouse, pathName: '/house' });
+              }
+            }}
           >
-            {dataSlidePoster && dataSlidePoster.length > 0
-              ? dataSlidePoster.map((slide, key) => {
-                  return (
-                    <SwiperSlide key={key}>
-                      <Image
-                        src={slide.img_url}
-                        fill
-                        className='responsive'
-                        alt={slide.name}
-                        loading='lazy'
-                      />
-                    </SwiperSlide>
-                  );
-                })
-              : null}
-          </Swiper>
-        </div>
-        <div className='col-5 ps-1 pe-2'>
-          <div className='banner-pic'>
-            <div className='banner-sale'>
-              <Link href={dataBannerSale.url || '#'} target='_blank' className='link-banner-sale'>
-                <Image
-                  src={dataBannerSale.img_url}
-                  fill
-                  className='responsive'
-                  alt={dataBannerSale.name}
-                  loading='lazy'
-                />
-              </Link>
-            </div>
-            <div className='banner-advertise'>
-              <Link
-                href={dataBannerAdvertise.url || '#'}
-                target='_blank'
-                className='link-banner-advertise'
-              >
-                <Image
-                  src={dataBannerAdvertise.img_url}
-                  fill
-                  className='responsive'
-                  alt={dataBannerAdvertise.name}
-                  loading='lazy'
-                />
-              </Link>
-            </div>
+            <FontAwesomeIcon icon={faMap} />
+            Bản đồ
           </div>
         </div>
       </div>
