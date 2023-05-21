@@ -6,6 +6,7 @@ import ProfileComponent from './_components/ProfileComponent';
 import LoginIn from '../../components/Dropdown/_components/Login';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import FireBaseMessagingLayout from 'components/fcm';
 interface Props {
   user: any;
   userRefetch: any;
@@ -21,34 +22,37 @@ export default function Profile({ user, userRefetch }: Props) {
     }
   }, [user, setOpenLogin]);
   return (
-    <React.StrictMode>
-      {user ? (
-        <>
-          <Head>
-            <title>Trang cá nhân</title>
-          </Head>
-          <div className='main-profile'>
-            <Divider />
-            <div className='profile-content'>
-              <ProfileComponent userRefetch={userRefetch} user={user} />
+    <FireBaseMessagingLayout user={user}>
+      <div>
+        {user ? (
+          <>
+            <Head>
+              <title>Trang cá nhân</title>
+            </Head>
+            <div className='main-profile'>
+              <Divider />
+              <div className='profile-content'>
+                <ProfileComponent userRefetch={userRefetch} user={user} />
+              </div>
+              <Divider />
+              <Footer />
+              <SocialBarRelative />
             </div>
-            <Divider />
-            <Footer />
-          </div>
-        </>
-      ) : (
-        <>
-          <Head>
-            <title>Đăng nhập</title>
-          </Head>
-          <LoginIn
-            showText={false}
-            router={router}
-            onLoginOpen={openLogin}
-            setOnLoginOpen={setOpenLogin}
-          />
-        </>
-      )}
-    </React.StrictMode>
+          </>
+        ) : (
+          <>
+            <Head>
+              <title>Đăng nhập</title>
+            </Head>
+            <LoginIn
+              showText={false}
+              router={router}
+              onLoginOpen={openLogin}
+              setOnLoginOpen={setOpenLogin}
+            />
+          </>
+        )}
+      </div>
+    </FireBaseMessagingLayout>
   );
 }

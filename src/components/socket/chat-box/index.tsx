@@ -1,7 +1,8 @@
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar, Button, Divider } from 'antd';
-import _, { orderBy, xor } from 'lodash';
+import MiniFileUpload from 'components/form/mini-upload';
+import _ from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
 import { MessageType, chatLog } from 'type/chat';
 import { User } from 'type/user';
@@ -40,16 +41,22 @@ const Log = ({
   const renderMessItem = ({ type, image, link, text }: MessageType) => {
     switch (type) {
       case 'text':
-        return text;
+        return <p style={{ maxWidth: '300px', wordBreak: 'break-word' }}>{text}</p>;
       case 'image':
         return (
-          <div>
-            <img src={image}></img>
-            {text}
+          <div style={{ padding: '8px' }}>
+            <img src={image} width={100} height={80} style={{ objectFit: 'contain' }}></img>
+            <div>{text}</div>
           </div>
         );
       case 'link':
-        return <div>link snipet</div>;
+        return (
+          <div style={{ maxWidth: '400px' }}>
+            <a href={link} style={{ textDecoration: 'underline' }}>
+              {text}
+            </a>
+          </div>
+        );
       default:
         return text;
     }
@@ -114,25 +121,91 @@ const Log = ({
 
 const ChatBox = ({ chatLogs, currentUserChat, sendMessage, addNewMessage, userNow }: Props) => {
   const [messageText, setMessageText] = useState<string>('');
+  const [file, setFile] = useState<{
+    fileKey: string;
+    fileUrl: string;
+  }>();
+
+  const isValidUrl = (urlString: string) => {
+    const urlPattern = new RegExp(
+      '^(https?:\\/\\/)?' + // validate protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // validate domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // validate OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // validate port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // validate query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i',
+    ); // validate fragment locator
+    return !!urlPattern.test(urlString);
+  };
 
   const handleSendMessage = () => {
-    const newMessage: MessageType = {
-      type: 'text',
-      text: messageText,
-    };
-    sendMessage(newMessage);
-    addNewMessage({
-      body: JSON.stringify(newMessage),
-      createAt: '',
-      from: {
-        firstName: userNow.firstName,
-        lastName: userNow.lastName,
-        image: userNow.image,
-        _id: userNow.userId,
-      },
-      to: currentUserChat,
-    });
-    setMessageText('');
+    if (file && file.fileKey) {
+      const newMessage: MessageType = {
+        type: 'image',
+        text: messageText,
+        image: file.fileKey,
+      };
+      sendMessage(newMessage);
+      addNewMessage({
+        body: JSON.stringify(newMessage),
+        createAt: '',
+        from: {
+          firstName: userNow.firstName,
+          lastName: userNow.lastName,
+          image: userNow.image,
+          _id: userNow.userId,
+        },
+        to: currentUserChat,
+      });
+      setMessageText('');
+      setFile(null);
+    } else {
+      if (isValidUrl(messageText)) {
+        const newMessage: MessageType = {
+          type: 'link',
+          link: messageText,
+          text: messageText,
+        };
+        sendMessage(newMessage);
+        addNewMessage({
+          body: JSON.stringify(newMessage),
+          createAt: '',
+          from: {
+            firstName: userNow.firstName,
+            lastName: userNow.lastName,
+            image: userNow.image,
+            _id: userNow.userId,
+          },
+          to: currentUserChat,
+        });
+        setMessageText('');
+        setFile(null);
+      } else {
+        const newMessage: MessageType = {
+          type: 'text',
+          text: messageText,
+        };
+        sendMessage(newMessage);
+        addNewMessage({
+          body: JSON.stringify(newMessage),
+          createAt: '',
+          from: {
+            firstName: userNow.firstName,
+            lastName: userNow.lastName,
+            image: userNow.image,
+            _id: userNow.userId,
+          },
+          to: currentUserChat,
+        });
+        setMessageText('');
+        setFile(null);
+      }
+    }
+  };
+
+  const handleFileOnChange = (file) => {
+    setFile(file);
   };
 
   return (
@@ -159,6 +232,7 @@ const ChatBox = ({ chatLogs, currentUserChat, sendMessage, addNewMessage, userNo
           >
             <Log chatLogs={chatLogs} currentUserChat={currentUserChat} />
           </div>
+
           <div
             style={{
               position: 'absolute',
@@ -167,29 +241,53 @@ const ChatBox = ({ chatLogs, currentUserChat, sendMessage, addNewMessage, userNo
               backgroundColor: 'white',
               width: '100%',
               padding: '0px 20px 0px 8px',
-              display: 'flex',
-              gap: '16px',
             }}
           >
-            <input
-              value={messageText}
-              onChange={(e: any) => {
-                setMessageText(e?.target?.value);
-              }}
-              style={{
-                flex: '1',
-                border: '1px solid #d9d9d9',
-                outline: 'none',
-                padding: '0px 16px',
-                borderRadius: '16px',
-              }}
-            />
-            <Button
-              shape='circle'
-              onClick={handleSendMessage}
-              disabled={messageText.length ? false : true}
-              icon={<FontAwesomeIcon icon={faPaperPlane} />}
-            ></Button>
+            {file && (
+              <div style={{ width: '100%', height: '100px' }}>
+                <div style={{ width: '100%', height: '1px', backgroundColor: 'black' }}></div>
+                <div
+                  style={{
+                    marginTop: '6px',
+                    width: '84px',
+                    height: '84px',
+                    backgroundColor: '#e6e6e6',
+                    borderRadius: '8px',
+                    position: 'relative',
+                  }}
+                >
+                  <Button
+                    style={{ position: 'absolute', top: '-4px', right: '-4px' }}
+                    shape='circle'
+                    size='small'
+                    icon={<FontAwesomeIcon icon={faXmark} />}
+                  ></Button>
+                  <img height={80} width={80} style={{ objectFit: 'contain' }} src={file.fileKey} />
+                </div>
+              </div>
+            )}
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <MiniFileUpload type='image' onChange={handleFileOnChange} />
+              <input
+                value={messageText}
+                onChange={(e: any) => {
+                  setMessageText(e?.target?.value);
+                }}
+                style={{
+                  flex: '1',
+                  border: '1px solid #d9d9d9',
+                  outline: 'none',
+                  padding: '0px 16px',
+                  borderRadius: '16px',
+                }}
+              />
+              <Button
+                shape='circle'
+                onClick={handleSendMessage}
+                disabled={messageText.length || file?.fileKey ? false : true}
+                icon={<FontAwesomeIcon icon={faPaperPlane} />}
+              ></Button>
+            </div>
           </div>
         </div>
       ) : (

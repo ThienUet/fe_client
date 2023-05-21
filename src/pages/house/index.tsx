@@ -14,13 +14,21 @@ import style from './style.module.scss';
 import _, { set } from 'lodash';
 import { mapStyling } from 'services/map';
 import { useRouter } from 'next/router';
+import { useMutation } from '@tanstack/react-query';
+import { getHouseDetail } from 'services/house-services';
+import { User } from 'type/user';
+import FireBaseMessagingLayout from 'components/fcm';
 
 interface HouseDetailProps {
   isOpen: boolean;
   data?: House | null;
 }
 
-const House: NextPage = () => {
+interface Props {
+  user: User;
+}
+
+const House: NextPage = ({ user }: Props) => {
   const router = useRouter();
   const { lat, lng, houseCategory } = router.query;
   const [listParams, setListParams] = useState<HouseListParams>({
@@ -29,6 +37,23 @@ const House: NextPage = () => {
     distance: 10,
     pageNumber: 0,
     pageSize: 10,
+  });
+
+  const onSuccess = (value: any) => {
+    setIsOpenHouseDetail({
+      isOpen: true,
+      data: value,
+    });
+  };
+
+  const onError = (value: any) => {
+    // console.log(value, 'value');
+  };
+
+  const houseDetail: { data: any; mutate: any } = useMutation({
+    onSuccess: onSuccess,
+    onError: onError,
+    mutationFn: getHouseDetail,
   });
 
   const [map, setMap] = useState<google.maps.Map>(null);
@@ -40,17 +65,14 @@ const House: NextPage = () => {
 
   const [openDawer, setOpenDrawer] = useState(true);
 
-  const { data, isLoading, refetch } = useGetHouseList({
+  const { data, isLoading } = useGetHouseList({
     ...listParams,
   });
 
-  console.log(data);
-
-  const handleClickHouseMarker = (houseData: House) => {
-    setIsOpenHouseDetail({
-      isOpen: true,
-      data: houseData,
-    });
+  const handleClickHouseMarker = (id: string) => {
+    if (id && typeof id === 'string') {
+      houseDetail.mutate({ id: id });
+    }
   };
 
   const handleCloseHouseDetail = () => {
@@ -113,112 +135,120 @@ const House: NextPage = () => {
   }, [map]);
 
   return (
-    <div className={style.housePage}>
-      <div
-        style={{
-          height: '60px',
-          paddingLeft: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          borderTop: '1px solid #bfbfbf',
-          borderBottom: '1px solid #bfbfbf',
-        }}
-      >
-        <CustomFilter params={listParams} setParams={setListParams} />
-      </div>
+    <FireBaseMessagingLayout user={user}>
+      <div className={style.housePage}>
+        <div
+          style={{
+            height: '60px',
+            paddingLeft: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            borderTop: '1px solid #bfbfbf',
+            borderBottom: '1px solid #bfbfbf',
+          }}
+        >
+          <CustomFilter params={listParams} setParams={setListParams} />
+        </div>
 
-      <div style={{ position: 'relative' }}>
-        <GoogleMap
-          options={{
-            disableDefaultUI: true,
-            clickableIcons: true,
-            scrollwheel: true,
-            styles: mapStyling,
-          }}
-          zoom={14}
-          mapTypeId={google.maps.MapTypeId.ROADMAP}
-          mapContainerStyle={{ width: '100vw', height: 'calc(100vh - 70px - 60px)' }}
-          onLoad={(map) => {
-            setMap(map);
-          }}
-          onBoundsChanged={() => {
-            debounceBoundChange(map);
-          }}
-        >
-          <Marker
-            position={{
-              lat: parseFloat(lat as string),
-              lng: parseFloat(lng as string),
+        <div style={{ position: 'relative' }}>
+          <GoogleMap
+            options={{
+              disableDefaultUI: true,
+              clickableIcons: true,
+              scrollwheel: true,
+              styles: mapStyling,
             }}
-          />
-          {data?.houses?.map((item, index) => {
-            return (
-              <Marker
-                onClick={() => handleClickHouseMarker(item)}
-                key={index}
-                position={{
-                  lat: item.latitude,
-                  lng: item.longitude,
+            zoom={14}
+            mapTypeId={google.maps.MapTypeId.ROADMAP}
+            mapContainerStyle={{ width: '100vw', height: 'calc(100vh - 70px - 60px)' }}
+            onLoad={(map) => {
+              setMap(map);
+            }}
+            onBoundsChanged={() => {
+              debounceBoundChange(map);
+            }}
+          >
+            <Marker
+              position={{
+                lat: parseFloat(lat as string),
+                lng: parseFloat(lng as string),
+              }}
+            />
+            {data?.houses?.map((item, index) => {
+              return (
+                <Marker
+                  onClick={() => handleClickHouseMarker(item.houseId)}
+                  key={index}
+                  position={{
+                    lat: item.latitude,
+                    lng: item.longitude,
+                  }}
+                  icon={'/static/icons/pin.png'}
+                />
+              );
+            })}
+          </GoogleMap>
+          <Drawer
+            placement='right'
+            closable={false}
+            open={openDawer}
+            getContainer={false}
+            maskClosable={false}
+            mask={false}
+            width={'40vw'}
+            destroyOnClose={false}
+            className='this'
+          >
+            <Button
+              icon={<FontAwesomeIcon icon={faArrowCircleRight} />}
+              shape='circle'
+              className={openDawer ? style.buttonActive : style.button}
+              onClick={toggleDrawer}
+            />
+            {isLoading ? (
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
-                icon={'/static/icons/pin.png'}
-              />
-            );
-          })}
-        </GoogleMap>
-        <Drawer
-          placement='right'
-          closable={false}
-          open={openDawer}
-          getContainer={false}
-          maskClosable={false}
-          mask={false}
-          width={'40vw'}
-          destroyOnClose={false}
-          className='this'
-        >
+              >
+                <Spin tip='Loading' size='large'></Spin>
+              </div>
+            ) : (
+              <HouseList
+                params={listParams}
+                setParams={setListParams}
+                houseList={data}
+                user={user}
+              ></HouseList>
+            )}
+            {!isLoading && !data?.houses?.length ? (
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+            ) : null}
+          </Drawer>
           <Button
-            icon={<FontAwesomeIcon icon={faArrowCircleRight} />}
+            icon={<FontAwesomeIcon icon={faArrowCircleLeft} />}
             shape='circle'
-            className={openDawer ? style.buttonActive : style.button}
+            style={{
+              position: 'absolute',
+              top: '45%',
+              transform: 'translateY(-50%)',
+              right: '4px',
+            }}
             onClick={toggleDrawer}
           />
-          {isLoading ? (
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Spin tip='Loading' size='large'></Spin>
-            </div>
-          ) : (
-            <HouseList params={listParams} setParams={setListParams} houseList={data}></HouseList>
-          )}
-          {!isLoading && !data?.houses?.length ? (
-            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-          ) : null}
-        </Drawer>
-        <Button
-          icon={<FontAwesomeIcon icon={faArrowCircleLeft} />}
-          shape='circle'
-          style={{
-            position: 'absolute',
-            top: '45%',
-            transform: 'translateY(-50%)',
-            right: '4px',
-          }}
-          onClick={toggleDrawer}
+        </div>
+        <HouseDetail
+          isOpen={isOpenHouseDetail.isOpen}
+          handleClose={handleCloseHouseDetail}
+          data={isOpenHouseDetail.data}
+          user={user}
         />
       </div>
-      <HouseDetail
-        isOpen={isOpenHouseDetail.isOpen}
-        handleClose={handleCloseHouseDetail}
-        data={isOpenHouseDetail.data}
-      />
-    </div>
+    </FireBaseMessagingLayout>
   );
 };
 

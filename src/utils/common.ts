@@ -3,7 +3,11 @@ import { axiosUtlis } from './axiosInstance';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
 //Upload File
-const uploadApi = (file: any, fileType: any) => {
+const uploadApi = (
+  file: any,
+  fileType: any,
+  setProgress?: React.Dispatch<React.SetStateAction<number>>,
+) => {
   return new Promise((resolve, reject) => {
     const formData = new FormData();
     const token = Auth.getToken();
@@ -18,11 +22,15 @@ const uploadApi = (file: any, fileType: any) => {
 
       progress.addEventListener('progress', (event: any) => {
         const result = JSON.parse(event.data);
+        setProgress(result);
+
         if (result === '100') {
           progress.close();
         }
+
         progress.addEventListener('complete', (event: any) => {
           if (event.data === 'complete') {
+            setProgress(100);
             progress.close();
           }
         });
@@ -40,10 +48,14 @@ const uploadApi = (file: any, fileType: any) => {
 };
 
 // get progress
-export const handleUploadFile = async (file: any, fileType: any, limit?: string): Promise<any> => {
+export const handleUploadFile = async (
+  file: any,
+  fileType: any,
+  setProgress?: React.Dispatch<React.SetStateAction<number>>,
+): Promise<any> => {
   // eslint-disable-next-line no-useless-catch
   try {
-    const res = await uploadApi(file, fileType);
+    const res = await uploadApi(file, fileType, setProgress);
     return res;
   } catch (err) {
     throw err;

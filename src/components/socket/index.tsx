@@ -15,7 +15,7 @@ interface Props {
 
 export default function SocketComponent({ user }: Props) {
   const router = useRouter();
-  const { id, type } = router.query;
+  const { id } = router.query;
   const [userList, setUserList] = useState<User[]>([]);
   const [currentUserChat, setCurrentUserChat] = useState<{
     _id: string;
@@ -34,6 +34,8 @@ export default function SocketComponent({ user }: Props) {
     };
     count: number;
   }>(null);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [newMessage, setNewMessage] = useState<{
     chat: ReceiveMessage;
@@ -112,6 +114,10 @@ export default function SocketComponent({ user }: Props) {
   }, [readAll]);
 
   useEffect(() => {
+    // socket.disconnect();
+    socket.connect();
+    setIsLoading(true);
+
     const historyChat = (value) => {
       if (value?.messages?.length) {
         setChatLogs(value?.messages);
@@ -122,11 +128,8 @@ export default function SocketComponent({ user }: Props) {
 
     const receiveChatWith = (value: { _id: string; chatWith?: User[] }) => {
       setUserList(value?.chatWith);
+      setIsLoading(false);
     };
-
-    socket.emit('FE_get_chat_with', {}, (value: any) => {
-      console.log(value, 'this is messages');
-    });
 
     const receiveMessage = ({
       chat,
@@ -147,15 +150,25 @@ export default function SocketComponent({ user }: Props) {
       });
     };
 
+    const timer = setTimeout(() => {
+      socket.emit('FE_get_chat_with', {}, (value: any) => {
+        console.log(value, 'this is messages');
+      });
+    }, 1000);
+    // listener:
+    // emit:
+
     socket.on('FE_receive_message', receiveMessage);
     socket.on('FE_receive_history_chat', historyChat);
     socket.on('FE_receive_chat_with', receiveChatWith);
     socket.on('FE_reset_unread_done', resetUnread);
 
     return () => {
+      clearTimeout(timer);
       socket.off('FE_receive_history_chat', historyChat);
       socket.off('FE_receive_chat_with', receiveChatWith);
       socket.off('FE_receive_message', receiveMessage);
+      socket.off('FE_reset_unread_done', resetUnread);
       socket.disconnect();
     };
   }, []);
@@ -235,7 +248,11 @@ export default function SocketComponent({ user }: Props) {
         }}
       >
         <div style={{ flex: '.3' }}>
-          <UserList userList={userList} setCurrentUserChat={setCurrentUserChat} />
+          <UserList
+            userList={userList}
+            setCurrentUserChat={setCurrentUserChat}
+            isLoading={isLoading}
+          />
         </div>
         <div style={{ flex: '.7', borderLeft: '1px solid #d9d9d9' }}>
           <ChatBox

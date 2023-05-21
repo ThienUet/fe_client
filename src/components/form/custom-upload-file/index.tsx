@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { handleDeleteFile, handleUploadFile } from './../../../utils/common';
 import ReactPlayer from 'react-player';
-import { Button } from 'antd';
+import { Button, Progress } from 'antd';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { log } from 'console';
@@ -33,6 +33,8 @@ const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, va
         return 'image/png, image/jpeg, image/jpg';
     }
   };
+
+  const [progress, setProgress] = useState<number>(null);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [err, setErr] = useState<string>('');
@@ -76,7 +78,7 @@ const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, va
       const fileSize = fileDetail.size;
       const fileSizeMb = fileSize / (1024 * 1024);
       setLoading(true);
-      const fileUploaded = await handleUploadFile(newFile, type, String(maxFileSize));
+      const fileUploaded = await handleUploadFile(newFile, type, setProgress);
       onChange({
         fileKey: fileUploaded,
         fileUrl: fileUploaded,
@@ -102,7 +104,6 @@ const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, va
 
   return (
     <div style={style}>
-      {' '}
       <div
         style={{
           border: `1px solid ${err ? '#d32f2f' : 'rgb(240, 240, 240)'}`,
@@ -145,7 +146,7 @@ const CustomUploadFile = ({ style, onChange, type, maxFileSize, previewStyle, va
             </div>
           )}
         </div>
-
+        {progress && <Progress strokeLinecap='butt' percent={progress} />}
         <div style={{ marginTop: '32px' }}>
           <input
             style={{ display: 'none' }}
