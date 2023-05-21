@@ -11,8 +11,14 @@ import style from './style.module.scss';
 import { useMutation } from '@tanstack/react-query';
 import { getList } from 'services/house-services';
 import { getGeocode } from 'use-places-autocomplete';
+import FireBaseMessagingLayout from 'components/fcm';
+import { User } from 'type/user';
 
-const Search = () => {
+interface Props {
+  user: User;
+}
+
+const Search = ({ user }: Props) => {
   const router = useRouter();
   const { lat, lng, houseCategory } = router.query;
   const [listParams, setListParams] = useState<HouseListParams>({
@@ -76,93 +82,99 @@ const Search = () => {
     }
   };
   return (
-    <div
-      style={{ padding: '8px 200px', backgroundColor: '#e6e6e6', minHeight: 'calc(100vh - 70px)' }}
-    >
-      <div>
-        <div style={{ fontSize: '1.4rem', fontWeight: '600', color: '#19194d' }}>
-          Kết quả tìm kiếm
-        </div>
-        <div style={{ marginBottom: '24px' }}>
-          {listParams.houseCategory == 1 ? <span>Mua nhà </span> : <span>Thuê nhà </span>}
-          {currentAddress ? <span>quanh khu vực {currentAddress}. </span> : null}
-          {listParams.distance ? <span>Bán kính {listParams.distance}. </span> : null}
-          {renderResultPrice()}
-        </div>
-
-        <div
-          style={{
-            backgroundColor: 'white',
-            padding: '16px 32px',
-            borderRadius: '6px',
-            marginBottom: '8px',
-            fontWeight: '600',
-          }}
-        >
-          Bộ lọc
-          <Filter params={listParams} setParams={setListParams} />
-        </div>
+    <FireBaseMessagingLayout user={user}>
+      <div
+        style={{
+          padding: '8px 200px',
+          backgroundColor: '#e6e6e6',
+          minHeight: 'calc(100vh - 70px)',
+        }}
+      >
         <div>
-          {data?.houses?.map((item, index) => {
-            const createdDate = moment(new Date(item.createdDate)).fromNow();
-            return (
-              <div
-                key={index}
-                className={style.houseItem}
-                onClick={() => {
-                  router.push({ pathname: '/house-detail', query: { id: item.houseId } });
-                }}
-              >
-                <div>
-                  <CustomImage
-                    src={item.thumbnail}
-                    style={{ height: '200px', width: '200px', objectFit: 'cover' }}
-                  />
-                </div>
-                <div style={{ marginLeft: '32px', flex: '1', position: 'relative' }}>
-                  <p style={{ fontSize: '1.4rem', marginBottom: '16px' }}>{item.title}</p>
-                  <div className={style.descriptionElipsis}>{item.description}</div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      flexWrap: 'wrap',
-                      marginBottom: '8px',
-                    }}
-                  >
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                      <FontAwesomeIcon icon={faCommentDollar} />
-                      <span>{item.price} VND</span>
-                    </div>
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                      <FontAwesomeIcon icon={faVectorSquare} />
-                      <span>{item.square} m2</span>
-                    </div>
+          <div style={{ fontSize: '1.4rem', fontWeight: '600', color: '#19194d' }}>
+            Kết quả tìm kiếm
+          </div>
+          <div style={{ marginBottom: '24px' }}>
+            {listParams.houseCategory == 1 ? <span>Mua nhà </span> : <span>Thuê nhà </span>}
+            {currentAddress ? <span>quanh khu vực {currentAddress}. </span> : null}
+            {listParams.distance ? <span>Bán kính {listParams.distance}. </span> : null}
+            {renderResultPrice()}
+          </div>
+
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '16px 32px',
+              borderRadius: '6px',
+              marginBottom: '8px',
+              fontWeight: '600',
+            }}
+          >
+            Bộ lọc
+            <Filter params={listParams} setParams={setListParams} />
+          </div>
+          <div>
+            {data?.houses?.map((item, index) => {
+              const createdDate = moment(new Date(item.createdDate)).fromNow();
+              return (
+                <div
+                  key={index}
+                  className={style.houseItem}
+                  onClick={() => {
+                    router.push({ pathname: '/house-detail', query: { id: item.houseId } });
+                  }}
+                >
+                  <div>
+                    <CustomImage
+                      src={item.thumbnail}
+                      style={{ height: '200px', width: '200px', objectFit: 'cover' }}
+                    />
+                  </div>
+                  <div style={{ marginLeft: '32px', flex: '1', position: 'relative' }}>
+                    <p style={{ fontSize: '1.4rem', marginBottom: '16px' }}>{item.title}</p>
+                    <div className={style.descriptionElipsis}>{item.description}</div>
                     <div
                       style={{
-                        width: '180px',
-                        overflow: 'hidden',
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '8px',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        marginBottom: '8px',
                       }}
                     >
-                      <FontAwesomeIcon icon={faLocationDot} />
-                      <span className={style.addressElipsis}>{item.address}</span>
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                        <FontAwesomeIcon icon={faCommentDollar} />
+                        <span>{item.price} VND</span>
+                      </div>
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                        <FontAwesomeIcon icon={faVectorSquare} />
+                        <span>{item.square} m2</span>
+                      </div>
+                      <div
+                        style={{
+                          width: '180px',
+                          overflow: 'hidden',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '8px',
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faLocationDot} />
+                        <span className={style.addressElipsis}>{item.address}</span>
+                      </div>
+                    </div>
+                    <Divider />
+                    <div style={{ position: 'absolute', bottom: '0', left: '0', color: '#808080' }}>
+                      {createdDate}
                     </div>
                   </div>
-                  <Divider />
-                  <div style={{ position: 'absolute', bottom: '0', left: '0', color: '#808080' }}>
-                    {createdDate}
-                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </FireBaseMessagingLayout>
   );
 };
 

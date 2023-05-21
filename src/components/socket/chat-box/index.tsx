@@ -41,7 +41,7 @@ const Log = ({
   const renderMessItem = ({ type, image, link, text }: MessageType) => {
     switch (type) {
       case 'text':
-        return text;
+        return <p style={{ maxWidth: '300px', wordBreak: 'break-word' }}>{text}</p>;
       case 'image':
         return (
           <div style={{ padding: '8px' }}>
@@ -51,7 +51,7 @@ const Log = ({
         );
       case 'link':
         return (
-          <div>
+          <div style={{ maxWidth: '400px' }}>
             <a href={link} style={{ textDecoration: 'underline' }}>
               {text}
             </a>

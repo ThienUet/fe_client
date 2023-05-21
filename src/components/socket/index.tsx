@@ -155,6 +155,8 @@ export default function SocketComponent({ user }: Props) {
         console.log(value, 'this is messages');
       });
     }, 1000);
+    // listener:
+    // emit:
 
     socket.on('FE_receive_message', receiveMessage);
     socket.on('FE_receive_history_chat', historyChat);

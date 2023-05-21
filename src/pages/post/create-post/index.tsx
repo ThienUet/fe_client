@@ -7,16 +7,20 @@ import CustomUploadFiles from 'components/form/custom-upload-files';
 import CustomFormSelectLocation from 'components/form/map-position';
 import DebounceSelect from 'components/form/search-select';
 import HouseDetail from 'components/google-map/house-detail';
-import { useGetProvinces, useGetDistricts, useGetWards, useCreateHouse } from 'libs/house-service';
-import React, { useMemo, useState } from 'react';
-import { Element, Link } from 'react-scroll';
+import { useGetProvinces, useGetDistricts, useGetWards } from 'libs/house-service';
+import React, { useState } from 'react';
 import { createHouse } from 'services/house-services';
 import { House } from 'type/house';
 import { admitOptions, furnishedOptions, houseTypeOptions, trueFalseOptions } from 'utils/options';
 import { Validation } from 'utils/validations';
 import { useRouter } from 'next/router';
+import { User } from 'type/user';
+import FireBaseMessagingLayout from 'components/fcm';
+interface Props {
+  user: User;
+}
 
-const CreateHouse = () => {
+const CreateHouse = ({ user }: Props) => {
   const [form] = Form.useForm();
   const provinceWatch = Form.useWatch('province', form);
   const districtWatch = Form.useWatch('district', form);
@@ -100,293 +104,296 @@ const CreateHouse = () => {
   // }
 
   return (
-    <div style={{ padding: '8px 200px', backgroundColor: '#e6e6e6' }}>
-      {contextHolder}
-      <div
-        style={{
-          backgroundColor: 'white',
-          padding: '16px 32px',
-          borderRadius: '6px',
-          marginBottom: '8px',
-          fontSize: '1.6rem',
-          fontWeight: '600',
-        }}
-      >
-        Đăng tin bất động sản miễn phí
+    <FireBaseMessagingLayout user={user}>
+      <div style={{ padding: '8px 200px', backgroundColor: '#e6e6e6' }}>
+        {contextHolder}
+        <div
+          style={{
+            backgroundColor: 'white',
+            padding: '16px 32px',
+            borderRadius: '6px',
+            marginBottom: '8px',
+            fontSize: '1.6rem',
+            fontWeight: '600',
+          }}
+        >
+          Đăng tin bất động sản miễn phí
+        </div>
+        <Form onFinish={onFinish} form={form} layout='horizontal'>
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '16px 32px',
+              borderRadius: '6px',
+              marginBottom: '8px',
+              gap: '32px',
+              display: 'flex',
+            }}
+          >
+            <div style={{ flex: '1' }}>
+              <Form.Item
+                name='title'
+                label='Tiêu đề'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Input placeholder='Nhập tiêu đề' />
+              </Form.Item>
+              <Form.Item
+                name='houseCategory'
+                label='Thể loại'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Radio.Group buttonStyle='solid'>
+                  <Radio.Button value='1'>Bán</Radio.Button>
+                  <Radio.Button value='2'>Cho thuê</Radio.Button>
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item
+                name='houseType'
+                label='Loại hình'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Select placeholder='Chọn loại hình' options={houseTypeOptions} />
+              </Form.Item>
+              <Form.Item
+                name='province'
+                label='Tỉnh / thành'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <DebounceSelect options={provinceList} placeholder='Chọn tỉnh / thành' />
+              </Form.Item>
+              <Form.Item
+                name='district'
+                label='Quận / huyện'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <DebounceSelect
+                  options={districtList}
+                  placeholder='Chọn quận / huyện'
+                  isDisable={provinceWatch ? false : true}
+                />
+              </Form.Item>
+              <Form.Item
+                name='ward'
+                label='Xã / phường'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <DebounceSelect
+                  options={wardList}
+                  placeholder='Chọn xã / phường'
+                  isDisable={districtWatch ? false : true}
+                />
+              </Form.Item>
+              <Form.Item
+                name='description'
+                label='Mô tả'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <CustomFormEditor />
+              </Form.Item>
+            </div>
+            <div style={{ flex: '1' }}>
+              <Form.Item
+                name='position'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <CustomFormSelectLocation />
+              </Form.Item>
+            </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              gap: '32px',
+              backgroundColor: 'white',
+              padding: '16px 32px',
+              borderRadius: '6px',
+              marginBottom: '8px',
+            }}
+          >
+            <div style={{ flex: '1' }}>
+              <Form.Item
+                name='price'
+                label='Giá tiền (VND)'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Input type='number' placeholder='Nhập giá tiền' />
+              </Form.Item>
+              <Form.Item
+                name='square'
+                label='Diện tích (m2)'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Input type='number' placeholder='Nhập diện tích' />
+              </Form.Item>
+              <Form.Item
+                name='ac'
+                label='Điều hòa'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Radio.Group defaultValue='any' buttonStyle='solid'>
+                  {trueFalseOptions.map((item, index) => {
+                    return (
+                      <Radio.Button key={index} value={item.value}>
+                        {item.label}
+                      </Radio.Button>
+                    );
+                  })}
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item
+                name='parking'
+                label='Chỗ đỗ xe'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Radio.Group defaultValue='any' buttonStyle='solid'>
+                  {trueFalseOptions.map((item, index) => {
+                    return (
+                      <Radio.Button key={index} value={item.value}>
+                        {item.label}
+                      </Radio.Button>
+                    );
+                  })}
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item
+                name='elevator'
+                label='Thang máy'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Radio.Group defaultValue='any' buttonStyle='solid'>
+                  {trueFalseOptions.map((item, index) => {
+                    return (
+                      <Radio.Button key={index} value={item.value}>
+                        {item.label}
+                      </Radio.Button>
+                    );
+                  })}
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item
+                name='pet'
+                label='Thú cưng'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Radio.Group defaultValue='any' buttonStyle='solid'>
+                  {admitOptions.map((item, index) => {
+                    return (
+                      <Radio.Button key={index} value={item.value}>
+                        {item.label}
+                      </Radio.Button>
+                    );
+                  })}
+                </Radio.Group>
+              </Form.Item>
+            </div>
+            <div style={{ flex: '1' }}>
+              <Form.Item
+                name='bathRooms'
+                label='Phòng tắm'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Input type='number' placeholder='Nhập số phòng tắm' />
+              </Form.Item>
+              <Form.Item
+                name='bedRooms'
+                label='Phòng ngủ'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Input type='number' placeholder='Nhập số phòng ngủ' />
+              </Form.Item>
+              <Form.Item
+                name='maintainFee'
+                label='Duy trì (VND)'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Input type='number' placeholder='Nhập phí duy trì' />
+              </Form.Item>
+              <Form.Item
+                name='furnished'
+                label='Tiện nghi'
+                labelCol={{ style: { width: '120px', textAlign: 'start' } }}
+                rules={[Validation.required]}
+              >
+                <Radio.Group defaultValue='any' buttonStyle='solid'>
+                  {furnishedOptions.map((item, index) => {
+                    return (
+                      <Radio.Button key={index} value={item.value}>
+                        {item.label}
+                      </Radio.Button>
+                    );
+                  })}
+                </Radio.Group>
+              </Form.Item>
+            </div>
+          </div>
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '16px 32px',
+              borderRadius: '6px',
+              marginBottom: '8px',
+            }}
+          >
+            <Form.Item name='thumbnail' rules={[Validation.required]}>
+              <CustomUploadFile type='image'></CustomUploadFile>
+            </Form.Item>
+            <Form.Item name='images' rules={[Validation.required]}>
+              <CustomUploadFiles type='image' />
+            </Form.Item>
+            <Form.Item name='video' rules={[Validation.required]}>
+              <CustomUploadFile type='video'></CustomUploadFile>
+            </Form.Item>
+          </div>
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '16px 32px',
+              borderRadius: '6px',
+              marginBottom: '8px',
+              display: 'flex',
+              gap: '16px',
+              alignItems: 'center',
+              // justifyContent: 'center',
+            }}
+          >
+            {/* <Form.Item> */}
+            <Button type='primary' htmlType='submit'>
+              Submit
+            </Button>
+            {/* </Form.Item> */}
+            {/* <Form.Item> */}
+            <Button type='primary' onClick={houseConvert}>
+              Xem trước
+            </Button>
+            {/* </Form.Item> */}
+          </div>
+        </Form>
+        <HouseDetail
+          isOpen={isOpenHouseDetail.isOpen}
+          handleClose={handleCloseHouseDetail}
+          data={isOpenHouseDetail.house}
+          user={user}
+        />
       </div>
-      <Form onFinish={onFinish} form={form} layout='horizontal'>
-        <div
-          style={{
-            backgroundColor: 'white',
-            padding: '16px 32px',
-            borderRadius: '6px',
-            marginBottom: '8px',
-            gap: '32px',
-            display: 'flex',
-          }}
-        >
-          <div style={{ flex: '1' }}>
-            <Form.Item
-              name='title'
-              label='Tiêu đề'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Input placeholder='Nhập tiêu đề' />
-            </Form.Item>
-            <Form.Item
-              name='houseCategory'
-              label='Thể loại'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Radio.Group buttonStyle='solid'>
-                <Radio.Button value='1'>Bán</Radio.Button>
-                <Radio.Button value='2'>Cho thuê</Radio.Button>
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item
-              name='houseType'
-              label='Loại hình'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Select placeholder='Chọn loại hình' options={houseTypeOptions} />
-            </Form.Item>
-            <Form.Item
-              name='province'
-              label='Tỉnh / thành'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <DebounceSelect options={provinceList} placeholder='Chọn tỉnh / thành' />
-            </Form.Item>
-            <Form.Item
-              name='district'
-              label='Quận / huyện'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <DebounceSelect
-                options={districtList}
-                placeholder='Chọn quận / huyện'
-                isDisable={provinceWatch ? false : true}
-              />
-            </Form.Item>
-            <Form.Item
-              name='ward'
-              label='Xã / phường'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <DebounceSelect
-                options={wardList}
-                placeholder='Chọn xã / phường'
-                isDisable={districtWatch ? false : true}
-              />
-            </Form.Item>
-            <Form.Item
-              name='description'
-              label='Mô tả'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <CustomFormEditor />
-            </Form.Item>
-          </div>
-          <div style={{ flex: '1' }}>
-            <Form.Item
-              name='position'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <CustomFormSelectLocation />
-            </Form.Item>
-          </div>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            gap: '32px',
-            backgroundColor: 'white',
-            padding: '16px 32px',
-            borderRadius: '6px',
-            marginBottom: '8px',
-          }}
-        >
-          <div style={{ flex: '1' }}>
-            <Form.Item
-              name='price'
-              label='Giá tiền (VND)'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Input type='number' placeholder='Nhập giá tiền' />
-            </Form.Item>
-            <Form.Item
-              name='square'
-              label='Diện tích (m2)'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Input type='number' placeholder='Nhập diện tích' />
-            </Form.Item>
-            <Form.Item
-              name='ac'
-              label='Điều hòa'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Radio.Group defaultValue='any' buttonStyle='solid'>
-                {trueFalseOptions.map((item, index) => {
-                  return (
-                    <Radio.Button key={index} value={item.value}>
-                      {item.label}
-                    </Radio.Button>
-                  );
-                })}
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item
-              name='parking'
-              label='Chỗ đỗ xe'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Radio.Group defaultValue='any' buttonStyle='solid'>
-                {trueFalseOptions.map((item, index) => {
-                  return (
-                    <Radio.Button key={index} value={item.value}>
-                      {item.label}
-                    </Radio.Button>
-                  );
-                })}
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item
-              name='elevator'
-              label='Thang máy'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Radio.Group defaultValue='any' buttonStyle='solid'>
-                {trueFalseOptions.map((item, index) => {
-                  return (
-                    <Radio.Button key={index} value={item.value}>
-                      {item.label}
-                    </Radio.Button>
-                  );
-                })}
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item
-              name='pet'
-              label='Thú cưng'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Radio.Group defaultValue='any' buttonStyle='solid'>
-                {admitOptions.map((item, index) => {
-                  return (
-                    <Radio.Button key={index} value={item.value}>
-                      {item.label}
-                    </Radio.Button>
-                  );
-                })}
-              </Radio.Group>
-            </Form.Item>
-          </div>
-          <div style={{ flex: '1' }}>
-            <Form.Item
-              name='bathRooms'
-              label='Phòng tắm'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Input type='number' placeholder='Nhập số phòng tắm' />
-            </Form.Item>
-            <Form.Item
-              name='bedRooms'
-              label='Phòng ngủ'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Input type='number' placeholder='Nhập số phòng ngủ' />
-            </Form.Item>
-            <Form.Item
-              name='maintainFee'
-              label='Duy trì (VND)'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Input type='number' placeholder='Nhập phí duy trì' />
-            </Form.Item>
-            <Form.Item
-              name='furnished'
-              label='Tiện nghi'
-              labelCol={{ style: { width: '120px', textAlign: 'start' } }}
-              rules={[Validation.required]}
-            >
-              <Radio.Group defaultValue='any' buttonStyle='solid'>
-                {furnishedOptions.map((item, index) => {
-                  return (
-                    <Radio.Button key={index} value={item.value}>
-                      {item.label}
-                    </Radio.Button>
-                  );
-                })}
-              </Radio.Group>
-            </Form.Item>
-          </div>
-        </div>
-        <div
-          style={{
-            backgroundColor: 'white',
-            padding: '16px 32px',
-            borderRadius: '6px',
-            marginBottom: '8px',
-          }}
-        >
-          <Form.Item name='thumbnail' rules={[Validation.required]}>
-            <CustomUploadFile type='image'></CustomUploadFile>
-          </Form.Item>
-          <Form.Item name='images' rules={[Validation.required]}>
-            <CustomUploadFiles type='image' />
-          </Form.Item>
-          <Form.Item name='video' rules={[Validation.required]}>
-            <CustomUploadFile type='video'></CustomUploadFile>
-          </Form.Item>
-        </div>
-        <div
-          style={{
-            backgroundColor: 'white',
-            padding: '16px 32px',
-            borderRadius: '6px',
-            marginBottom: '8px',
-            display: 'flex',
-            gap: '16px',
-            alignItems: 'center',
-            // justifyContent: 'center',
-          }}
-        >
-          {/* <Form.Item> */}
-          <Button type='primary' htmlType='submit'>
-            Submit
-          </Button>
-          {/* </Form.Item> */}
-          {/* <Form.Item> */}
-          <Button type='primary' onClick={houseConvert}>
-            Xem trước
-          </Button>
-          {/* </Form.Item> */}
-        </div>
-      </Form>
-      <HouseDetail
-        isOpen={isOpenHouseDetail.isOpen}
-        handleClose={handleCloseHouseDetail}
-        data={isOpenHouseDetail.house}
-      />
-    </div>
+    </FireBaseMessagingLayout>
   );
 };
 

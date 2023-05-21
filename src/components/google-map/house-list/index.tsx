@@ -5,6 +5,7 @@ import HouseDetail from '../house-detail';
 import styles from './style.module.scss';
 import { useMutation } from '@tanstack/react-query';
 import { getHouseDetail } from 'services/house-services';
+import { User } from 'type/user';
 
 interface Props {
   houseList: {
@@ -14,6 +15,7 @@ interface Props {
   };
   params: HouseListParams;
   setParams: Dispatch<SetStateAction<HouseListParams>>;
+  user: User;
 }
 
 interface HouseDetailProps {
@@ -21,7 +23,7 @@ interface HouseDetailProps {
   data?: House | null;
 }
 
-const HouseList = ({ houseList, params, setParams }: Props) => {
+const HouseList = ({ houseList, params, setParams, user }: Props) => {
   const [isOpenHouseDetail, setIsOpenHouseDetail] = useState<HouseDetailProps>({
     isOpen: false,
     data: null,
@@ -107,6 +109,7 @@ const HouseList = ({ houseList, params, setParams }: Props) => {
         isOpen={isOpenHouseDetail.isOpen}
         handleClose={handleCloseHouseDetail}
         data={isOpenHouseDetail.data}
+        user={user}
       />
     </div>
   );

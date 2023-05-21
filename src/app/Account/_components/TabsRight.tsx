@@ -5,6 +5,7 @@ import UpgradeService from './UpgradeService';
 import UserView from './UserView';
 import PaymentHistory from './PaymentHistory';
 import { useRouter } from 'next/router';
+import SettingService from './SettingService';
 
 interface Props extends PropsWithChildren {
   formatter: any;
@@ -33,6 +34,11 @@ const TabsRight: React.FC<Props> = ({ formatter, user, userRefetch }) => {
       key: 'services',
       label: `Dịch vụ`,
       children: <UpgradeService />,
+    },
+    {
+      key: 'settings',
+      label: `Cài đặt`,
+      children: <SettingService />,
     },
   ];
   const defaultTab: any = router.query.profileTab || 'view';

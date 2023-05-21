@@ -16,7 +16,10 @@ import { Owner } from 'type/house';
 import PlacesAutocomplete from '../auto-complete';
 import style from './style.module.scss';
 import { useRouter } from 'next/router';
-
+import { useGetFollwingCheck } from 'libs/user-service';
+import { useMutation } from '@tanstack/react-query';
+import { deleteFollowing, setFollowing } from 'services/user-services';
+import { User } from 'type/user';
 interface DividerProps {
   style?: React.CSSProperties;
 }
@@ -435,8 +438,29 @@ const TravelModeScore = ({
   );
 };
 
-const LeasingAgent = ({ user }: { user: Owner }) => {
+const LeasingAgent = ({ user, myInfo }: { user: Owner; myInfo: User }) => {
   const router = useRouter();
+  const useGetFollowingCheck = useGetFollwingCheck(user.userId);
+
+  const onSuccess = () => {
+    useGetFollowingCheck.refetch();
+  };
+
+  const { mutate, isLoading: setFollowingLoading } = useMutation({
+    onSuccess: onSuccess,
+    mutationFn: setFollowing,
+  });
+
+  const useDeleteFollowing = useMutation({
+    onError: (error) => {
+      // console.log('ere');
+    },
+    onSuccess: () => {
+      // console.log('oke');
+      useGetFollowingCheck.refetch();
+    },
+    mutationFn: deleteFollowing,
+  });
 
   return (
     <div>
@@ -466,20 +490,46 @@ const LeasingAgent = ({ user }: { user: Owner }) => {
           <p style={{ margin: '0' }}>{user?.phoneNumber}</p>
         </div>
       </div>
-      <div style={{ marginTop: '8px' }}>
-        <Button
-          onClick={() => {
-            router.push({
-              pathname: 'chat',
-              query: {
-                id: user.userId,
-              },
-            });
-          }}
-          style={{ flex: '1', width: '100%' }}
-        >
-          Gửi tin nhắn
-        </Button>
+      <div>
+        <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Button
+            onClick={() => {
+              router.push({
+                pathname: 'chat',
+                query: {
+                  id: user.userId,
+                },
+              });
+            }}
+          >
+            Gửi tin nhắn
+          </Button>
+          {useGetFollowingCheck.data && useGetFollowingCheck.data.isFollowing ? (
+            <Button
+              loading={setFollowingLoading || useGetFollowingCheck.refetch}
+              onClick={() => {
+                useDeleteFollowing.mutate({ userId: user.userId });
+              }}
+            >
+              Bỏ theo dõi
+            </Button>
+          ) : (
+            <Button
+              loading={useDeleteFollowing.isLoading || useGetFollowingCheck.isLoading}
+              onClick={() => {
+                if (!myInfo || !myInfo.userId) {
+                  router.push({
+                    pathname: 'account/join_zee_home',
+                  });
+                } else {
+                  mutate({ userId: user.userId });
+                }
+              }}
+            >
+              Theo dõi
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

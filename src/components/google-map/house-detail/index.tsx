@@ -31,11 +31,13 @@ import { SwiperSlide, Swiper as SwiperContainer } from 'swiper/react';
 import 'swiper/css';
 import Swiper, { Mousewheel } from 'swiper';
 import { useRouter } from 'next/router';
+import { User } from 'type/user';
 
 interface Props {
   isOpen: boolean;
   handleClose: () => void;
   data: House;
+  user: User;
 }
 
 const slideData: {
@@ -50,7 +52,7 @@ const slideData: {
   { id: 'near_by_school', label: 'Trường học gần đây', index: 4 },
 ];
 
-const HouseDetail = ({ isOpen, handleClose, data }: Props) => {
+const HouseDetail = ({ isOpen, handleClose, data, user }: Props) => {
   const router = useRouter();
   const [swiper, setSwiper] = useState<Swiper>(null);
   const [selectedAnchor, setSelectedAnchor] = useState<
@@ -319,7 +321,7 @@ const HouseDetail = ({ isOpen, handleClose, data }: Props) => {
                       {/* {data.description ? data.description : 'this is description'} */}
                     </div>
                     <SecondHeader text='Công ty / cá nhân sở hữu' />
-                    <LeasingAgent user={data.owner} />
+                    <LeasingAgent myInfo={user} user={data.owner} />
                   </Element>
                   <Space />
                   {/* key feature */}

@@ -9,6 +9,7 @@ import CustomImage from 'components/google-map/custom-image';
 import { useMutation } from '@tanstack/react-query';
 import { editHouseDetail } from 'services/house-services';
 import _ from 'lodash';
+import FireBaseMessagingLayout from 'components/fcm';
 
 interface Props {
   user: User;
@@ -103,7 +104,7 @@ const PostList = ({ user, userRefetch }: Props) => {
             >
               Chỉnh sửa
             </Button>
-            <Button>Xóa bào viết</Button>
+            <Button>Xóa bài viết</Button>
           </div>
         );
       },
@@ -126,23 +127,29 @@ const PostList = ({ user, userRefetch }: Props) => {
   ];
 
   return (
-    <div
-      style={{ padding: '8px 200px', backgroundColor: '#e6e6e6', minHeight: 'calc(100vh - 70px)' }}
-    >
+    <FireBaseMessagingLayout user={user}>
       <div
         style={{
-          backgroundColor: 'white',
-          padding: '16px 32px',
-          borderRadius: '6px',
-          marginBottom: '8px',
-          fontSize: '1.6rem',
-          fontWeight: '600',
+          padding: '8px 200px',
+          backgroundColor: '#e6e6e6',
+          minHeight: 'calc(100vh - 70px)',
         }}
       >
-        Danh sách bài đăng
+        <div
+          style={{
+            backgroundColor: 'white',
+            padding: '16px 32px',
+            borderRadius: '6px',
+            marginBottom: '8px',
+            fontSize: '1.6rem',
+            fontWeight: '600',
+          }}
+        >
+          Danh sách bài đăng
+        </div>
+        <Table columns={columns} dataSource={houses} rowKey={(record) => record.houseId}></Table>
       </div>
-      <Table columns={columns} dataSource={houses} rowKey={(record) => record.houseId}></Table>
-    </div>
+    </FireBaseMessagingLayout>
   );
 };
 

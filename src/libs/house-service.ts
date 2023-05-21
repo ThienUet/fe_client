@@ -71,7 +71,8 @@ export const useGetHouseList = (params: HouseListParams): HouseService => {
   }: { data: any; refetch: any; isLoading: boolean; error: boolean } = useQuery(
     ['/get-list-house', ...ParamArray],
     () => {
-      if (params.queryType || params.queryFor) return getList(params) || null;
+      if ((params.queryType || params.queryFor) && params.polygonPoints)
+        return getList(params) || null;
       return null;
     },
     option,

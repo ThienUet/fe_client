@@ -1,0 +1,22 @@
+{
+  "totalUnreadWithUser": 2,
+  "totalUnread": 2,
+  "chat": {
+    "roomId": "string",
+    "body": "string",
+    "from": {
+      "_id": "string",
+      "image": "string",
+      "lastName": "string",
+      "firstName": "string"
+    },
+    "to":  {
+      "_id": "string",
+      "image": "string",
+      "lastName": "string",
+      "firstName": "string"
+    },
+    "createAt": "string",
+    "_id": "string"
+  }
+}
