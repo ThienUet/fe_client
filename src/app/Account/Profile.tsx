@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { Divider } from 'antd';
 import ProfileComponent from './_components/ProfileComponent';
@@ -37,7 +36,6 @@ export default function Profile({ user, userRefetch }: Props) {
               </div>
               <Divider />
               <Footer />
-              <SocialBarRelative />
             </div>
           </>
         ) : (

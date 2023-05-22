@@ -1,12 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../public/libs/font-awesome/css/font-awesome.min.css';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/index.scss';
 import { Router, useRouter } from 'next/router';
 import { useUser } from '../libs/auth-service';
 import { QueryClient, QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { ConfigProvider, Spin } from 'antd';
-import PageLoader from '../components/loader';
 import { LoadScript } from '@react-google-maps/api';
 import Header from 'components/Header/Header';
 import { SyncOutlined } from '@ant-design/icons';
@@ -83,7 +82,7 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
                 flexDirection: 'column',
               }}
             >
-              <Spin tip='Loading' size='large' indicator={antIcon}></Spin>
+              <Spin size='large' indicator={antIcon}></Spin>
             </div>
           ) : (
             <LayoutApp {...pageProps} Component={Component} />

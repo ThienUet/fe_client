@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { useMutation } from '@tanstack/react-query';
 import { getUserDetail } from 'services/user-services';
 import _ from 'lodash';
+import { Spin } from 'antd';
 
 interface Props {
   user: UserNow;
@@ -230,40 +231,44 @@ export default function SocketComponent({ user }: Props) {
     setChatLogs((prev) => (prev ? [...prev, message] : [message]));
   };
 
-  return (
-    <div
-      style={{
-        padding: '8px 200px',
-        backgroundColor: '#e6e6e6',
-        height: 'calc(100vh - 70px)',
-      }}
-    >
+  if (!user) {
+    router.replace('/account/join_zee_home');
+    return <Spin />;
+  } else
+    return (
       <div
         style={{
-          backgroundColor: 'white',
-          padding: '8px',
-          borderRadius: '6px',
-          display: 'flex',
-          height: '600px',
+          padding: '8px 200px',
+          backgroundColor: '#e6e6e6',
+          height: 'calc(100vh - 70px)',
         }}
       >
-        <div style={{ flex: '.3' }}>
-          <UserList
-            userList={userList}
-            setCurrentUserChat={setCurrentUserChat}
-            isLoading={isLoading}
-          />
-        </div>
-        <div style={{ flex: '.7', borderLeft: '1px solid #d9d9d9' }}>
-          <ChatBox
-            userNow={user}
-            chatLogs={chatLogs}
-            currentUserChat={currentUserChat}
-            sendMessage={handleSendMessage}
-            addNewMessage={handleAddNewMessage}
-          />
+        <div
+          style={{
+            backgroundColor: 'white',
+            padding: '8px',
+            borderRadius: '6px',
+            display: 'flex',
+            height: '600px',
+          }}
+        >
+          <div style={{ flex: '.3' }}>
+            <UserList
+              userList={userList}
+              setCurrentUserChat={setCurrentUserChat}
+              isLoading={isLoading}
+            />
+          </div>
+          <div style={{ flex: '.7', borderLeft: '1px solid #d9d9d9' }}>
+            <ChatBox
+              userNow={user}
+              chatLogs={chatLogs}
+              currentUserChat={currentUserChat}
+              sendMessage={handleSendMessage}
+              addNewMessage={handleAddNewMessage}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 }
