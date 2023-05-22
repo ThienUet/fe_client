@@ -85,7 +85,7 @@ const InputButton = ({
       });
       const fileSize = fileDetail.size;
       const fileSizeMb = fileSize / (1024 * 1024);
-      const fileUploaded = await handleUploadFile(newFile, type, String(maxFileSize));
+      const fileUploaded = await handleUploadFile(newFile, type);
       console.log(fileUploaded);
       onChange({
         fileKey: fileUploaded,

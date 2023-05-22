@@ -491,45 +491,47 @@ const LeasingAgent = ({ user, myInfo }: { user: Owner; myInfo: User }) => {
         </div>
       </div>
       <div>
-        <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Button
-            onClick={() => {
-              router.push({
-                pathname: 'chat',
-                query: {
-                  id: user.userId,
-                },
-              });
-            }}
-          >
-            Gửi tin nhắn
-          </Button>
-          {useGetFollowingCheck.data && useGetFollowingCheck.data.isFollowing ? (
+        {user.userId == myInfo.userId ? null : (
+          <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Button
-              loading={setFollowingLoading || useGetFollowingCheck.refetch}
               onClick={() => {
-                useDeleteFollowing.mutate({ userId: user.userId });
+                router.push({
+                  pathname: 'chat',
+                  query: {
+                    id: user.userId,
+                  },
+                });
               }}
             >
-              Bỏ theo dõi
+              Gửi tin nhắn
             </Button>
-          ) : (
-            <Button
-              loading={useDeleteFollowing.isLoading || useGetFollowingCheck.isLoading}
-              onClick={() => {
-                if (!myInfo || !myInfo.userId) {
-                  router.push({
-                    pathname: 'account/join_zee_home',
-                  });
-                } else {
-                  mutate({ userId: user.userId });
-                }
-              }}
-            >
-              Theo dõi
-            </Button>
-          )}
-        </div>
+            {useGetFollowingCheck.data && useGetFollowingCheck.data.isFollowing ? (
+              <Button
+                loading={setFollowingLoading || useGetFollowingCheck.refetch}
+                onClick={() => {
+                  useDeleteFollowing.mutate({ userId: user.userId });
+                }}
+              >
+                Bỏ theo dõi
+              </Button>
+            ) : (
+              <Button
+                loading={useDeleteFollowing.isLoading || useGetFollowingCheck.isLoading}
+                onClick={() => {
+                  if (!myInfo || !myInfo.userId) {
+                    router.push({
+                      pathname: 'account/join_zee_home',
+                    });
+                  } else {
+                    mutate({ userId: user.userId });
+                  }
+                }}
+              >
+                Theo dõi
+              </Button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

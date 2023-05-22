@@ -31,7 +31,7 @@ messaging.onBackgroundMessage(function (payload) {
   const notificationOptions = {
     body: `bạn có tin nhắn mới từ ${payload.data.fromFirstName} ${payload.data.fromLastName}`,
     data: {
-      locator: `https://localhost:3000/chat?id=${payload.data.fromId}`,
+      locator: `http://localhost:3000/chat?id=${payload.data.fromId}`,
     },
   };
   return self.registration.showNotification(notificationTitle, notificationOptions);

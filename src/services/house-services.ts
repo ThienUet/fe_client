@@ -27,7 +27,7 @@ export const getListWard = async (params: LocationListParams) => {
 };
 
 export const createHouse = async (data: House) => {
-  return await axios.post(`/api/houses`, { ...data });
+  return await axiosInstance.post(`/api/houses`, { ...data });
 };
 
 export const getMyPostList = async (params: HouseListParams) => {
