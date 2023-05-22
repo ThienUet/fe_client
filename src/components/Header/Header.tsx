@@ -28,13 +28,6 @@ const headerObject: headerObj = {
       ],
     },
     {
-      title: 'Quản lý',
-      data: [
-        { title: 'Quản lý đăng tin', link: '/post', key: 'link', id: '1' },
-        { title: 'Đăng tin mới', link: '/post/create-post', key: 'link', id: '2' },
-      ],
-    },
-    {
       title: 'Tài khoản',
       data: [
         { title: 'Đăng nhập', key: 'link', link: '/account/join_zee_home', id: '4' },
@@ -53,25 +46,34 @@ interface Props {
 export default function Header({ router, user }: Props) {
   if (user) {
     headerObject.navbarRight.pop();
-    headerObject.navbarRight.push({
-      title: <Avatar src={user.image} />,
-      data: [
-        {
-          title: `${user.firstName} ${user.lastName}`,
-        },
-        {
-          title: `Trang cá nhân `,
-          key: 'link',
-          link: '/account',
-          id: '8',
-        },
-        {
-          title: `Đăng xuất`,
-          key: 'logout',
-          id: '9',
-        },
-      ],
-    });
+    headerObject.navbarRight.push(
+      {
+        title: 'Quản lý',
+        data: [
+          { title: 'Quản lý đăng tin', link: '/post', key: 'link', id: '1' },
+          { title: 'Đăng tin mới', link: '/post/create-post', key: 'link', id: '2' },
+        ],
+      },
+      {
+        title: <Avatar src={user.image} />,
+        data: [
+          {
+            title: `${user.firstName} ${user.lastName}`,
+          },
+          {
+            title: `Trang cá nhân `,
+            key: 'link',
+            link: '/account',
+            id: '8',
+          },
+          {
+            title: `Đăng xuất`,
+            key: 'logout',
+            id: '9',
+          },
+        ],
+      },
+    );
   }
 
   return (
