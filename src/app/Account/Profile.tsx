@@ -12,6 +12,7 @@ interface Props {
   userRefetch: any;
 }
 export default function Profile({ user, userRefetch }: Props) {
+  console.log(user);
   const router = useRouter();
   const [openLogin, setOpenLogin] = useState(false);
   useEffect(() => {

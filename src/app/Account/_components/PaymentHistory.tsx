@@ -20,7 +20,6 @@ const PaymentHistory: React.FC<Props> = ({ formatter }) => {
             <th>Mô tả</th>
             <th>Trạng thái</th>
             <th>Số tiền</th>
-            <th>Thao tác</th>
           </tr>
         </thead>
         <tbody>
@@ -43,16 +42,6 @@ const PaymentHistory: React.FC<Props> = ({ formatter }) => {
                     {payment.state === 'done' ? 'Đã nạp' : 'Đang chờ'}
                   </td>
                   <td>{formatter.format(payment.total / 100)}</td>
-                  <td>
-                    <Popconfirm
-                      title='Thực hiện thao tác'
-                      description='Chọn các thao tác cần thực hiện dưới đây?'
-                      okText={null}
-                      cancelText={null}
-                    >
-                      <DownOutlined />
-                    </Popconfirm>
-                  </td>
                 </tr>
               );
             })

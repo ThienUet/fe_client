@@ -320,7 +320,7 @@ const EditPost = ({ user }: Props) => {
               </Form.Item>
               <Form.Item
                 name='maintainFee'
-                label='Duy trì (VND)'
+                label='Phụ thu (VND)'
                 labelCol={{ style: { width: '120px', textAlign: 'start' } }}
                 rules={[Validation.required]}
               >
@@ -376,7 +376,7 @@ const EditPost = ({ user }: Props) => {
           >
             {/* <Form.Item> */}
             <Button type='primary' htmlType='submit'>
-              Submit
+              Lưu
             </Button>
             {/* </Form.Item> */}
             {/* <Form.Item> */}

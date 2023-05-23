@@ -101,28 +101,6 @@ const HouseDetail = ({ myInfo }: Props) => {
                     </span>
                   </div>
                 </div>
-                <div
-                  style={{
-                    color: 'rgb(0, 106, 255)',
-                    display: 'flex',
-                    gap: '16px',
-                    fontSize: '1.1rem',
-                    fontWeight: '300',
-                  }}
-                >
-                  <div>
-                    <FontAwesomeIcon icon={faHeart} />
-                    <span style={{ marginLeft: '4px', cursor: 'pointer' }}>Save</span>
-                  </div>
-                  <div>
-                    <FontAwesomeIcon icon={faShareFromSquare} />
-                    <span style={{ marginLeft: '4px', cursor: 'pointer' }}>Share</span>
-                  </div>
-                  <div>
-                    <FontAwesomeIcon icon={faTriangleExclamation} />
-                    <span style={{ marginLeft: '4px', cursor: 'pointer' }}>Report</span>
-                  </div>
-                </div>
               </div>
               <Divider style={{ height: '0.5px', marginBottom: '8px' }} />
               <div>
@@ -137,7 +115,7 @@ const HouseDetail = ({ myInfo }: Props) => {
                   {houseDetail.data.title}
                 </p>
                 <p className={style.addressElipsis}>{houseDetail.data.address}</p>
-                {myInfo.userId == houseDetail.data.owner.userId ? null : (
+                {myInfo?.userId == houseDetail.data.owner.userId ? null : (
                   <div
                     style={{
                       marginTop: '16px',
@@ -157,7 +135,7 @@ const HouseDetail = ({ myInfo }: Props) => {
               id='containerdiv'
               style={{
                 scrollBehavior: 'smooth',
-                marginTop: '8px',
+                marginTop: '30px',
               }}
             >
               {/* unit here */}
@@ -168,13 +146,14 @@ const HouseDetail = ({ myInfo }: Props) => {
               <Space />
               {/* overview here */}
               <div>
-                <FirstHeader text='Liên hệ' />
+                <div style={{ fontSize: '1rem' }} dangerouslySetInnerHTML={{ __html: 'Mô tả: ' }} />
                 <div
                   style={{ fontSize: '1rem' }}
                   dangerouslySetInnerHTML={{ __html: houseDetail.data.description }}
                 >
                   {/* {houseDetail.data.description ? houseDetail.data.description : 'this is description'} */}
                 </div>
+                <FirstHeader text='Liên hệ' />
                 <SecondHeader text='Công ty / cá nhân sở hữu' />
                 <LeasingAgent myInfo={myInfo} user={houseDetail.data.owner} />
               </div>

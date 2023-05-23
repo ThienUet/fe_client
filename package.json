@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node config-server.js --turbo",
+    "dev": "node config-server.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

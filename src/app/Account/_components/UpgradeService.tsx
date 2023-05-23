@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import Wallet from './Wallet';
-import { withRouter } from 'next/router';
+import { useRouter, withRouter } from 'next/router';
 const UpgradeService: React.FC = () => {
+  const router = useRouter();
   const [openWalletForm, setOpenWalletForm] = useState(false);
+
+  const adminSupport = () => {
+    router.push('/chat?id=a4b4ca3e-5017-40dd-9b43-e128c8f07551');
+  };
+
   return (
     <>
       <div className='upgrade-services'>
@@ -32,7 +38,7 @@ const UpgradeService: React.FC = () => {
                 <td>Liên hệ quản trị viên</td>
                 <td>Gặp lỗi tài khoản? Liên hệ quản trị viên</td>
                 <td>
-                  <Button>Liên hệ</Button>
+                  <Button onClick={() => adminSupport()}>Liên hệ</Button>
                 </td>
               </tr>
               <tr>
@@ -40,7 +46,7 @@ const UpgradeService: React.FC = () => {
                 <td>Điều khoản</td>
                 <td>Đọc rõ điều khoản và dịch vụ giúp bạn trở nên thông thái</td>
                 <td>
-                  <Button>Liên hệ</Button>
+                  <Button>Đọc điều khoản</Button>
                 </td>
               </tr>
             </tbody>

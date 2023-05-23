@@ -491,7 +491,7 @@ const LeasingAgent = ({ user, myInfo }: { user: Owner; myInfo: User }) => {
         </div>
       </div>
       <div>
-        {user.userId == myInfo.userId ? null : (
+        {user.userId == myInfo?.userId ? null : (
           <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Button
               onClick={() => {
@@ -518,7 +518,7 @@ const LeasingAgent = ({ user, myInfo }: { user: Owner; myInfo: User }) => {
               <Button
                 loading={useDeleteFollowing.isLoading || useGetFollowingCheck.isLoading}
                 onClick={() => {
-                  if (!myInfo || !myInfo.userId) {
+                  if (!myInfo || !myInfo?.userId) {
                     router.push({
                       pathname: 'account/join_zee_home',
                     });

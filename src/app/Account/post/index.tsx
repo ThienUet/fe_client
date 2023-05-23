@@ -115,7 +115,7 @@ const CreateHouse = ({ user }: Props) => {
           fontWeight: '600',
         }}
       >
-        Đăng tin bất động sản miễn phí
+        Đăng tin loại hình bất động sản
       </div>
       <Form onFinish={onFinish} form={form} layout='horizontal'>
         <div
@@ -318,7 +318,7 @@ const CreateHouse = ({ user }: Props) => {
             </Form.Item>
             <Form.Item
               name='maintainFee'
-              label='Duy trì (VND)'
+              label='Phụ phí (VND)'
               labelCol={{ style: { width: '120px', textAlign: 'start' } }}
               rules={[Validation.required]}
             >
@@ -377,7 +377,7 @@ const CreateHouse = ({ user }: Props) => {
         >
           {/* <Form.Item> */}
           <Button type='primary' htmlType='submit'>
-            Submit
+            Lưu
           </Button>
           {/* </Form.Item> */}
           {/* <Form.Item> */}

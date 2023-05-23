@@ -39,7 +39,7 @@ const Wallet: React.FC<Props> = (props: Props) => {
     const value = walletForm.getFieldsValue();
     const body: any = {
       amount: value.amount * 100,
-      orderAttachment: 'string',
+      orderAttachment: value.order_attachment,
     };
     if (value.style_recharge === 'vn-pay') {
       mutateVnpay.mutate(body);
@@ -69,11 +69,8 @@ const Wallet: React.FC<Props> = (props: Props) => {
             <label className='title'>Nạp tiền vào ví</label>
             <div className='content'>
               <div className='way'>
-                <label>Cách 1: Nạp tiền thủ công qua QR CODE</label>
-                <p>
-                  Chúng tôi sẽ tạo QR cho bạn và bạn sẽ thực hiện thanh toán, Sau đó chúng tôi sẽ xử
-                  lí giúp bạn !
-                </p>
+                <label>Cách 1: Nạp tiền thủ công </label>
+                <p>Thực hiện thanh toán bằng cách thông thường !</p>
               </div>
               <div className='way'>
                 <label>Cách 2: Nạp tiền qua VNPAY</label>
@@ -88,12 +85,15 @@ const Wallet: React.FC<Props> = (props: Props) => {
               rules={[{ required: true, message: 'Chưa chọn cách thanh toán !' }]}
             >
               <Radio.Group>
-                <Radio value='normal'>Nạp tiền thủ công qua QR CODE</Radio>
+                <Radio value='normal'>Nạp tiền thủ công</Radio>
                 <Radio value='vn-pay'>Nạp tiền qua VN-PAY</Radio>
               </Radio.Group>
             </Form.Item>
             <Form.Item name='amount' label='Số tiền nạp'>
               <Input placeholder='Nhập số tiền cần nạp' />
+            </Form.Item>
+            <Form.Item name='order_attachment' label='Nội dung chuyển khoản'>
+              <Input placeholder='Nhập nội dung chuyển khoản' />
             </Form.Item>
             <div className='btn-submit-wallet'>
               <Button loading={mutateManual.isLoading || mutateVnpay.isLoading} htmlType='submit'>
