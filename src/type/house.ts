@@ -28,6 +28,7 @@ export interface House {
   furnished?: boolean;
   owner?: Owner;
   invisible?: boolean;
+  isVisible: boolean;
 }
 
 export interface HouseEditable {
@@ -48,6 +49,7 @@ export interface HouseEditable {
   bedRooms?: number;
   maintenanceFee?: number;
   furnished?: boolean;
+  isVisible?: boolean;
 }
 
 export interface Owner {
@@ -93,6 +95,7 @@ export interface HouseListParams {
   priceTo?: number;
   sortBy?: 'created_date' | 'price' | 'distanceToPoint'; // default created_date
   sortOrder?: 'asc' | 'desc';
+  showInvisible?: boolean;
 }
 
 export interface LocationListParams {

@@ -1,5 +1,4 @@
-import { Button, Table } from 'antd';
-import { ColumnType } from 'antd/es/table';
+import { Button, Table, notification } from 'antd';
 import { useGetMyPostList } from 'libs/house-service';
 import React, { useEffect, useState } from 'react';
 import { House, HouseEditable, HouseListParams } from 'type/house';
@@ -7,7 +6,7 @@ import { User } from 'type/user';
 import Router from 'next/router';
 import CustomImage from 'components/google-map/custom-image';
 import { useMutation } from '@tanstack/react-query';
-import { editHouseDetail } from 'services/house-services';
+import { deleteHouse, editHouseDetail } from 'services/house-services';
 import _ from 'lodash';
 import FireBaseMessagingLayout from 'components/fcm';
 
@@ -16,14 +15,16 @@ interface Props {
   userRefetch: () => void;
 }
 
-const PostList = ({ user, userRefetch }: Props) => {
+const PostList = ({ user }: Props) => {
   const [paramsList, setParamsList] = useState<HouseListParams>({
     ownerId: null,
     queryFor: null,
     queryType: null,
+    showInvisible: true,
   });
 
   const [houses, setHouses] = useState<House[]>([]);
+  const [api, contextHolder] = notification.useNotification();
 
   const { data, isLoading } = useGetMyPostList(paramsList);
 
@@ -33,7 +34,12 @@ const PostList = ({ user, userRefetch }: Props) => {
 
   useEffect(() => {
     if (user?.userId) {
-      setParamsList({ ownerId: user.userId, queryFor: 'normal', queryType: 'all' });
+      setParamsList({
+        ownerId: user.userId,
+        queryFor: 'normal',
+        queryType: 'all',
+        showInvisible: true,
+      });
     }
   }, [user]);
 
@@ -42,11 +48,16 @@ const PostList = ({ user, userRefetch }: Props) => {
   };
 
   const onSuccess = (id: string) => {
+    api['success']({
+      message: 'Thay đổi trạng thái thành công',
+      description: 'Trạng thái của bài đăng đã được thay đổi',
+    });
+
     const index = _.findIndex(data.houses, (item: House) => item?.houseId === id);
     const newArray = data.houses;
     newArray[index] = {
       ...newArray[index],
-      visible: !newArray[index].visible,
+      isVisible: !newArray[index].isVisible,
     };
     setHouses([...newArray]);
   };
@@ -56,6 +67,23 @@ const PostList = ({ user, userRefetch }: Props) => {
     onSuccess: (_, { data, id }) => onSuccess(id),
     mutationFn: ({ data, id }: { data: HouseEditable; id: string }) => {
       return editHouseDetail({ data, id });
+    },
+  });
+
+  const useDeleteHouse = useMutation({
+    onError: (_) => {
+      console.log('error');
+    },
+    onSuccess: (_, { id }) => {
+      api['success']({
+        message: 'Xóa bài đăng thành công',
+        description: 'Bài đăng đã được xóa khỏi hệ thống',
+      });
+      const newArray = houses.filter((item) => item.houseId !== id);
+      setHouses([...newArray]);
+    },
+    mutationFn: ({ id }: { id: string }) => {
+      return deleteHouse({ id });
     },
   });
 
@@ -104,7 +132,13 @@ const PostList = ({ user, userRefetch }: Props) => {
             >
               Chỉnh sửa
             </Button>
-            <Button>Xóa bài viết</Button>
+            <Button
+              onClick={() => {
+                useDeleteHouse.mutate({ id: record.houseId });
+              }}
+            >
+              Xóa bài viết
+            </Button>
           </div>
         );
       },
@@ -115,10 +149,10 @@ const PostList = ({ user, userRefetch }: Props) => {
       render: (_, record: House) => {
         return (
           <div>
-            {record.visible ? (
-              <Button onClick={() => handleCliclSetInvisible(record.houseId)}>Active</Button>
+            {record.isVisible ? (
+              <Button onClick={() => handleCliclSetInvisible(record.houseId)}>Hiện</Button>
             ) : (
-              <Button onClick={() => handleClickSetVisible(record.houseId)}>Hidden</Button>
+              <Button onClick={() => handleClickSetVisible(record.houseId)}>Ẩn</Button>
             )}
           </div>
         );
@@ -135,6 +169,7 @@ const PostList = ({ user, userRefetch }: Props) => {
           minHeight: 'calc(100vh - 70px)',
         }}
       >
+        {contextHolder}
         <div
           style={{
             backgroundColor: 'white',
