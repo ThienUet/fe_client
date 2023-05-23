@@ -34,10 +34,10 @@ import { useRouter } from 'next/router';
 import { User } from 'type/user';
 
 interface Props {
+  user: User;
   isOpen: boolean;
   handleClose: () => void;
   data: House;
-  user: User;
 }
 
 const slideData: {

@@ -36,7 +36,6 @@ const HouseDetail = ({ myInfo }: Props) => {
   const router = useRouter();
   const { id } = router.query;
   const [nearBySchool, setNearBySchool] = useState<google.maps.places.PlaceResult[]>(null);
-
   const houseDetail: { data: any; mutate: any } = useMutation(getHouseDetail);
 
   useEffect(() => {

@@ -347,13 +347,13 @@ const CreateHouse = () => {
             marginBottom: '8px',
           }}
         >
-          <Form.Item name='thumbnail' rules={[Validation.required]}>
+          <Form.Item label='Hình thu nhỏ' name='thumbnail' rules={[Validation.required]}>
             <CustomUploadFile type='image'></CustomUploadFile>
           </Form.Item>
-          <Form.Item name='images' rules={[Validation.required]}>
+          <Form.Item label='Nhiều ảnh' name='images' rules={[Validation.required]}>
             <CustomUploadFiles type='image' />
           </Form.Item>
-          <Form.Item name='video'>
+          <Form.Item label='Video (nếu có)' name='video'>
             <CustomUploadFile type='video'></CustomUploadFile>
           </Form.Item>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dropdown, Space, Avatar } from 'antd';
 import Link from 'next/link';
 import DropdownContent from '../Dropdown/dropdown';
@@ -6,7 +6,6 @@ import DropdownContent from '../Dropdown/dropdown';
 import style from './style.module.scss';
 
 interface headerObj {
-  // navbarLeft: any;
   navbarRight: any;
   logoURL: any;
 }
@@ -14,6 +13,7 @@ const headerObject: headerObj = {
   navbarRight: [
     {
       title: 'Giới thiệu',
+      id: 1,
       data: [
         { title: 'Về chúng tôi', link: '/intro', key: 'link', id: '1' },
         { title: 'Liên hệ trực tiếp', link: '/contact', key: 'link', id: '2' },
@@ -21,6 +21,7 @@ const headerObject: headerObj = {
     },
     {
       title: 'Điều khoản',
+      id: 2,
       data: [
         { title: 'Quy định của chúng tôi', link: '/post', key: 'link', id: '1' },
         { title: 'FA&Q', link: '/post/create-post', key: 'link', id: '2' },
@@ -29,6 +30,7 @@ const headerObject: headerObj = {
     },
     {
       title: 'Tài khoản',
+      id: 3,
       data: [
         { title: 'Đăng nhập', key: 'link', link: '/account/join_zee_home', id: '4' },
         { title: 'Đăng ký', key: 'link', link: '/account/join_zee_home?tab=register', id: '5' },
@@ -46,34 +48,42 @@ interface Props {
 export default function Header({ router, user }: Props) {
   if (user) {
     headerObject.navbarRight.pop();
-    headerObject.navbarRight.push(
-      {
-        title: 'Quản lý',
-        data: [
-          { title: 'Quản lý đăng tin', link: '/post', key: 'link', id: '1' },
-          { title: 'Đăng tin mới', link: '/post/create-post', key: 'link', id: '2' },
-        ],
-      },
-      {
-        title: <Avatar src={user.image} />,
-        data: [
-          {
-            title: `${user.firstName} ${user.lastName}`,
-          },
-          {
-            title: `Trang cá nhân `,
-            key: 'link',
-            link: '/account',
-            id: '8',
-          },
-          {
-            title: `Đăng xuất`,
-            key: 'logout',
-            id: '9',
-          },
-        ],
-      },
-    );
+    const newObject = {
+      title: 'Quản lý',
+      id: 3,
+      data: [
+        { title: 'Quản lý đăng tin', link: '/post', key: 'link', id: '1' },
+        { title: 'Đăng tin mới', link: '/post/create-post', key: 'link', id: '2' },
+      ],
+    };
+    const secondObj = {
+      title: <Avatar src={user.image} />,
+      id: 4,
+      data: [
+        {
+          title: `${user.firstName} ${user.lastName}`,
+        },
+        {
+          title: `Trang cá nhân `,
+          key: 'link',
+          link: '/account',
+          id: '8',
+        },
+        {
+          title: `Đăng xuất`,
+          key: 'logout',
+          id: '9',
+        },
+      ],
+    };
+    const isExistedManager = headerObject.navbarRight.find((item: any) => item.id === 3);
+    const isExistedUser = headerObject.navbarRight.find((item: any) => item.id === 4);
+    if (!isExistedManager) {
+      headerObject.navbarRight.push(newObject);
+    }
+    if (!isExistedUser) {
+      headerObject.navbarRight.push(secondObj);
+    }
   }
 
   return (

@@ -11,6 +11,7 @@ import style from './style.module.scss';
 import { useMutation } from '@tanstack/react-query';
 import { getList } from 'services/house-services';
 import { getGeocode } from 'use-places-autocomplete';
+require('moment/locale/vi');
 
 const Search = () => {
   const router = useRouter();
@@ -136,7 +137,7 @@ const Search = () => {
                     </div>
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                       <FontAwesomeIcon icon={faVectorSquare} />
-                      <span>{item.square} m2</span>
+                      <span>{item.square} (mét vuông)</span>
                     </div>
                     <div
                       style={{
