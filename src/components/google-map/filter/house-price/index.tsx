@@ -8,10 +8,15 @@ interface Props {
 }
 
 const options = [
-  { value: '100', label: '100 vnd' },
-  { value: '200', label: '200 vnd' },
-  { value: '300', label: '300 vnd' },
-  { value: '400', label: '400 vnd' },
+  { value: '1000000', label: '1 triệu' },
+  { value: '5000000', label: '5 triệu' },
+  { value: '10000000', label: '10 triệu' },
+  { value: '50000000', label: '50 triệu' },
+  { value: '100000000', label: '100 triệu' },
+  { value: '500000000', label: '500 triệu' },
+  { value: '1000000000', label: '1 tỷ' },
+  { value: '5000000000', label: '5 tỷ' },
+  { value: '10000000000', label: '10 tỷ' },
 ];
 
 const HousePrice = ({ params, handleChange }: Props) => {
@@ -38,7 +43,7 @@ const HousePrice = ({ params, handleChange }: Props) => {
             <p>Mức giá</p>
             <div style={{ display: 'flex', padding: '8px 16px', gap: '8px' }}>
               <div>
-                <p style={{ margin: '0px' }}>Minimum</p>
+                <p style={{ margin: '0px' }}>Tối thiểu</p>
                 <Select
                   style={{ width: 120 }}
                   value={params.priceFrom ? params.priceFrom : null}
@@ -50,7 +55,7 @@ const HousePrice = ({ params, handleChange }: Props) => {
               </div>
               <div>
                 <div>
-                  <p style={{ margin: '0px' }}>Maximum</p>
+                  <p style={{ margin: '0px' }}>Tối đa</p>
                   <Select
                     style={{ width: 120 }}
                     placeholder='Tối đa'

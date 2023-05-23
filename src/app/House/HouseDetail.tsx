@@ -27,8 +27,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactPlayer from 'react-player';
 import { useMutation } from '@tanstack/react-query';
 import { getHouseDetail } from 'services/house-services';
+import { User } from 'type/user';
+interface Props {
+  myInfo: User;
+}
 
-const HouseDetail = () => {
+const HouseDetail = ({ myInfo }: Props) => {
   const router = useRouter();
   const { id } = router.query;
   const [nearBySchool, setNearBySchool] = useState<google.maps.places.PlaceResult[]>(null);
@@ -69,7 +73,7 @@ const HouseDetail = () => {
               marginBottom: '32px',
             }}
           >
-            <div style={{ height: '220px', width: '100%' }}>
+            <div style={{ height: '160px', width: '100%' }}>
               <div
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
               >
@@ -134,30 +138,31 @@ const HouseDetail = () => {
                   {houseDetail.data.title}
                 </p>
                 <p className={style.addressElipsis}>{houseDetail.data.address}</p>
-                <div
-                  style={{
-                    marginTop: '16px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: '16px',
-                  }}
-                >
-                  <Button style={{ flex: '1' }}>Tôi muốn thuê</Button>
-                  <Button style={{ flex: '1' }}>Tôi muốn xem</Button>
-                </div>
+                {myInfo.userId == houseDetail.data.owner.userId ? null : (
+                  <div
+                    style={{
+                      marginTop: '16px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: '16px',
+                    }}
+                  >
+                    <Button style={{ flex: '1' }}>Tôi muốn thuê</Button>
+                    <Button style={{ flex: '1' }}>Tôi muốn xem</Button>
+                  </div>
+                )}
               </div>
               <Divider style={{ height: '0.5px', marginBottom: '4px', marginTop: '16px' }} />
             </div>
             <div
               id='containerdiv'
               style={{
-                // height: 'calc(100vh - 220px - 24px)',
                 scrollBehavior: 'smooth',
                 marginTop: '8px',
               }}
             >
               {/* unit here */}
-              <div className='div'>
+              <div>
                 <FirstHeader text='Giá tiền' />
                 <SecondHeader text={`+ ${houseDetail.data?.price} VND`} />
               </div>
@@ -172,7 +177,7 @@ const HouseDetail = () => {
                   {/* {houseDetail.data.description ? houseDetail.data.description : 'this is description'} */}
                 </div>
                 <SecondHeader text='Công ty / cá nhân sở hữu' />
-                <LeasingAgent user={houseDetail.data.owner} />
+                <LeasingAgent myInfo={myInfo} user={houseDetail.data.owner} />
               </div>
               <Space />
               {/* key feature */}
@@ -239,12 +244,15 @@ const HouseDetail = () => {
           <div
             style={{
               backgroundColor: 'white',
-              padding: '8px 24px',
+              padding: '16px 24px',
               borderRadius: '6px',
             }}
           >
             <div>
-              <Row>
+              <div>
+                <CustomImage src={houseDetail.data?.thumbnail} style={{ width: '100%' }} />
+              </div>
+              <Row style={{ marginTop: '8px' }}>
                 {houseDetail.data?.images?.map((item: string, index: number) => {
                   console.log(houseDetail.data.images);
                   return (

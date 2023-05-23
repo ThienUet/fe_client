@@ -507,7 +507,7 @@ const LeasingAgent = ({ user, myInfo }: { user: Owner; myInfo: User }) => {
             </Button>
             {useGetFollowingCheck.data && useGetFollowingCheck.data.isFollowing ? (
               <Button
-                loading={setFollowingLoading || useGetFollowingCheck.refetch}
+                loading={setFollowingLoading || useGetFollowingCheck.isLoading}
                 onClick={() => {
                   useDeleteFollowing.mutate({ userId: user.userId });
                 }}
