@@ -28,11 +28,14 @@ import ReactPlayer from 'react-player';
 import { useMutation } from '@tanstack/react-query';
 import { getHouseDetail } from 'services/house-services';
 
-const HouseDetail = () => {
+interface Props {
+  myInfo: any;
+}
+
+const HouseDetail = ({ myInfo }: Props) => {
   const router = useRouter();
   const { id } = router.query;
   const [nearBySchool, setNearBySchool] = useState<google.maps.places.PlaceResult[]>(null);
-
   const houseDetail: { data: any; mutate: any } = useMutation(getHouseDetail);
 
   useEffect(() => {
@@ -172,7 +175,7 @@ const HouseDetail = () => {
                   {/* {houseDetail.data.description ? houseDetail.data.description : 'this is description'} */}
                 </div>
                 <SecondHeader text='Công ty / cá nhân sở hữu' />
-                <LeasingAgent user={houseDetail.data.owner} />
+                <LeasingAgent user={houseDetail.data.owner} myInfo={myInfo} />
               </div>
               <Space />
               {/* key feature */}

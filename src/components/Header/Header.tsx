@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dropdown, Space, Avatar } from 'antd';
 import Link from 'next/link';
 import DropdownContent from '../Dropdown/dropdown';
@@ -6,7 +6,6 @@ import DropdownContent from '../Dropdown/dropdown';
 import style from './style.module.scss';
 
 interface headerObj {
-  // navbarLeft: any;
   navbarRight: any;
   logoURL: any;
 }
