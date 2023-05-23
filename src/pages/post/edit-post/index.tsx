@@ -167,7 +167,7 @@ const EditPost = ({ user }: Props) => {
                 labelCol={{ style: { width: '120px', textAlign: 'start' } }}
                 rules={[Validation.required]}
               >
-                <Input placeholder='Nhập tiêu đề' />
+                <Input placeholder='Nhập tiêu đề' disabled />
               </Form.Item>
               <Form.Item
                 name='houseCategory'
@@ -175,7 +175,7 @@ const EditPost = ({ user }: Props) => {
                 labelCol={{ style: { width: '120px', textAlign: 'start' } }}
                 rules={[Validation.required]}
               >
-                <Radio.Group buttonStyle='solid'>
+                <Radio.Group buttonStyle='solid' disabled>
                   <Radio.Button value={1}>Bán</Radio.Button>
                   <Radio.Button value={2}>Cho thuê</Radio.Button>
                 </Radio.Group>
@@ -186,7 +186,7 @@ const EditPost = ({ user }: Props) => {
                 labelCol={{ style: { width: '120px', textAlign: 'start' } }}
                 rules={[Validation.required]}
               >
-                <Select placeholder='Chọn loại hình' options={houseTypeOptions} />
+                <Select placeholder='Chọn loại hình' options={houseTypeOptions} disabled />
               </Form.Item>
               <div>
                 <p className={style.addressElipsis}>
@@ -319,7 +319,7 @@ const EditPost = ({ user }: Props) => {
                 <Input type='number' placeholder='Nhập số phòng ngủ' />
               </Form.Item>
               <Form.Item
-                name='maintainFee'
+                name='maintenanceFee'
                 label='Duy trì (VND)'
                 labelCol={{ style: { width: '120px', textAlign: 'start' } }}
                 rules={[Validation.required]}

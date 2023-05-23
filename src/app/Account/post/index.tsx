@@ -95,6 +95,8 @@ const CreateHouse = ({ user }: Props) => {
       address: values?.position?.address,
     };
 
+    console.log(newHouse);
+
     createHouseMutation.mutate(newHouse);
   };
 
