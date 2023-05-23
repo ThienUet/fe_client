@@ -1,6 +1,7 @@
-import axiosInstance from '../utils/axiosInstance';
+import axiosInstance, { axiosUtlis } from '../utils/axiosInstance';
 import { House, HouseEditable, HouseListParams, LocationListParams } from 'type/house';
 import axios from 'axios';
+import * as Auth from '../storages/Auth';
 
 interface IHouseData {
   houses: House[];
@@ -11,7 +12,7 @@ interface IHouseData {
 }
 
 export const getList = async (params: HouseListParams): Promise<IHouseData> => {
-  return await axiosInstance.get('/api/houses', { params: params });
+  return await axiosUtlis._get('/api/houses', { ...params });
 };
 
 export const getListProvince = async () => {
@@ -31,7 +32,14 @@ export const createHouse = async (data: House) => {
 };
 
 export const getMyPostList = async (params: HouseListParams) => {
-  return await axiosInstance.get('/api/houses', { params: params });
+  const token = Auth.getToken();
+
+  return await axiosInstance.get('/api/houses', {
+    params: params,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const getHouseDetail = async ({ id }: { id: string }) => {
@@ -40,4 +48,8 @@ export const getHouseDetail = async ({ id }: { id: string }) => {
 
 export const editHouseDetail = async ({ data, id }: { data: HouseEditable; id: string }) => {
   return await axiosInstance.put(`/api/houses/${id}`, { ...data });
+};
+
+export const deleteHouse = async ({ id }: { id: string }) => {
+  return await axiosInstance.delete(`/api/houses/${id}`);
 };

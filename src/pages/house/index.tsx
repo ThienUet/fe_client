@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useLoadScript, GoogleMap, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import type { NextPage } from 'next';
-import { useMemo } from 'react';
 import { Button, Drawer, Empty, Spin } from 'antd';
 import { useGetHouseList } from 'libs/house-service';
 import HouseList from 'components/google-map/house-list';
@@ -11,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import HouseDetail from 'components/google-map/house-detail';
 import style from './style.module.scss';
-import _, { set } from 'lodash';
+import _ from 'lodash';
 import { mapStyling } from 'services/map';
 import { useRouter } from 'next/router';
 import { useMutation } from '@tanstack/react-query';
@@ -30,7 +29,7 @@ interface Props {
 
 const House: NextPage = ({ user }: Props) => {
   const router = useRouter();
-  const { lat, lng, houseCategory } = router.query;
+  const { lat, lng } = router.query;
   const [listParams, setListParams] = useState<HouseListParams>({
     queryFor: 'map',
     queryType: 'distance',
