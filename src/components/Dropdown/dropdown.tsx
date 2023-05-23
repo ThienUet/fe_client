@@ -18,6 +18,7 @@ export default function Dropdown(props: Props) {
       <List
         itemLayout='horizontal'
         dataSource={data}
+        style={{ padding: '4px 12px' }}
         renderItem={(item: any, index: number) => (
           <List.Item>
             {item.key === 'logout' ? (

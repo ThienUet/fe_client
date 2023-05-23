@@ -6,6 +6,7 @@ import LoginIn from '../../components/Dropdown/_components/Login';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import FireBaseMessagingLayout from 'components/fcm';
+import SocialBarRelative from 'components/SocialBarRelative/SocialBarRelative';
 interface Props {
   user: any;
   userRefetch: any;

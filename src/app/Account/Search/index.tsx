@@ -87,7 +87,7 @@ const Search = () => {
         <div style={{ marginBottom: '24px' }}>
           {listParams.houseCategory == 1 ? <span>Mua nhà </span> : <span>Thuê nhà </span>}
           {currentAddress ? <span>quanh khu vực {currentAddress}. </span> : null}
-          {listParams.distance ? <span>Bán kính {listParams.distance}. </span> : null}
+          {listParams.distance ? <span>Bán kính {listParams.distance}km. </span> : null}
           {renderResultPrice()}
         </div>
 

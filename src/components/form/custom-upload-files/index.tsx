@@ -5,7 +5,7 @@ import {
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Form } from 'antd';
+import { Button, Form, Progress } from 'antd';
 import React, { useState, useRef } from 'react';
 import { handleUploadFile, handleDeleteFile } from './../../../utils/common';
 
@@ -55,6 +55,8 @@ const InputButton = ({
     }
   };
 
+  const [progress, setProgress] = useState<number>(null);
+
   const getFileExtension = (fileName: string) => {
     const lastDot = fileName.lastIndexOf('.');
     return fileName.substring(lastDot + 1);
@@ -85,7 +87,7 @@ const InputButton = ({
       });
       const fileSize = fileDetail.size;
       const fileSizeMb = fileSize / (1024 * 1024);
-      const fileUploaded = await handleUploadFile(newFile, type, String(maxFileSize));
+      const fileUploaded = await handleUploadFile(newFile, type, setProgress);
       console.log(fileUploaded);
       onChange({
         fileKey: fileUploaded,
@@ -119,6 +121,9 @@ const InputButton = ({
 
   return (
     <div>
+      <div style={{ width: '100%', marginTop: '16px' }}>
+        {progress && <Progress strokeLinecap='butt' percent={progress} />}
+      </div>
       <div style={{ width: '100px', height: '100px' }}>
         {value?.fileUrl && (
           <div
@@ -129,25 +134,11 @@ const InputButton = ({
               position: 'relative',
             }}
           >
-            <Button
-              style={{
-                position: 'absolute',
-                top: 4,
-                right: 4,
-                zIndex: 999999,
-              }}
-              shape='circle'
-            >
-              <FontAwesomeIcon
-                icon={faTrashCan}
-                onClick={() => handleClickDelete(value?.fileKey)}
-              />
-            </Button>
             {renderPreview(value.fileKey)}
           </div>
         )}
       </div>
-      <div style={{ marginTop: '32px' }}>
+      <div style={{ marginTop: '0px' }}>
         <input
           style={{ display: 'none' }}
           type='file'

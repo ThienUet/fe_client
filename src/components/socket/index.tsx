@@ -121,7 +121,7 @@ export default function SocketComponent({ user }: Props) {
 
     const historyChat = (value) => {
       if (value?.messages?.length) {
-        setChatLogs(value?.messages);
+        setChatLogs(value?.messages.reverse());
       } else {
         setChatLogs([]);
       }

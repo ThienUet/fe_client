@@ -141,11 +141,14 @@ export default function Header({ router, user }: Props) {
                             className='app-header-link'
                             href={item.link}
                             key={item.id}
+                            style={{ padding: '8px' }}
                           >
-                            <a>{item.title}</a>
+                            <a style={{ padding: '8px' }}>{item.title}</a>
                           </Link>
                         ) : (
-                          <div className='app-header-link'>{item.title}</div>
+                          <div className='app-header-link' style={{ padding: '8px' }}>
+                            {item.title}
+                          </div>
                         )}
                       </Space>
                     </Dropdown>
