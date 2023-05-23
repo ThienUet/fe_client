@@ -8,16 +8,21 @@ interface Props {
 }
 
 const OrderFilter = ({ params, handleChange }: Props) => {
+  const handleOnChange = (e: string) => {
+    handleChange({ sortOrder: e });
+  };
+
   return (
     <Select
       style={{ width: 200 }}
       defaultValue=''
+      placeholder='Thứ tự'
       options={[
         { value: 'asc', label: 'Tăng dần' },
         { value: 'desc', label: 'Giảm dần' },
       ]}
-      value={params.sortBy ? params.sortBy : null}
-      onChange={handleChange}
+      value={params.sortOrder ? params.sortOrder : null}
+      onChange={handleOnChange}
     />
   );
 };

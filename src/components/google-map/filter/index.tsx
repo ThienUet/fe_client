@@ -34,7 +34,7 @@ const CustomFilter = ({ params, setParams }: Props) => {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+    <div style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
       <HouseFor params={params} handleChange={handleChange} />
       <HousePrice params={params} handleChange={handleChange} />
       <HouseRoom params={params} handleChange={handleChange} />

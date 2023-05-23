@@ -8,10 +8,15 @@ interface Props {
 }
 
 const DistanceFilter = ({ params, handleChange }: Props) => {
+  const handleOnChange = (e: number) => {
+    handleChange({ distance: e });
+  };
+
   return (
     <Select
       style={{ width: 200 }}
       defaultValue={1}
+      placeholder='Khoảng cách'
       options={[
         { value: 1, label: '1 km' },
         { value: 2, label: '2 km' },
@@ -26,7 +31,7 @@ const DistanceFilter = ({ params, handleChange }: Props) => {
         { value: 10, label: '10 km' },
       ]}
       value={params.distance ? params.distance : null}
-      onChange={handleChange}
+      onChange={handleOnChange}
     />
   );
 };

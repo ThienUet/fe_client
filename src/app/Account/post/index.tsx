@@ -1,4 +1,3 @@
-import { useLoadScript } from '@react-google-maps/api';
 import { useMutation } from '@tanstack/react-query';
 import { Button, Form, Input, Radio, Select, notification } from 'antd';
 import CustomFormEditor from 'components/form/custom-editor';
@@ -7,16 +6,20 @@ import CustomUploadFiles from 'components/form/custom-upload-files';
 import CustomFormSelectLocation from 'components/form/map-position';
 import DebounceSelect from 'components/form/search-select';
 import HouseDetail from 'components/google-map/house-detail';
-import { useGetProvinces, useGetDistricts, useGetWards, useCreateHouse } from 'libs/house-service';
-import React, { useMemo, useState } from 'react';
-import { Element, Link } from 'react-scroll';
+import { useGetProvinces, useGetDistricts, useGetWards } from 'libs/house-service';
+import React, { useState } from 'react';
 import { createHouse } from 'services/house-services';
 import { House } from '../../../type/house';
 import { admitOptions, furnishedOptions, houseTypeOptions, trueFalseOptions } from 'utils/options';
 import { Validation } from 'utils/validations';
 import { useRouter } from 'next/router';
+import { User } from 'type/user';
 
-const CreateHouse = () => {
+interface Props {
+  user: User;
+}
+
+const CreateHouse = ({ user }: Props) => {
   const [form] = Form.useForm();
   const provinceWatch = Form.useWatch('province', form);
   const districtWatch = Form.useWatch('district', form);
@@ -347,13 +350,16 @@ const CreateHouse = () => {
             marginBottom: '8px',
           }}
         >
-          <Form.Item label='Hình thu nhỏ' name='thumbnail' rules={[Validation.required]}>
+          <div className='ant-form-item-required'>Hình thu nhỏ</div>
+          <Form.Item label='' name='thumbnail' rules={[Validation.required]}>
             <CustomUploadFile type='image'></CustomUploadFile>
           </Form.Item>
-          <Form.Item label='Nhiều ảnh' name='images' rules={[Validation.required]}>
+          <div className='ant-form-item-required'>Nhiều ảnh</div>
+          <Form.Item label='' name='images' rules={[Validation.required]}>
             <CustomUploadFiles type='image' />
           </Form.Item>
-          <Form.Item label='Video (nếu có)' name='video'>
+          <div>Video (nếu có)</div>
+          <Form.Item label='' name='video'>
             <CustomUploadFile type='video'></CustomUploadFile>
           </Form.Item>
         </div>
@@ -385,6 +391,7 @@ const CreateHouse = () => {
         isOpen={isOpenHouseDetail.isOpen}
         handleClose={handleCloseHouseDetail}
         data={isOpenHouseDetail.house}
+        user={user}
       />
     </div>
   );
