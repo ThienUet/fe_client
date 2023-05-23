@@ -7,9 +7,9 @@ export function useUser() {
   const option = {
     retry: 1,
     enabled: isAuthorized,
-    onError: (err) => {
+    onError: (err: any) => {
       setAuthorized(false);
-      // console.log(err);
+      console.log(err);
     },
   };
   const { data, refetch, isLoading, error } = useQuery(['/me'], getUser, option);

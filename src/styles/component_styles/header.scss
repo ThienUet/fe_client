@@ -2,7 +2,7 @@
 .app-header {
     height: 70px;
     background-color: white;
-    width: 100vw;
+    width: 100%;
     padding: 0px 16px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     .row {
@@ -52,7 +52,7 @@
 
 .search-home-page {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
     .ant-input {
         border: 1px solid $primary_color;
         font-weight: bold;

@@ -29,16 +29,16 @@ const UpgradeService: React.FC = () => {
               </tr>
               <tr>
                 <td>2</td>
-                <td>Đăng ký đăng tin</td>
-                <td>Đăng ký làm nhân viên kinh doanh trên nền tảng</td>
+                <td>Liên hệ quản trị viên</td>
+                <td>Gặp lỗi tài khoản? Liên hệ quản trị viên</td>
                 <td>
-                  <Button>Thực hiện</Button>
+                  <Button>Liên hệ</Button>
                 </td>
               </tr>
               <tr>
-                <td>2</td>
-                <td>Liên hệ quản trị viên</td>
-                <td>Gặp lỗi tài khoản? Liên hệ quản trị viên</td>
+                <td>3</td>
+                <td>Điều khoản</td>
+                <td>Đọc rõ điều khoản và dịch vụ giúp bạn trở nên thông thái</td>
                 <td>
                   <Button>Liên hệ</Button>
                 </td>

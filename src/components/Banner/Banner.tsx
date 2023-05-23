@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
 import Image from '../Image/CustomImage';
-import { Autoplay, Pagination, Navigation, EffectCoverflow } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import Link from 'next/link';
 import HeaderSearch from 'components/google-map/header-search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMap } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
-const dataSlidePoster = [
-  { url: '#', img_url: '/static/banner/slider1.png', name: 'banner' },
-  { url: '#', img_url: '/static/banner/slider2.jpg', name: 'banner' },
-  { url: '#', img_url: '/static/banner/slider3.jpg', name: 'banner' },
-];
-
-const dataBannerSale = { url: '#', img_url: '/static/banner/phongtro1.jpg', name: 'abc' };
-const dataBannerAdvertise = { url: '#', img_url: '/static/banner/phongtro2.png', name: 'abc' };
 
 export default function Banner() {
   const router = useRouter();

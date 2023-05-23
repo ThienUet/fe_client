@@ -51,7 +51,9 @@ body {
 // div#__next>div {
 //     // height: 100%;
 // }
-
+html {
+    margin: 0 auto;
+}
 a {
     cursor: url('/static/cursor/link.png'), auto !important;
     text-decoration: none;

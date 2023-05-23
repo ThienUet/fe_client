@@ -20,7 +20,6 @@ export default function Home({ user }: Props) {
       <FireBaseMessagingLayout user={user}>
         <div className='home-main'>
           <Search />
-          <Divider />
           <Banner />
           <Divider />
           <IntroComponent
