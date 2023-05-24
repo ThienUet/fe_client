@@ -79,16 +79,18 @@ const EditPost = ({ user }: Props) => {
   };
 
   const onFinish = (values: any) => {
-    const newHouse: HouseEditable = {
-      ...values,
-      thumbnail: values?.thumbnail?.fileKey,
-      images: values?.images.map((item: any) => item.file.fileKey),
-      latitude: values?.position?.lat,
-      video: values?.video?.fileKey,
-      longitude: values?.position?.lng,
-      address: values?.position?.address,
-    };
-    editPostMutation({ data: newHouse, id: id as string });
+    console.log('okok');
+    // const newHouse: HouseEditable = {
+    //   ...values,
+    //   thumbnail: values?.thumbnail?.fileKey,
+    //   images: values?.images.map((item: any) => item.file.fileKey),
+    //   latitude: values?.position?.lat,
+    //   video: values?.video?.fileKey,
+    //   longitude: values?.position?.lng,
+    //   address: values?.position?.address,
+    // };
+    // console.log(newHouse);
+    // editPostMutation({ data: newHouse, id: id as string });
   };
 
   const houseDetail: { data: any; mutate: any } = useMutation(getHouseDetail);
